@@ -1,22 +1,22 @@
 {
-	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "npflood-org",
-	"compatibility_date": "2026-08-31",
-	"assets": {
-		"directory": "./dist",
-		"not_found_handling": "404-page",
-		"html_handling": "drop-trailing-slash"
-	},
-	"observability": {
-		"enabled": true,
-		"logs": {
-			"enabled": true,
-			"invocation_logs": true,
-			"head_sampling_rate": 1
-		},
-		"traces": {
-			"enabled": true,
-			"head_sampling_rate": 1
-		}
-	}
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "npflood-org",
+  "compatibility_date": "2026-08-31",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "force-trailing-slash",
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "head_sampling_rate": 1,
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+    },
+  },
 }
