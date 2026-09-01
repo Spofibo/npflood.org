@@ -2,7 +2,7 @@ import { consularFields } from "../config/consular-fields";
 import enConsular from "../locales/en/fields/consular.json";
 import neConsular from "../locales/ne/fields/consular.json";
 import zhConsular from "../locales/zh/fields/consular.json";
-import { assembleFieldBlock } from "./assemble-shared";
+import { fieldBlockSections, type PaperSection } from "./assemble-shared";
 import type { ConsularValues } from "./records";
 
 const catalogs = {
@@ -11,8 +11,8 @@ const catalogs = {
 	zh: { consular: zhConsular },
 };
 
-export function assembleConsularMessage(values: ConsularValues, note: string, preparedOn: Date): string {
-	return assembleFieldBlock(
+export function assembleConsularPaper(values: ConsularValues, note: string, preparedOn: Date): PaperSection[] {
+	return fieldBlockSections(
 		"consularTitle",
 		"consularCannotMatch",
 		consularFields,

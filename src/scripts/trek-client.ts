@@ -1,9 +1,11 @@
 import type { Destination } from "../config/destinations";
 import { trekDraftKey, trekFields, trekLegacyKey, trekMemberSpec, trekSessionKey } from "../config/trek-fields";
-import { assembleTrekMessage } from "../lib/assemble-trek";
+import { paperToText } from "../lib/assemble-shared";
+import { assembleTrekPaper } from "../lib/assemble-trek";
 import { el, cssIdSelector, localizeField, readFieldValue, readNestedString, renderField, showErrors } from "../lib/dom";
 import { readFormPageConfig } from "../lib/form-page";
 import { button, ensureStorageWarn, namedRemoveButton, paintAssembledPanel, renderNoteExplain, renderStorageWarn, showValidationBanner } from "../lib/form-ui";
+import { setPrintMode } from "../lib/paper-print";
 import type { FieldsCopy, FormCopy } from "../lib/i18n";
 import { createNoteFromEntropy } from "../lib/note";
 import { emptyMember, emptyTrekValues, isTrekDraft, stripTrekIdentifying, type MemberRow, type TrekValues } from "../lib/records";
@@ -110,17 +112,25 @@ function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, dest
 			root.append(renderStorageWarn(form.storageWarn));
 		}
 		if ((record.status === "assembled" || record.status === "sent") && record.assembledText !== null) {
-			paintAssembledPanel(root, record, destination, form, (next) => {
-				record = next;
-				persist(record);
-				paint();
-			});
+			paintAssembledPanel(
+				root,
+				record,
+				destination,
+				form,
+				assembleTrekPaper(record.values, record.rows, record.note, new Date(record.updatedAt)),
+				(next) => {
+					record = next;
+					persist(record);
+					paint();
+				},
+			);
 			return;
 		}
 		paintForm();
 	};
 
 	const paintForm = (): void => {
+		setPrintMode("page");
 		const formEl = el("form", "stack", null) as HTMLFormElement;
 		formEl.noValidate = true;
 		for (const field of trekFields) {
@@ -196,14 +206,14 @@ function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, dest
 				showValidationBanner(formEl, form.validation);
 				return;
 			}
-			const text = assembleTrekMessage(record.values, record.rows, record.note, new Date());
+			const preparedOn = new Date();
 			record = {
 				status: "assembled",
 				note: record.note,
 				values: record.values,
 				rows: record.rows,
-				assembledText: text,
-				updatedAt: new Date().toISOString(),
+				assembledText: paperToText(assembleTrekPaper(record.values, record.rows, record.note, preparedOn)),
+				updatedAt: preparedOn.toISOString(),
 			};
 			persist(record);
 			paint();

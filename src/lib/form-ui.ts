@@ -1,10 +1,17 @@
 import type { Destination } from "../config/destinations";
 import { destinationIsOpen } from "../config/destinations";
+import type { PaperSection } from "./assemble-shared";
 import { copyText, selectElementText } from "./clipboard";
 import { el } from "./dom";
 import type { FormCopy } from "./i18n";
+import { renderPrintCard, setPrintMode } from "./paper-print";
 import { clearAllStoredForms } from "./storage";
 import type { StoredForm } from "./storage";
+
+function markNoPrint(node: HTMLElement): HTMLElement {
+	node.classList.add("no-print");
+	return node;
+}
 
 function isWeChatBrowser(userAgent: string): boolean {
 	return userAgent.includes("MicroMessenger");
@@ -82,7 +89,7 @@ export function renderSendPanel(
 	}
 	panel.append(actions, copyStatus);
 
-	const send = el("div", "refcard stack", null);
+	const send = el("div", "refcard stack no-print", null);
 	send.append(el("p", null, copy.takeToPerson));
 	if (inWeChat === true) {
 		send.append(el("p", null, copy.inWeChat));
@@ -122,7 +129,7 @@ export function renderSendPanel(
 	send.append(el("p", null, copy.phoneAlso));
 	panel.append(send);
 
-	const shared = el("div", "note stack", null);
+	const shared = el("div", "note stack no-print", null);
 	shared.append(el("p", null, copy.sharedPhone));
 	const clearBtn = document.createElement("button");
 	clearBtn.type = "button";
@@ -138,7 +145,7 @@ export function renderSendPanel(
 }
 
 export function renderNoteExplain(note: string, copy: FormCopy): HTMLElement {
-	const box = el("div", "note stack", null);
+	const box = el("div", "note stack no-print", null);
 	const word = el("p", "tile-title", note);
 	box.append(word);
 	box.append(el("p", null, copy.noteExplain));
@@ -146,7 +153,7 @@ export function renderNoteExplain(note: string, copy: FormCopy): HTMLElement {
 }
 
 export function renderBanner(kind: "warn" | "ok", text: string): HTMLElement {
-	const banner = el("div", `banner banner--${kind}`, text);
+	const banner = el("div", `banner banner--${kind} no-print`, text);
 	if (kind === "warn") {
 		banner.setAttribute("role", "alert");
 	}
@@ -211,18 +218,20 @@ export function paintAssembledPanel<TValues extends Record<string, string>, TRow
 	record: StoredForm<TValues, TRow>,
 	destination: Destination,
 	form: FormCopy,
+	paper: PaperSection[],
 	onChange: (next: StoredForm<TValues, TRow>) => void,
 ): void {
 	if (record.assembledText === null) {
 		throw new Error("assembled record is missing message text");
 	}
+	setPrintMode("card");
 	if (record.status === "assembled") {
 		root.append(renderBanner("warn", form.readyUnsent));
 	} else {
 		root.append(renderBanner("ok", form.markedSent));
 	}
 	root.append(renderNoteExplain(record.note, form));
-	const region = el("div", "stack", null);
+	const region = el("div", "stack no-print", null);
 	region.setAttribute("aria-live", "polite");
 	const heading = el("h2", "tile-title", form.assembledHeading);
 	heading.tabIndex = -1;
@@ -232,9 +241,10 @@ export function paintAssembledPanel<TValues extends Record<string, string>, TRow
 	card.append(pre);
 	region.append(heading, card);
 	root.append(region);
-	root.append(renderSendPanel(destination, pre, form));
+	root.append(renderPrintCard(paper));
+	root.append(markNoPrint(renderSendPanel(destination, pre, form)));
 	if (record.status === "assembled") {
-		const ask = el("div", "stack", null);
+		const ask = el("div", "stack no-print", null);
 		ask.append(el("p", null, form.askSent));
 		const mark = button(form.markSent, "btn");
 		mark.addEventListener("click", () => {
@@ -244,7 +254,7 @@ export function paintAssembledPanel<TValues extends Record<string, string>, TRow
 				values: record.values,
 				rows: record.rows,
 				assembledText: record.assembledText,
-				updatedAt: new Date().toISOString(),
+				updatedAt: record.updatedAt,
 			});
 		});
 		ask.append(mark);

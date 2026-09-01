@@ -2,7 +2,7 @@ import { safeFields } from "../config/safe-fields";
 import enSafe from "../locales/en/fields/safe.json";
 import neSafe from "../locales/ne/fields/safe.json";
 import zhSafe from "../locales/zh/fields/safe.json";
-import { assembleFieldBlock } from "./assemble-shared";
+import { fieldBlockSections, type PaperSection } from "./assemble-shared";
 import type { SafeValues } from "./records";
 
 const catalogs = {
@@ -11,8 +11,8 @@ const catalogs = {
 	zh: { safe: zhSafe },
 };
 
-export function assembleSafeMessage(values: SafeValues, note: string, preparedOn: Date): string {
-	return assembleFieldBlock(
+export function assembleSafePaper(values: SafeValues, note: string, preparedOn: Date): PaperSection[] {
+	return fieldBlockSections(
 		"safeTitle",
 		null,
 		safeFields,

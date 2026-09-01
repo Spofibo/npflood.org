@@ -21,9 +21,10 @@ type Props = {
 	includeWebsiteJsonLd: boolean;
 	contactPoints: SeoContactPoint[] | null;
 	faq: SeoFaq[] | null;
+	printScriptFonts: boolean;
 };
 
-const { title, description, path, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq } = Astro.props;
+const { title, description, path, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq, printScriptFonts } = Astro.props;
 const locale: UiLang = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const chrome = chromeCopy(locale);
 const registerWorker = import.meta.env.PROD;
@@ -55,6 +56,8 @@ const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 		<link rel="apple-touch-icon" href="/icon-192.png" />
 		<meta name="theme-color" content="#1a1610" />
 		<link rel="stylesheet" href={fontHref} />
+		{printScriptFonts === true && locale !== "ne" ? <link rel="stylesheet" href={fontsNe} media="print" /> : null}
+		{printScriptFonts === true && locale !== "zh" ? <link rel="stylesheet" href={fontsZh} media="print" /> : null}
 		<meta name="generator" content={Astro.generator} />
 		<Seo
 			title={title}

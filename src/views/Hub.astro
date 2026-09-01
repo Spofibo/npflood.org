@@ -1,9 +1,11 @@
 ---
+import PrintPage from "../components/PrintPage.astro";
 import Layout from "../layouts/Layout.astro";
-import { localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { chromeCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
 const page = pages.home;
 const homePath = localePath(locale, "/");
 ---
@@ -16,11 +18,13 @@ const homePath = localePath(locale, "/");
 	includeWebsiteJsonLd={true}
 	contactPoints={null}
 	faq={pages.faq}
+	printScriptFonts={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
 		<p>{page.lede}</p>
 	</div>
+	<PrintPage label={chrome.print} />
 	<ol class="chooser" aria-label={pages.chooserNav}>
 		{
 			pages.chooser.map((item) => (

@@ -1,5 +1,5 @@
 import { findDraftKey, findFields, findLegacyKey, findSessionKey } from "../config/find-fields";
-import { assembleFindMessage } from "../lib/assemble-find";
+import { assembleFindPaper } from "../lib/assemble-find";
 import { readFormPageConfig } from "../lib/form-page";
 import { emptyFindValues, isFindDraft } from "../lib/records";
 import { mountSimpleForm } from "../lib/simple-form";
@@ -42,7 +42,7 @@ mountSimpleForm(root, page.destination, {
 	fields: findFields,
 	emptyValues: emptyFindValues,
 	isDraft: isFindDraft,
-	assemble: assembleFindMessage,
+	paper: assembleFindPaper,
 	form: page.form,
 	fieldCatalog: page.fields,
 });

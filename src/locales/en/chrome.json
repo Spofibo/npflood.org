@@ -28,5 +28,6 @@
 	"savedCopy": "Showing a saved copy. Numbers and forms may be out of date. Call 1234 or 100 if you need help now.",
 	"antiPhishing": "npflood.org is the only address. A different address asking for a passport number is not us.",
 	"noMail": "This site does not take mail.",
-	"corrections": "To correct a number or translation, open a GitHub issue."
+	"corrections": "To correct a number or translation, open a GitHub issue.",
+	"print": "Print"
 }

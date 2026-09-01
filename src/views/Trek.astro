@@ -24,15 +24,18 @@ const here = localePath(locale, page.path);
 	includeWebsiteJsonLd={false}
 	contactPoints={null}
 	faq={null}
+	printScriptFonts={true}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
 		<p>{page.lede}</p>
 	</div>
-	<aside class="note">
-		<p>{pages.trekGuidance}</p>
-	</aside>
-	<Dial number="1144" label={pages.phones.touristPolice} />
+	<div class="page-chrome">
+		<aside class="note">
+			<p>{pages.trekGuidance}</p>
+		</aside>
+		<Dial number="1144" label={pages.phones.touristPolice} />
+	</div>
 	<noscript>
 		<div class="note">
 			<p>{form.noscript}</p>

@@ -28,5 +28,6 @@
 	"savedCopy": "正在显示已保存的副本。号码和表格可能过时。如需立即协助，请拨打 1234 或 100。",
 	"antiPhishing": "唯一地址是 npflood.org。其他地址向您索取护照号码，都不是本站。",
 	"noMail": "本站不收邮件。",
-	"corrections": "如需更正号码或译文，请在 GitHub 上开一个 issue。"
+	"corrections": "如需更正号码或译文，请在 GitHub 上开一个 issue。",
+	"print": "打印"
 }

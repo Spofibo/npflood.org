@@ -11,23 +11,28 @@ export type FieldCatalogs = {
 	zh: unknown;
 };
 
-function triLabel(copyKey: string, catalogs: FieldCatalogs): string {
-	const ne = readNestedString(catalogs.ne, `${copyKey}.label`);
-	const en = readNestedString(catalogs.en, `${copyKey}.label`);
-	const zh = readNestedString(catalogs.zh, `${copyKey}.label`);
-	return `${ne} / ${en} / ${zh}`;
-}
+export type PaperLang = "ne" | "en" | "zh";
 
-function optionLabel(copyKey: string, catalogs: FieldCatalogs): string {
-	const ne = readNestedString(catalogs.ne, copyKey);
-	const en = readNestedString(catalogs.en, copyKey);
-	const zh = readNestedString(catalogs.zh, copyKey);
-	return `${ne} / ${en} / ${zh}`;
-}
+export type PaperLine = {
+	lang: PaperLang;
+	text: string;
+};
 
-export function paperStack(key: string): string[] {
-	return [readNestedString(nePaper, key), readNestedString(enPaper, key), readNestedString(zhPaper, key)];
-}
+export type PaperField = {
+	labels: PaperLine[];
+	value: string | PaperLine[];
+};
+
+export type PaperSection =
+	| { kind: "titles"; lines: PaperLine[] }
+	| { kind: "notice"; lines: PaperLine[] }
+	| { kind: "note"; labels: PaperLine[]; note: string }
+	| { kind: "prepared"; lines: PaperLine[] }
+	| { kind: "rule" }
+	| { kind: "field"; labels: PaperLine[]; value: string | PaperLine[] }
+	| { kind: "stack"; lines: PaperLine[] }
+	| { kind: "group"; labels: PaperLine[] }
+	| { kind: "item"; index: number; fields: PaperField[] };
 
 function paperMonths(catalog: unknown): string[] {
 	if (catalog === null || typeof catalog !== "object" || !("months" in catalog)) {
@@ -43,12 +48,43 @@ function paperMonths(catalog: unknown): string[] {
 	return months;
 }
 
-export function fieldValue(
+export function paperLines(key: string): PaperLine[] {
+	return [
+		{ lang: "ne", text: readNestedString(nePaper, key) },
+		{ lang: "en", text: readNestedString(enPaper, key) },
+		{ lang: "zh", text: readNestedString(zhPaper, key) },
+	];
+}
+
+export function fieldLabels(copyKey: string, catalogs: FieldCatalogs): PaperLine[] {
+	return [
+		{ lang: "ne", text: readNestedString(catalogs.ne, `${copyKey}.label`) },
+		{ lang: "en", text: readNestedString(catalogs.en, `${copyKey}.label`) },
+		{ lang: "zh", text: readNestedString(catalogs.zh, `${copyKey}.label`) },
+	];
+}
+
+function optionLines(copyKey: string, catalogs: FieldCatalogs): PaperLine[] {
+	return [
+		{ lang: "ne", text: readNestedString(catalogs.ne, copyKey) },
+		{ lang: "en", text: readNestedString(catalogs.en, copyKey) },
+		{ lang: "zh", text: readNestedString(catalogs.zh, copyKey) },
+	];
+}
+
+export function assembledValueText(value: string | PaperLine[]): string {
+	if (typeof value === "string") {
+		return value;
+	}
+	return value.map((line) => line.text).join(" / ");
+}
+
+export function assembledFieldValue(
 	fields: FieldSpec[],
 	id: string,
 	values: Record<string, string>,
 	catalogs: FieldCatalogs,
-): string {
+): string | PaperLine[] {
 	const field = fields.find((item) => item.id === id);
 	const raw = values[id];
 	if (field === undefined || raw === undefined) {
@@ -59,41 +95,154 @@ export function fieldValue(
 		if (option === undefined) {
 			return raw;
 		}
-		return optionLabel(option.copyKey, catalogs);
+		return optionLines(option.copyKey, catalogs);
 	}
 	return raw.trim();
 }
 
-export function tri(field: FieldSpec, value: string, catalogs: FieldCatalogs): string {
-	return `${triLabel(field.copyKey, catalogs)}\n${value}`;
+export function includeAssembledField(field: FieldSpec, value: string): boolean {
+	if (field.kind === "checkbox" && field.required === false && value !== "yes") {
+		return false;
+	}
+	if (field.required === false && value.length === 0) {
+		return false;
+	}
+	return true;
 }
 
-export function header(titleKey: string, note: string, preparedOn: Date, extraKey: string | null): string {
-	const lines = [
-		...paperStack(titleKey),
-		"",
-		...paperStack("notRegistration"),
-	];
-	if (extraKey !== null) {
+function joinLabels(lines: PaperLine[]): string {
+	return lines.map((line) => line.text).join(" / ");
+}
+
+export function paperToText(sections: PaperSection[]): string {
+	const lines: string[] = [];
+	let previous: PaperSection["kind"] | null = null;
+	for (const section of sections) {
+		if (section.kind === "titles") {
+			for (const line of section.lines) {
+				lines.push(line.text);
+			}
+			previous = section.kind;
+			continue;
+		}
+		if (section.kind === "notice" || section.kind === "stack") {
+			lines.push("");
+			for (const line of section.lines) {
+				lines.push(line.text);
+			}
+			previous = section.kind;
+			continue;
+		}
+		if (section.kind === "note") {
+			lines.push("");
+			for (const line of section.labels) {
+				lines.push(`${line.text}: ${section.note}`);
+			}
+			previous = section.kind;
+			continue;
+		}
+		if (section.kind === "prepared") {
+			lines.push("");
+			for (const line of section.lines) {
+				lines.push(line.text);
+			}
+			previous = section.kind;
+			continue;
+		}
+		if (section.kind === "rule") {
+			lines.push("");
+			lines.push("---");
+			previous = section.kind;
+			continue;
+		}
+		if (section.kind === "field") {
+			if (previous !== "group") {
+				lines.push("");
+			}
+			lines.push(`${joinLabels(section.labels)}\n${assembledValueText(section.value)}`);
+			previous = section.kind;
+			continue;
+		}
+		if (section.kind === "group") {
+			lines.push("");
+			lines.push(joinLabels(section.labels));
+			previous = section.kind;
+			continue;
+		}
 		lines.push("");
-		lines.push(...paperStack(extraKey));
+		lines.push(`${section.index}.`);
+		for (const field of section.fields) {
+			lines.push(`${joinLabels(field.labels)}\n${assembledValueText(field.value)}`);
+		}
+		previous = section.kind;
 	}
-	lines.push("");
-	lines.push(`${readNestedString(nePaper, "noteLine")}: ${note}`);
-	lines.push(`${readNestedString(enPaper, "noteLine")}: ${note}`);
-	lines.push(`${readNestedString(zhPaper, "noteLine")}: ${note}`);
-	lines.push("");
-	lines.push(`${readNestedString(nePaper, "prepared")}: ${formatNepaliPrepared(preparedOn, paperMonths(nePaper))}`);
-	lines.push(`${readNestedString(enPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(enPaper))}`);
-	lines.push(`${readNestedString(zhPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(zhPaper))}`);
 	return lines.join("\n");
 }
 
-export function screenshotLines(): string[] {
-	return [...paperStack("screenshot"), "", ...paperStack("closing")];
+export function headerSections(
+	titleKey: string,
+	note: string,
+	preparedOn: Date,
+	extraKey: string | null,
+): PaperSection[] {
+	const sections: PaperSection[] = [
+		{ kind: "titles", lines: paperLines(titleKey) },
+		{ kind: "notice", lines: paperLines("notRegistration") },
+	];
+	if (extraKey !== null) {
+		sections.push({ kind: "notice", lines: paperLines(extraKey) });
+	}
+	sections.push({
+		kind: "note",
+		labels: paperLines("noteLine"),
+		note,
+	});
+	sections.push({
+		kind: "prepared",
+		lines: [
+			{
+				lang: "ne",
+				text: `${readNestedString(nePaper, "prepared")}: ${formatNepaliPrepared(preparedOn, paperMonths(nePaper))}`,
+			},
+			{
+				lang: "en",
+				text: `${readNestedString(enPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(enPaper))}`,
+			},
+			{
+				lang: "zh",
+				text: `${readNestedString(zhPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(zhPaper))}`,
+			},
+		],
+	});
+	sections.push({ kind: "rule" });
+	return sections;
 }
 
-export function assembleFieldBlock(
+export function screenshotSections(): PaperSection[] {
+	return [
+		{ kind: "stack", lines: paperLines("screenshot") },
+		{ kind: "stack", lines: paperLines("closing") },
+	];
+}
+
+function pushFieldSection(
+	sections: PaperSection[],
+	field: FieldSpec,
+	value: string | PaperLine[],
+	catalogs: FieldCatalogs,
+): void {
+	const text = typeof value === "string" ? value : assembledValueText(value);
+	if (includeAssembledField(field, text) === false) {
+		return;
+	}
+	sections.push({
+		kind: "field",
+		labels: fieldLabels(field.copyKey, catalogs),
+		value,
+	});
+}
+
+export function fieldBlockSections(
 	titleKey: string,
 	extraKey: string | null,
 	fields: FieldSpec[],
@@ -101,20 +250,11 @@ export function assembleFieldBlock(
 	note: string,
 	preparedOn: Date,
 	catalogs: FieldCatalogs,
-): string {
-	const lines: string[] = [header(titleKey, note, preparedOn, extraKey), "", "---"];
+): PaperSection[] {
+	const sections: PaperSection[] = headerSections(titleKey, note, preparedOn, extraKey);
 	for (const field of fields) {
-		const value = fieldValue(fields, field.id, values, catalogs);
-		if (field.kind === "checkbox" && field.required === false && value !== "yes") {
-			continue;
-		}
-		if (field.required === false && value.length === 0) {
-			continue;
-		}
-		lines.push("");
-		lines.push(tri(field, value, catalogs));
+		pushFieldSection(sections, field, assembledFieldValue(fields, field.id, values, catalogs), catalogs);
 	}
-	lines.push("");
-	lines.push(...screenshotLines());
-	return lines.join("\n");
+	sections.push(...screenshotSections());
+	return sections;
 }

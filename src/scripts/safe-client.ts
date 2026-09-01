@@ -1,5 +1,5 @@
 import { safeDraftKey, safeFields, safeLegacyKey, safeSessionKey } from "../config/safe-fields";
-import { assembleSafeMessage } from "../lib/assemble-safe";
+import { assembleSafePaper } from "../lib/assemble-safe";
 import { readFormPageConfig } from "../lib/form-page";
 import { emptySafeValues, isSafeDraft } from "../lib/records";
 import { mountSimpleForm } from "../lib/simple-form";
@@ -16,7 +16,7 @@ mountSimpleForm(root, page.destination, {
 	fields: safeFields,
 	emptyValues: emptySafeValues,
 	isDraft: isSafeDraft,
-	assemble: assembleSafeMessage,
+	paper: assembleSafePaper,
 	form: page.form,
 	fieldCatalog: page.fields,
 });

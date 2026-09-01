@@ -1,9 +1,11 @@
 import type { Destination } from "../config/destinations";
 import { kerungCompanionSpec, kerungDraftKey, kerungFields, kerungLegacyKey, kerungProxyField, kerungProxyNameField, kerungSessionKey } from "../config/kerung-fields";
-import { assembleKerungMessage } from "../lib/assemble-kerung";
+import { assembleKerungPaper } from "../lib/assemble-kerung";
+import { paperToText } from "../lib/assemble-shared";
 import { el, cssIdSelector, localizeField, readFieldValue, readNestedString, renderField, showErrors } from "../lib/dom";
 import { readFormPageConfig } from "../lib/form-page";
 import { button, ensureStorageWarn, namedRemoveButton, paintAssembledPanel, renderBanner, renderNoteExplain, renderStorageWarn, showValidationBanner } from "../lib/form-ui";
+import { setPrintMode } from "../lib/paper-print";
 import type { FieldsCopy, FormCopy } from "../lib/i18n";
 import { createNoteFromEntropy } from "../lib/note";
 import { emptyCompanion, emptyKerungValues, isKerungDraft, stripKerungIdentifying, type CompanionRow, type KerungValues } from "../lib/records";
@@ -173,17 +175,25 @@ function mount(
 			root.append(renderStorageWarn(form.storageWarn));
 		}
 		if ((record.status === "assembled" || record.status === "sent") && record.assembledText !== null) {
-			paintAssembledPanel(root, record, destination, form, (next) => {
-				record = next;
-				persist(record);
-				paint();
-			});
+			paintAssembledPanel(
+				root,
+				record,
+				destination,
+				form,
+				assembleKerungPaper(record.values, record.rows, record.note, new Date(record.updatedAt)),
+				(next) => {
+					record = next;
+					persist(record);
+					paint();
+				},
+			);
 			return;
 		}
 		paintForm();
 	};
 
 	const paintForm = (): void => {
+		setPrintMode("page");
 		const formEl = el("form", "stack", null) as HTMLFormElement;
 		formEl.noValidate = true;
 		const minorBox = el("fieldset", "field", null);
@@ -330,14 +340,14 @@ function mount(
 				showValidationBanner(formEl, form.validation);
 				return;
 			}
-			const text = assembleKerungMessage(record.values, record.rows, record.note, new Date());
+			const preparedOn = new Date();
 			record = {
 				status: "assembled",
 				note: record.note,
 				values: record.values,
 				rows: record.rows,
-				assembledText: text,
-				updatedAt: new Date().toISOString(),
+				assembledText: paperToText(assembleKerungPaper(record.values, record.rows, record.note, preparedOn)),
+				updatedAt: preparedOn.toISOString(),
 			};
 			persist(record);
 			paint();

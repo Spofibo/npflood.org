@@ -1,9 +1,12 @@
 import type { Destination } from "../config/destinations";
 import type { FieldSpec } from "../config/types";
+import type { PaperSection } from "./assemble-shared";
+import { paperToText } from "./assemble-shared";
 import { el, localizeField, readFieldValue, renderField, showErrors } from "./dom";
 import type { FieldsCopy, FormCopy } from "./i18n";
 import { button, ensureStorageWarn, paintAssembledPanel, renderNoteExplain, renderStorageWarn, showValidationBanner } from "./form-ui";
 import { createNoteFromEntropy } from "./note";
+import { setPrintMode } from "./paper-print";
 import {
 	loadFormDraft,
 	loadFormSession,
@@ -23,7 +26,7 @@ export type SimpleFormConfig<TValues extends Record<string, string>> = {
 	fields: FieldSpec[];
 	emptyValues: () => TValues;
 	isDraft: (value: unknown) => value is FormDraft<TValues, never>;
-	assemble: (values: TValues, note: string, preparedOn: Date) => string;
+	paper: (values: TValues, note: string, preparedOn: Date) => PaperSection[];
 	form: FormCopy;
 	fieldCatalog: FieldsCopy;
 };
@@ -91,17 +94,25 @@ export function mountSimpleForm<TValues extends Record<string, string>>(
 			root.append(renderStorageWarn(config.form.storageWarn));
 		}
 		if ((record.status === "assembled" || record.status === "sent") && record.assembledText !== null) {
-			paintAssembledPanel(root, record, destination, config.form, (next) => {
-				record = next;
-				persist(record);
-				paint();
-			});
+			paintAssembledPanel(
+				root,
+				record,
+				destination,
+				config.form,
+				config.paper(record.values, record.note, new Date(record.updatedAt)),
+				(next) => {
+					record = next;
+					persist(record);
+					paint();
+				},
+			);
 			return;
 		}
 		paintForm();
 	};
 
 	const paintForm = (): void => {
+		setPrintMode("page");
 		const form = el("form", "stack", null) as HTMLFormElement;
 		form.noValidate = true;
 		for (const field of config.fields) {
@@ -138,13 +149,14 @@ export function mountSimpleForm<TValues extends Record<string, string>>(
 				showValidationBanner(form, config.form.validation);
 				return;
 			}
+			const preparedOn = new Date();
 			record = {
 				status: "assembled",
 				note: record.note,
 				values: record.values,
 				rows: record.rows,
-				assembledText: config.assemble(record.values, record.note, new Date()),
-				updatedAt: new Date().toISOString(),
+				assembledText: paperToText(config.paper(record.values, record.note, preparedOn)),
+				updatedAt: preparedOn.toISOString(),
 			};
 			persist(record);
 			paint();

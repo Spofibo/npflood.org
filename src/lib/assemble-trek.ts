@@ -2,7 +2,17 @@ import { trekFields, trekMemberSpec } from "../config/trek-fields";
 import enTrek from "../locales/en/fields/trek.json";
 import neTrek from "../locales/ne/fields/trek.json";
 import zhTrek from "../locales/zh/fields/trek.json";
-import { fieldValue, header, paperStack, screenshotLines, tri } from "./assemble-shared";
+import {
+	assembledFieldValue,
+	assembledValueText,
+	fieldLabels,
+	headerSections,
+	includeAssembledField,
+	paperLines,
+	screenshotSections,
+	type PaperField,
+	type PaperSection,
+} from "./assemble-shared";
 import type { MemberRow, TrekValues } from "./records";
 
 const catalogs = {
@@ -11,42 +21,56 @@ const catalogs = {
 	zh: { trek: zhTrek },
 };
 
-export function assembleTrekMessage(
+export function assembleTrekPaper(
 	values: TrekValues,
 	members: MemberRow[],
 	note: string,
 	preparedOn: Date,
-): string {
+): PaperSection[] {
 	const asRecord: Record<string, string> = {
 		agency: values.agency,
 		route: values.route,
 		lastContactWhen: values.lastContactWhen,
 		lastContactHow: values.lastContactHow,
 	};
-	const lines: string[] = [header("trekTitle", note, preparedOn, null), "", "---"];
+	const sections: PaperSection[] = headerSections("trekTitle", note, preparedOn, null);
 	for (const field of trekFields) {
-		lines.push("");
-		lines.push(tri(field, fieldValue(trekFields, field.id, asRecord, catalogs), catalogs));
+		const value = assembledFieldValue(trekFields, field.id, asRecord, catalogs);
+		const text = assembledValueText(value);
+		if (includeAssembledField(field, text) === false) {
+			continue;
+		}
+		sections.push({
+			kind: "field",
+			labels: fieldLabels(field.copyKey, catalogs),
+			value,
+		});
 	}
-	lines.push("");
-	lines.push(paperStack("membersHeading").join(" / "));
+	sections.push({ kind: "group", labels: paperLines("membersHeading") });
 	members.forEach((member, index) => {
 		const row: Record<string, string> = {
 			name: member.name,
 			idNumber: member.idNumber,
 			nationality: member.nationality,
 		};
-		lines.push("");
-		lines.push(`${index + 1}.`);
+		const fields: PaperField[] = [];
 		for (const field of trekMemberSpec.fields) {
-			const value = fieldValue(trekMemberSpec.fields, field.id, row, catalogs);
-			if (field.required === false && value.length === 0) {
+			const value = assembledFieldValue(trekMemberSpec.fields, field.id, row, catalogs);
+			const text = assembledValueText(value);
+			if (includeAssembledField(field, text) === false) {
 				continue;
 			}
-			lines.push(tri(field, value, catalogs));
+			fields.push({
+				labels: fieldLabels(field.copyKey, catalogs),
+				value,
+			});
 		}
+		sections.push({
+			kind: "item",
+			index: index + 1,
+			fields,
+		});
 	});
-	lines.push("");
-	lines.push(...screenshotLines());
-	return lines.join("\n");
+	sections.push(...screenshotSections());
+	return sections;
 }

@@ -533,7 +533,16 @@ a.btn:not(.btn--quiet):visited {
 	display: none;
 }
 
+.print-only {
+	display: none;
+}
+
 @media print {
+	@page {
+		size: A4;
+		margin: 7mm;
+	}
+
 	.site-footer,
 	.header-top,
 	.nav,
@@ -542,22 +551,209 @@ a.btn:not(.btn--quiet):visited {
 	.btn,
 	.btn-row,
 	.lang-picker,
+	.faq,
+	.no-print,
 	noscript {
 		display: none !important;
 	}
 
+	body[data-print="card"] .shiro,
+	body[data-print="card"] .lede,
+	body[data-print="card"] .page-chrome {
+		display: none !important;
+	}
+
+	html {
+		font-size: 95%;
+	}
+
+	html,
 	body {
 		background: white;
 		color: black;
 	}
 
+	.wrap {
+		width: 100%;
+		max-width: none;
+		margin: 0;
+	}
+
+	.site-header {
+		border-bottom: 0.12rem solid black;
+		margin-bottom: 0.45rem;
+		padding-block: 0 0.35rem;
+	}
+
+	.site-share {
+		margin-top: 0;
+		gap: 0.55rem;
+	}
+
+	.site-qr {
+		width: 3.6rem;
+		height: 3.6rem;
+	}
+
+	.site-share a,
+	.site-share a:visited {
+		color: black;
+	}
+
+	.shiro {
+		border-top: none;
+		margin-bottom: 0.5rem;
+		font-size: 1.45rem;
+	}
+
+	.lede {
+		margin-bottom: 0.75rem;
+	}
+
+	.chooser {
+		gap: 0.3rem;
+	}
+
+	.chooser a,
+	.chooser a:visited {
+		border: none;
+		padding: 0.15rem 0;
+		min-height: 0;
+		font-size: 1.05rem;
+		font-weight: 650;
+		color: black;
+		background: transparent;
+	}
+
+	.dial-block,
+	.held-slot,
+	.banner,
+	.note,
 	.refcard {
 		background: white;
 		color: black;
 		border-color: black;
+		padding: 0.4rem 0.55rem;
+	}
+
+	.dial-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.35rem;
+	}
+
+	.dial-block a,
+	.dial-block a:visited {
+		font-size: 1.35rem;
+		min-height: 0;
+	}
+
+	.waiting {
+		margin-top: 0.35rem;
+		gap: 0.3rem;
+	}
+
+	.held-slot {
+		padding: 0.25rem 0.4rem;
+		font-size: 0.85rem;
+	}
+
+	.held-slot > .tile-title {
+		font-size: 0.95rem;
+	}
+
+	.banner {
+		font-size: 0.9rem;
+	}
+
+	.dial-block a,
+	.dial-block a:visited,
+	.refcard a,
+	.refcard a:visited,
+	.banner a,
+	.banner a:visited {
+		color: black;
+	}
+
+	.dial-block {
+		break-inside: avoid;
 	}
 
 	.refcard pre {
 		color: black;
+	}
+
+	.print-only {
+		display: block;
+	}
+
+	.print-card {
+		color: black;
+	}
+
+	.print-card p {
+		margin: 0;
+	}
+
+	.print-card__titles {
+		margin-bottom: 0.4rem;
+	}
+
+	.print-card__titles p {
+		font-size: 1.15rem;
+		font-weight: 750;
+		line-height: 1.2;
+	}
+
+	.print-card__notice,
+	.print-card__dates,
+	.print-card__stack {
+		margin-bottom: 0.28rem;
+		font-size: 0.82rem;
+		line-height: 1.28;
+	}
+
+	.print-card__note {
+		margin: 0.4rem 0;
+		break-inside: avoid;
+	}
+
+	.print-card__label {
+		font-size: 0.78rem;
+		line-height: 1.25;
+		color: #222;
+	}
+
+	.print-card__note-word {
+		margin-top: 0.1rem;
+		font-size: 1.15rem;
+		font-weight: 750;
+		letter-spacing: 0.01em;
+	}
+
+	.print-card__field,
+	.print-card__item {
+		margin: 0.28rem 0;
+		break-inside: avoid;
+	}
+
+	.print-card__value {
+		margin-top: 0.08rem;
+		font-size: 1rem;
+		font-weight: 650;
+	}
+
+	.print-card__group {
+		margin: 0.5rem 0 0.2rem;
+		font-weight: 750;
+	}
+
+	.print-card__item-index {
+		font-weight: 750;
+		margin-bottom: 0.25rem;
+	}
+
+	.print-card__stack:last-child {
+		margin-bottom: 0;
 	}
 }

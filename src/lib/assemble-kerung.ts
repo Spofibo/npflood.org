@@ -2,7 +2,17 @@ import { kerungCompanionSpec, kerungFields, kerungProxyNameField } from "../conf
 import enKerung from "../locales/en/fields/kerung.json";
 import neKerung from "../locales/ne/fields/kerung.json";
 import zhKerung from "../locales/zh/fields/kerung.json";
-import { fieldValue, header, paperStack, screenshotLines, tri } from "./assemble-shared";
+import {
+	assembledFieldValue,
+	assembledValueText,
+	fieldLabels,
+	headerSections,
+	includeAssembledField,
+	paperLines,
+	screenshotSections,
+	type PaperField,
+	type PaperSection,
+} from "./assemble-shared";
 import type { CompanionRow, KerungValues } from "./records";
 
 const catalogs = {
@@ -11,12 +21,12 @@ const catalogs = {
 	zh: { kerung: zhKerung },
 };
 
-export function assembleKerungMessage(
+export function assembleKerungPaper(
 	values: KerungValues,
 	companions: CompanionRow[],
 	note: string,
 	preparedOn: Date,
-): string {
+): PaperSection[] {
 	const asRecord: Record<string, string> = {
 		name: values.name,
 		passport: values.passport,
@@ -27,42 +37,57 @@ export function assembleKerungMessage(
 		proxy: values.proxy,
 		proxyName: values.proxyName,
 	};
-	const lines: string[] = [header("kerungTitle", note, preparedOn, null), "", "---"];
+	const sections: PaperSection[] = headerSections("kerungTitle", note, preparedOn, null);
 	for (const field of kerungFields) {
 		if (field.id === "medical") {
 			continue;
 		}
-		lines.push("");
-		lines.push(tri(field, fieldValue(kerungFields, field.id, asRecord, catalogs), catalogs));
+		const value = assembledFieldValue(kerungFields, field.id, asRecord, catalogs);
+		const text = assembledValueText(value);
+		if (includeAssembledField(field, text) === false) {
+			continue;
+		}
+		sections.push({
+			kind: "field",
+			labels: fieldLabels(field.copyKey, catalogs),
+			value,
+		});
 	}
-	lines.push("");
 	if (values.medical === "yes") {
-		lines.push(...paperStack("medicalYes"));
+		sections.push({ kind: "stack", lines: paperLines("medicalYes") });
 	} else {
-		lines.push(...paperStack("medicalNo"));
+		sections.push({ kind: "stack", lines: paperLines("medicalNo") });
 	}
 	if (values.proxy === "yes") {
-		lines.push("");
-		lines.push(paperStack("proxyHeading").join(" / "));
-		lines.push(tri(kerungProxyNameField, values.proxyName, catalogs));
+		sections.push({ kind: "group", labels: paperLines("proxyHeading") });
+		sections.push({
+			kind: "field",
+			labels: fieldLabels(kerungProxyNameField.copyKey, catalogs),
+			value: values.proxyName,
+		});
 	}
 	if (companions.length > 0) {
-		lines.push("");
-		lines.push(paperStack("companionsHeading").join(" / "));
+		sections.push({ kind: "group", labels: paperLines("companionsHeading") });
 		companions.forEach((companion, index) => {
 			const row: Record<string, string> = {
 				name: companion.name,
 				passport: companion.passport,
 				role: companion.role,
 			};
-			lines.push("");
-			lines.push(`${index + 1}.`);
+			const fields: PaperField[] = [];
 			for (const field of kerungCompanionSpec.fields) {
-				lines.push(tri(field, fieldValue(kerungCompanionSpec.fields, field.id, row, catalogs), catalogs));
+				fields.push({
+					labels: fieldLabels(field.copyKey, catalogs),
+					value: assembledFieldValue(kerungCompanionSpec.fields, field.id, row, catalogs),
+				});
 			}
+			sections.push({
+				kind: "item",
+				index: index + 1,
+				fields,
+			});
 		});
 	}
-	lines.push("");
-	lines.push(...screenshotLines());
-	return lines.join("\n");
+	sections.push(...screenshotSections());
+	return sections;
 }

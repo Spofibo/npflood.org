@@ -1,11 +1,13 @@
 ---
 import Dial from "../components/Dial.astro";
+import PrintPage from "../components/PrintPage.astro";
 import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
-import { localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { chromeCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
 const page = pages.status;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
@@ -29,11 +31,13 @@ const builtDay = site.builtAt.slice(0, 10);
 		{ name: pages.phones.neoc, telephone: "1149" },
 	]}
 	faq={null}
+	printScriptFonts={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
 		<p>{page.lede}</p>
 	</div>
+	<PrintPage label={chrome.print} />
 	<div class="banner banner--warn">
 		<p>{pages.statusHazard}</p>
 	</div>
