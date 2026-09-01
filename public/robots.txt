@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://npflood.org/sitemap-index.xml
