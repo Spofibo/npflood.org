@@ -28,11 +28,29 @@ export type BsDate = {
 	day: number;
 };
 
+const NPT_OFFSET_MS = (5 * 60 + 45) * 60 * 1000;
+
 function pad2(value: number): string {
 	if (value < 10) {
 		return `0${value}`;
 	}
 	return String(value);
+}
+
+export function formatVerifiedNpt(iso: string, months: readonly string[]): string {
+	if (months.length !== 12) {
+		throw new Error(`formatVerifiedNpt expected 12 month names, received ${months.length}`);
+	}
+	const ms = Date.parse(iso);
+	if (Number.isNaN(ms) === true) {
+		throw new Error(`formatVerifiedNpt received invalid time ${iso}`);
+	}
+	const npt = new Date(ms + NPT_OFFSET_MS);
+	const month = months[npt.getUTCMonth()];
+	if (month === undefined) {
+		throw new Error(`invalid month index ${npt.getUTCMonth()}`);
+	}
+	return `${npt.getUTCDate()} ${month} ${npt.getUTCFullYear()}, ${pad2(npt.getUTCHours())}:${pad2(npt.getUTCMinutes())} NPT`;
 }
 
 export function formatClock(date: Date): string {

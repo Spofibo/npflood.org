@@ -318,6 +318,58 @@ a:hover {
 	align-items: center;
 }
 
+.dial-meta {
+	font-size: 0.95rem;
+	font-weight: 650;
+	margin: 0;
+}
+
+.dial-meta a,
+.dial-meta a:visited {
+	font-size: inherit;
+	font-weight: 700;
+	letter-spacing: 0;
+	min-height: auto;
+	display: inline;
+	color: var(--loud-accent);
+	text-decoration: underline;
+}
+
+.place-block {
+	border: 0.16rem solid var(--ink);
+	padding: var(--space-4);
+}
+
+.place-block--china {
+	border-width: 0.22rem;
+}
+
+.gate-details {
+	border: 0.16rem solid var(--ink);
+	padding: var(--space-4);
+}
+
+.gate-details summary {
+	font-weight: 750;
+	cursor: pointer;
+	min-height: var(--tap);
+	display: flex;
+	align-items: center;
+}
+
+.noscript-fields {
+	display: grid;
+	gap: var(--space-3);
+}
+
+.noscript-fields dt {
+	font-weight: 750;
+}
+
+.noscript-fields dd {
+	margin: 0;
+}
+
 .dial-list {
 	display: grid;
 	gap: var(--space-4);
@@ -646,6 +698,13 @@ a.btn:not(.btn--quiet):visited {
 	.dial-block a:visited {
 		font-size: 1.35rem;
 		min-height: 0;
+	}
+
+	.dial-meta a,
+	.dial-meta a:visited {
+		font-size: inherit;
+		min-height: 0;
+		display: inline;
 	}
 
 	.waiting {

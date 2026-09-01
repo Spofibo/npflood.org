@@ -1,8 +1,11 @@
 ---
-import Dial from "../components/Dial.astro";
+import NoscriptFields from "../components/NoscriptFields.astro";
+import PhoneDial from "../components/PhoneDial.astro";
 import { trekDestination } from "../config/destinations";
+import { trekFields, trekMemberSpec } from "../config/trek-fields";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { noscriptFieldLines } from "../lib/noscript-fields";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
@@ -34,16 +37,20 @@ const here = localePath(locale, page.path);
 		<aside class="note">
 			<p>{pages.trekGuidance}</p>
 		</aside>
-		<Dial number="1144" label={pages.phones.touristPolice} />
+		<PhoneDial id="touristPolice" />
 	</div>
-	<noscript>
-		<div class="note">
-			<p>{form.noscript}</p>
-			<p>
-				<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
-			</p>
-		</div>
-	</noscript>
+	<NoscriptFields
+		intro={form.noscript}
+		assembleNote={form.noscriptAssemble}
+		lines={noscriptFieldLines(trekFields, fields)}
+		groups={[{ heading: form.membersHeading, lines: noscriptFieldLines(trekMemberSpec.fields, fields) }]}
+		statusHref={localePath(locale, "/status/")}
+		statusLabel={form.statusLink}
+		dangerHref={localePath(locale, "/danger/")}
+		dangerLabel={form.dangerLink}
+		showStatus={true}
+		showDanger={true}
+	/>
 	<script
 		id="trek-config"
 		type="application/json"

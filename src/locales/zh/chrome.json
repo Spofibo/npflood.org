@@ -9,7 +9,7 @@
 	"contentinfo": "网站",
 	"nav": {
 		"home": "首页",
-		"status": "状态和电话",
+		"status": "紧急联络",
 		"find": "寻找失联者",
 		"consular": "境外寻亲",
 		"help": "协助"
@@ -19,15 +19,16 @@
 		"en": "English",
 		"zh": "中文"
 	},
-	"qrCaption": "本站：npflood.org",
+	"qrCaption": "此二维码打开 npflood.org。不是付款码。",
 	"qrAlt": "打开 https://npflood.org/ 的二维码",
 	"heldFlag": "尚未公布",
 	"dialName": "拨打{label} {number}",
-	"lastUpdated": "最近更新",
-	"unmaintained": "本页已超过 7 天未经核验。请拨打 1234 或 100。",
-	"savedCopy": "正在显示已保存的副本。号码和表格可能过时。如需立即协助，请拨打 1234 或 100。",
+	"lastVerified": "最近核验",
+	"unmaintained": "本页已超过 7 天未经核验。如在尼泊尔，请拨打 1234 或 100。",
+	"savedCopy": "正在显示已保存的副本。号码和表格可能过时。如在尼泊尔，请拨打 1234 或 100。",
 	"antiPhishing": "唯一地址是 npflood.org。其他地址向您索取护照号码，都不是本站。",
 	"noMail": "本站不收邮件。",
-	"corrections": "如需更正号码或译文，请在 GitHub 上开一个 issue。",
+	"noMoney": "本站不收款，也不收银行资料。",
+	"corrections": "报告错误或过时信息",
 	"print": "打印"
 }

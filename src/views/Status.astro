@@ -1,9 +1,11 @@
 ---
-import Dial from "../components/Dial.astro";
+import PhoneDial from "../components/PhoneDial.astro";
 import PrintPage from "../components/PrintPage.astro";
+import { nepalEmergencyIds } from "../config/phones";
 import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
-import { chromeCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { formatVerifiedNpt } from "../lib/date";
+import { chromeCopy, localeFromPathname, localePath, pagesCopy, paperCopy } from "../lib/i18n";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
@@ -11,7 +13,7 @@ const chrome = chromeCopy(locale);
 const page = pages.status;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
-const builtDay = site.builtAt.slice(0, 10);
+const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paperCopy(locale).months)}`;
 ---
 
 <Layout
@@ -42,12 +44,11 @@ const builtDay = site.builtAt.slice(0, 10);
 		<p>{pages.statusHazard}</p>
 	</div>
 	{pages.statusBody.map((block) => <p>{block}</p>)}
+	<p>
+		<a href={localePath(locale, "/danger/")}>{pages.statusChinaLink}</a>
+	</p>
 	<div class="dial-list">
-		<Dial number="100" label={pages.phones.police} />
-		<Dial number="101" label={pages.phones.fire} />
-		<Dial number="102" label={pages.phones.ambulance} />
-		<Dial number="1234" label={pages.phones.bipad} />
-		<Dial number="1149" label={pages.phones.neoc} />
+		{nepalEmergencyIds.map((id) => <PhoneDial id={id} />)}
 	</div>
 	<section class="waiting stack" aria-label={pages.statusWaiting}>
 		<h2 class="tile-title">{pages.statusWaiting}</h2>
@@ -59,6 +60,6 @@ const builtDay = site.builtAt.slice(0, 10);
 				</div>
 			))
 		}
-		<p>{pages.lastReviewed} {builtDay}</p>
+		<p>{verified}</p>
 	</section>
 </Layout>

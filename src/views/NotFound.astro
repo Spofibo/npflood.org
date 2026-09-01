@@ -1,5 +1,5 @@
 ---
-import Dial from "../components/Dial.astro";
+import PhoneDial from "../components/PhoneDial.astro";
 import Layout from "../layouts/Layout.astro";
 import { formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
@@ -25,6 +25,9 @@ const homePath = localePath(locale, "/");
 		<p>{page.lede}</p>
 	</div>
 	<p>
+		<a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
+	</p>
+	<p>
 		<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
 	</p>
 	<ul class="chooser" aria-label={pages.chooserNav}>
@@ -32,5 +35,5 @@ const homePath = localePath(locale, "/");
 		<li><a href="/en/">{pages.homeLocales.en}</a></li>
 		<li><a href="/zh/">{pages.homeLocales.zh}</a></li>
 	</ul>
-	<Dial number="100" label={pages.phones.police} />
+	<PhoneDial id="police" />
 </Layout>

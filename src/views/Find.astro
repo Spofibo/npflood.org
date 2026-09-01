@@ -1,25 +1,48 @@
 ---
-import Dial from "../components/Dial.astro";
+import NoscriptFields from "../components/NoscriptFields.astro";
+import PhoneDial from "../components/PhoneDial.astro";
+import { findFields } from "../config/find-fields";
 import { emptyDestination } from "../config/destinations";
-import { dnaHelplineDisplay, dnaHelplineTel, dnaMailbox, officialFindLists } from "../config/official-lists";
+import {
+	aggregatorList,
+	dnaHelplineDisplay,
+	dnaHelplineTel,
+	dnaMailbox,
+	officialFindLists,
+	remainsFindLists,
+} from "../config/official-lists";
+import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
-import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy, paperCopy } from "../lib/i18n";
+import { formatVerifiedNpt } from "../lib/date";
+import {
+	chromeCopy,
+	fieldsCopy,
+	formCopy,
+	localeFromPathname,
+	localePath,
+	pagesCopy,
+	paperCopy,
+} from "../lib/i18n";
+import { noscriptFieldLines } from "../lib/noscript-fields";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
 const paper = paperCopy(locale);
 const form = formCopy(locale);
 const fields = fieldsCopy(locale);
 const page = pages.find;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
-const findListLabels = {
+const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper.months)}`;
+const officialLabels = {
 	police: pages.findListPolice,
+	pmo: pages.findListPmo,
+} as const;
+const remainsLabels = {
 	deadBodies: pages.findListDeadBodies,
 	disaster: pages.findListDisaster,
-	pmo: pages.findListPmo,
-	aggregator: pages.findListAggregator,
-};
+} as const;
 ---
 
 <Layout
@@ -47,9 +70,9 @@ const findListLabels = {
 			<p>{paper.findCannotMatch}</p>
 			{pages.findBody.map((block) => <p>{block}</p>)}
 		</div>
-		<Dial number="100" label={pages.phones.police} />
+		<PhoneDial id="police" />
 		<div id="find-child-dial">
-			<Dial number="104" label={pages.phones.missingChild} />
+			<PhoneDial id="missingChild" />
 		</div>
 		<section class="stack" aria-label={pages.findListsTitle}>
 			<h2 class="tile-title">{pages.findListsTitle}</h2>
@@ -59,33 +82,63 @@ const findListLabels = {
 					officialFindLists.map((item) => (
 						<li>
 							<a href={item.href} rel="noopener noreferrer">
-								{findListLabels[item.id]}
+								{officialLabels[item.id]}
 							</a>
 						</li>
 					))
 				}
 			</ul>
 		</section>
-		<section class="stack" aria-label={pages.dnaTitle}>
-			<h2 class="tile-title">{pages.dnaTitle}</h2>
-			<p>{pages.dnaBody}</p>
+		<section class="stack" aria-label={pages.aggregatorTitle}>
+			<h2 class="tile-title">{pages.aggregatorTitle}</h2>
+			<p>{pages.aggregatorDisclaimer}</p>
 			<p>
-				<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
+				<a href={aggregatorList.href} rel="noopener noreferrer">{pages.findListAggregator}</a>
 			</p>
-			<div class="dial-block stack">
-				<div>{pages.dnaHelplineLabel}</div>
-				<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
-			</div>
 		</section>
+		<p>{pages.unofficialDeath}</p>
+		<details class="gate-details">
+			<summary>{pages.identificationGate}</summary>
+			<div class="stack">
+				<ul>
+					{
+						remainsFindLists.map((item) => (
+							<li>
+								<a href={item.href} rel="noopener noreferrer">
+									{remainsLabels[item.id]}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+				<section class="stack" aria-label={pages.dnaTitle}>
+					<h2 class="tile-title">{pages.dnaTitle}</h2>
+					<p>{pages.dnaBody}</p>
+					<p>
+						<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
+					</p>
+					<div class="dial-block stack">
+						<div>{pages.dnaHelplineLabel}</div>
+						<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
+						<p class="dial-meta">{pages.phoneSources.police}</p>
+						<p class="dial-meta">{verified}</p>
+					</div>
+				</section>
+			</div>
+		</details>
 	</div>
-	<noscript>
-		<div class="note">
-			<p>{form.noscript}</p>
-			<p>
-				<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
-			</p>
-		</div>
-	</noscript>
+	<NoscriptFields
+		intro={form.noscript}
+		assembleNote={form.noscriptAssemble}
+		lines={noscriptFieldLines(findFields, fields)}
+		groups={[]}
+		statusHref={localePath(locale, "/status/")}
+		statusLabel={form.statusLink}
+		dangerHref={localePath(locale, "/danger/")}
+		dangerLabel={form.dangerLink}
+		showStatus={true}
+		showDanger={true}
+	/>
 	<script
 		id="find-config"
 		type="application/json"

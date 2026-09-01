@@ -1,0 +1,26 @@
+---
+import { phoneNumbers, phoneSourceHrefs, type PhoneId } from "../config/phones";
+import { site } from "../config/site";
+import { formatVerifiedNpt } from "../lib/date";
+import { chromeCopy, localeFromPathname, pagesCopy, paperCopy } from "../lib/i18n";
+import Dial from "./Dial.astro";
+
+type Props = {
+	id: PhoneId;
+};
+
+const { id } = Astro.props;
+const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
+const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
+const stamp = formatVerifiedNpt(site.builtAt, paperCopy(locale).months);
+const verified = `${chrome.lastVerified} ${stamp}`;
+---
+
+<Dial
+	number={phoneNumbers[id]}
+	label={pages.phones[id]}
+	sourceLabel={pages.phoneSources[id]}
+	sourceHref={phoneSourceHrefs[id]}
+	verified={verified}
+/>

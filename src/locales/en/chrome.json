@@ -9,7 +9,7 @@
 	"contentinfo": "Site",
 	"nav": {
 		"home": "Home",
-		"status": "Status and phones",
+		"status": "Emergency contacts",
 		"find": "Looking for someone",
 		"consular": "Family abroad",
 		"help": "Help"
@@ -19,15 +19,16 @@
 		"en": "English",
 		"zh": "中文"
 	},
-	"qrCaption": "This site: npflood.org",
+	"qrCaption": "This QR opens npflood.org. It is not a payment QR.",
 	"qrAlt": "QR code that opens https://npflood.org/",
 	"heldFlag": "Not listed yet",
 	"dialName": "Call {label} {number}",
-	"lastUpdated": "Last updated",
-	"unmaintained": "This page has not been reviewed for more than 7 days. Call 1234 or 100.",
-	"savedCopy": "Showing a saved copy. Numbers and forms may be out of date. Call 1234 or 100 if you need help now.",
+	"lastVerified": "Last verified",
+	"unmaintained": "This page has not been reviewed for more than 7 days. If you are in Nepal, call 1234 or 100.",
+	"savedCopy": "Showing a saved copy. Numbers and forms may be out of date. If you are in Nepal, call 1234 or 100.",
 	"antiPhishing": "npflood.org is the only address. A different address asking for a passport number is not us.",
 	"noMail": "This site does not take mail.",
-	"corrections": "To correct a number or translation, open a GitHub issue.",
+	"noMoney": "This site does not take money or bank details.",
+	"corrections": "Report incorrect or outdated information",
 	"print": "Print"
 }

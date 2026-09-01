@@ -6,8 +6,10 @@ import {
 	htmlLang,
 	localeFromPathname,
 	localePath,
+	paperCopy,
 	type UiLang,
 } from "../lib/i18n";
+import { formatVerifiedNpt } from "../lib/date";
 import fontsEn from "../styles/fonts-en.css?url";
 import fontsNe from "../styles/fonts-ne.css?url";
 import fontsZh from "../styles/fonts-zh.css?url";
@@ -41,7 +43,7 @@ const langChoices: { locale: UiLang; label: string }[] = [
 	{ locale: "en", label: chrome.langPicker.en },
 	{ locale: "zh", label: chrome.langPicker.zh },
 ];
-const builtDay = site.builtAt.slice(0, 10);
+const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paperCopy(locale).months)}`;
 const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 ---
 
@@ -141,9 +143,10 @@ const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 			<div class="wrap">
 				<p>{chrome.footerNote}</p>
 				<p id="site-freshness" data-built-at={site.builtAt} data-unmaintained={chrome.unmaintained}>
-					{chrome.lastUpdated} {builtDay}
+					{verified}
 				</p>
 				<p>{chrome.antiPhishing}</p>
+				<p>{chrome.noMoney}</p>
 				<p>{chrome.noMail}</p>
 				<p>
 					<a href={copyIssueUrl} rel="noopener noreferrer">{chrome.corrections}</a>

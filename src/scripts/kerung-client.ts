@@ -62,7 +62,14 @@ function formatDialName(template: string, label: string, number: string): string
 	return template.split("{label}").join(label).split("{number}").join(number);
 }
 
-function readKerungDial(raw: HTMLElement | null): { policeLabel: string; childHelplineLabel: string; dialName: string } {
+function readKerungDial(raw: HTMLElement | null): {
+	policeLabel: string;
+	childHelplineLabel: string;
+	dialName: string;
+	policeSource: string;
+	childSource: string;
+	verified: string;
+} {
 	if (raw === null || raw.textContent === null) {
 		throw new Error("Kerung dial copy is missing");
 	}
@@ -74,7 +81,10 @@ function readKerungDial(raw: HTMLElement | null): { policeLabel: string; childHe
 	if (
 		typeof record.policeLabel !== "string" ||
 		typeof record.childHelplineLabel !== "string" ||
-		typeof record.dialName !== "string"
+		typeof record.dialName !== "string" ||
+		typeof record.policeSource !== "string" ||
+		typeof record.childSource !== "string" ||
+		typeof record.verified !== "string"
 	) {
 		throw new Error("Kerung dial copy is missing");
 	}
@@ -82,10 +92,19 @@ function readKerungDial(raw: HTMLElement | null): { policeLabel: string; childHe
 		policeLabel: record.policeLabel,
 		childHelplineLabel: record.childHelplineLabel,
 		dialName: record.dialName,
+		policeSource: record.policeSource,
+		childSource: record.childSource,
+		verified: record.verified,
 	};
 }
 
-function renderDialLink(label: string, number: string, dialName: string): { block: HTMLElement; link: HTMLAnchorElement } {
+function renderDialLink(
+	label: string,
+	number: string,
+	dialName: string,
+	sourceLabel: string,
+	verified: string,
+): { block: HTMLElement; link: HTMLAnchorElement } {
 	const block = el("div", "dial-block stack", null);
 	block.append(el("div", null, label));
 	const link = document.createElement("a");
@@ -93,6 +112,8 @@ function renderDialLink(label: string, number: string, dialName: string): { bloc
 	link.textContent = number;
 	link.setAttribute("aria-label", formatDialName(dialName, label, number));
 	block.append(link);
+	block.append(el("p", "dial-meta", sourceLabel));
+	block.append(el("p", "dial-meta", verified));
 	return { block, link };
 }
 
@@ -126,9 +147,14 @@ function mount(
 	form: FormCopy,
 	fieldCatalog: FieldsCopy,
 	destination: Destination,
-	policeLabel: string,
-	childHelplineLabel: string,
-	dialName: string,
+	dial: {
+		policeLabel: string;
+		childHelplineLabel: string;
+		dialName: string;
+		policeSource: string;
+		childSource: string;
+		verified: string;
+	},
 ): void {
 	migrateLegacyForm(kerungLegacyKey, kerungSessionKey);
 	let saveFailed = false;
@@ -229,8 +255,14 @@ function mount(
 		minorBox.append(legend, choices);
 		formEl.append(minorBox);
 
-		const childDial = renderDialLink(childHelplineLabel, "1098", dialName);
-		const policeDial = renderDialLink(policeLabel, "100", dialName);
+		const childDial = renderDialLink(
+			dial.childHelplineLabel,
+			"1098",
+			dial.dialName,
+			dial.childSource,
+			dial.verified,
+		);
+		const policeDial = renderDialLink(dial.policeLabel, "100", dial.dialName, dial.policeSource, dial.verified);
 		const childLink = childDial.link;
 
 		const rest = el("div", "stack", null);
@@ -408,4 +440,4 @@ const dial = readKerungDial(configNode);
 if (root === null) {
 	throw new Error("Kerung form root is missing");
 }
-mount(root, page.form, page.fields, page.destination, dial.policeLabel, dial.childHelplineLabel, dial.dialName);
+mount(root, page.form, page.fields, page.destination, dial);

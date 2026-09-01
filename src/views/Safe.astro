@@ -1,7 +1,10 @@
 ---
+import NoscriptFields from "../components/NoscriptFields.astro";
 import { emptyDestination } from "../config/destinations";
+import { safeFields } from "../config/safe-fields";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { noscriptFieldLines } from "../lib/noscript-fields";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
@@ -29,14 +32,18 @@ const here = localePath(locale, page.path);
 	<div class="lede">
 		<p>{page.lede}</p>
 	</div>
-	<noscript>
-		<div class="note">
-			<p>{form.noscript}</p>
-			<p>
-				<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
-			</p>
-		</div>
-	</noscript>
+	<NoscriptFields
+		intro={form.noscript}
+		assembleNote={form.noscriptAssemble}
+		lines={noscriptFieldLines(safeFields, fields)}
+		groups={[]}
+		statusHref={localePath(locale, "/status/")}
+		statusLabel={form.statusLink}
+		dangerHref={localePath(locale, "/danger/")}
+		dangerLabel={form.dangerLink}
+		showStatus={true}
+		showDanger={true}
+	/>
 	<script
 		id="safe-config"
 		type="application/json"

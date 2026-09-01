@@ -1,7 +1,26 @@
 ---
+import NoscriptFields from "../components/NoscriptFields.astro";
+import PhoneDial from "../components/PhoneDial.astro";
 import { kerungDestination } from "../config/destinations";
+import {
+	kerungCompanionSpec,
+	kerungFields,
+	kerungProxyField,
+	kerungProxyNameField,
+} from "../config/kerung-fields";
+import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
-import { chromeCopy, fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { formatVerifiedNpt } from "../lib/date";
+import {
+	chromeCopy,
+	fieldsCopy,
+	formCopy,
+	localeFromPathname,
+	localePath,
+	pagesCopy,
+	paperCopy,
+} from "../lib/i18n";
+import { noscriptFieldLines } from "../lib/noscript-fields";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
@@ -11,6 +30,19 @@ const fields = fieldsCopy(locale);
 const page = pages.kerung;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
+const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paperCopy(locale).months)}`;
+const kerungLines = [
+	{
+		label: fields.kerung.minor.question,
+		hint: `${fields.kerung.minor.yes} / ${fields.kerung.minor.no}`,
+	},
+	...noscriptFieldLines(kerungFields, fields),
+	...noscriptFieldLines([kerungProxyField, kerungProxyNameField], fields),
+];
+const companionGroup = {
+	heading: form.companionsHeading,
+	lines: noscriptFieldLines(kerungCompanionSpec.fields, fields),
+};
 ---
 
 <Layout
@@ -30,12 +62,29 @@ const here = localePath(locale, page.path);
 	<div class="lede">
 		<p>{page.lede}</p>
 	</div>
+	<div class="banner banner--warn">
+		<p>{pages.kerungChinaBanner}</p>
+	</div>
+	<p>
+		<a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
+	</p>
+	<NoscriptFields
+		intro={form.noscript}
+		assembleNote={form.noscriptAssemble}
+		lines={kerungLines}
+		groups={[companionGroup]}
+		statusHref={localePath(locale, "/status/")}
+		statusLabel={form.statusLink}
+		dangerHref={localePath(locale, "/danger/")}
+		dangerLabel={form.dangerLink}
+		showStatus={false}
+		showDanger={true}
+	/>
 	<noscript>
-		<div class="note">
-			<p>{form.noscript}</p>
-			<p>
-				<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
-			</p>
+		<div class="note stack">
+			<p>{form.minorStop}</p>
+			<PhoneDial id="childHelpline" />
+			<PhoneDial id="police" />
 		</div>
 	</noscript>
 	<script
@@ -48,6 +97,9 @@ const here = localePath(locale, page.path);
 			policeLabel: pages.phones.police,
 			childHelplineLabel: pages.phones.childHelpline,
 			dialName: chrome.dialName,
+			policeSource: pages.phoneSources.police,
+			childSource: pages.phoneSources.childHelpline,
+			verified,
 		})}
 	/>
 	<div id="kerung-app" class="stack"></div>

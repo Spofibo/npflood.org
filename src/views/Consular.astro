@@ -1,18 +1,33 @@
 ---
-import Dial from "../components/Dial.astro";
+import NoscriptFields from "../components/NoscriptFields.astro";
+import PhoneDial from "../components/PhoneDial.astro";
+import { consularFields } from "../config/consular-fields";
 import { emptyDestination } from "../config/destinations";
 import { dnaHelplineDisplay, dnaHelplineTel, dnaMailbox } from "../config/official-lists";
+import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
-import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy, paperCopy } from "../lib/i18n";
+import { formatVerifiedNpt } from "../lib/date";
+import {
+	chromeCopy,
+	fieldsCopy,
+	formCopy,
+	localeFromPathname,
+	localePath,
+	pagesCopy,
+	paperCopy,
+} from "../lib/i18n";
+import { noscriptFieldLines } from "../lib/noscript-fields";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
 const paper = paperCopy(locale);
 const form = formCopy(locale);
 const fields = fieldsCopy(locale);
 const page = pages.consular;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
+const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper.months)}`;
 ---
 
 <Layout
@@ -42,29 +57,41 @@ const here = localePath(locale, page.path);
 			<p>
 				<a href="https://familylinks.icrc.org/" rel="noopener noreferrer">{pages.icrcFamilyLinksLabel}</a>
 			</p>
-			<p>{pages.consularRemains}</p>
 		</div>
-		<Dial number="1144" label={pages.phones.touristPolice} />
-		<section class="stack" aria-label={pages.dnaTitle}>
-			<h2 class="tile-title">{pages.dnaTitle}</h2>
-			<p>{pages.dnaBody}</p>
-			<p>
-				<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
-			</p>
-			<div class="dial-block stack">
-				<div>{pages.dnaHelplineLabel}</div>
-				<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
+		<PhoneDial id="touristPolice" />
+		<p>{pages.unofficialDeath}</p>
+		<details class="gate-details">
+			<summary>{pages.identificationGate}</summary>
+			<div class="stack">
+				<p>{pages.consularRemains}</p>
+				<section class="stack" aria-label={pages.dnaTitle}>
+					<h2 class="tile-title">{pages.dnaTitle}</h2>
+					<p>{pages.dnaBody}</p>
+					<p>
+						<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
+					</p>
+					<div class="dial-block stack">
+						<div>{pages.dnaHelplineLabel}</div>
+						<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
+						<p class="dial-meta">{pages.phoneSources.police}</p>
+						<p class="dial-meta">{verified}</p>
+					</div>
+				</section>
 			</div>
-		</section>
+		</details>
 	</div>
-	<noscript>
-		<div class="note">
-			<p>{form.noscript}</p>
-			<p>
-				<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
-			</p>
-		</div>
-	</noscript>
+	<NoscriptFields
+		intro={form.noscript}
+		assembleNote={form.noscriptAssemble}
+		lines={noscriptFieldLines(consularFields, fields)}
+		groups={[]}
+		statusHref={localePath(locale, "/status/")}
+		statusLabel={form.statusLink}
+		dangerHref={localePath(locale, "/danger/")}
+		dangerLabel={form.dangerLink}
+		showStatus={true}
+		showDanger={true}
+	/>
 	<script
 		id="consular-config"
 		type="application/json"
