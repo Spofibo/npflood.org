@@ -1,0 +1,51 @@
+---
+import Dial from "../components/Dial.astro";
+import Layout from "../layouts/Layout.astro";
+import { localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+
+const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
+const pages = pagesCopy(locale);
+const page = pages.status;
+const homePath = localePath(locale, "/");
+const here = localePath(locale, page.path);
+---
+
+<Layout
+	title={page.title}
+	description={page.description}
+	path={page.path}
+	breadcrumbs={[
+		{ name: "npflood.org", path: homePath },
+		{ name: page.h1, path: here },
+	]}
+	includeWebsiteJsonLd={false}
+	contactPoints={[
+		{ name: pages.phones.police, telephone: "100" },
+		{ name: pages.phones.fire, telephone: "101" },
+		{ name: pages.phones.ambulance, telephone: "102" },
+	]}
+	faq={null}
+	guessRedirect={false}
+>
+	<h1 class="shiro">{page.h1}</h1>
+	<div class="lede">
+		<p>{page.lede}</p>
+	</div>
+	{pages.statusBody.map((block) => <p>{block}</p>)}
+	<div class="dial-list">
+		<Dial number="100" label={pages.phones.police} />
+		<Dial number="101" label={pages.phones.fire} />
+		<Dial number="102" label={pages.phones.ambulance} />
+	</div>
+	<section class="waiting stack" aria-label={pages.statusWaiting}>
+		<h2 class="tile-title">{pages.statusWaiting}</h2>
+		{
+			pages.statusHeld.map((slot) => (
+				<div class="held-slot stack">
+					<h3 class="tile-title">{slot.title}</h3>
+					<p>{slot.body}</p>
+				</div>
+			))
+		}
+	</section>
+</Layout>

@@ -1,0 +1,36 @@
+---
+import Dial from "../components/Dial.astro";
+import Layout from "../layouts/Layout.astro";
+import { formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+
+const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
+const pages = pagesCopy(locale);
+const form = formCopy(locale);
+const page = pages.notFound;
+const homePath = localePath(locale, "/");
+---
+
+<Layout
+	title={page.title}
+	description={page.description}
+	path="/"
+	breadcrumbs={[{ name: "npflood.org", path: homePath }]}
+	includeWebsiteJsonLd={false}
+	contactPoints={null}
+	faq={null}
+	guessRedirect={false}
+>
+	<h1 class="shiro">{page.h1}</h1>
+	<div class="lede">
+		<p>{page.lede}</p>
+	</div>
+	<p>
+		<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
+	</p>
+	<ul class="chooser" aria-label={pages.chooserNav}>
+		<li><a href="/">{pages.homeLocales.ne}</a></li>
+		<li><a href="/en/">{pages.homeLocales.en}</a></li>
+		<li><a href="/zh/">{pages.homeLocales.zh}</a></li>
+	</ul>
+	<Dial number="100" label={pages.phones.police} />
+</Layout>

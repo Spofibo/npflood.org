@@ -1,0 +1,242 @@
+---
+import Seo, { type SeoBreadcrumb, type SeoContactPoint, type SeoFaq } from "../components/Seo.astro";
+import { site } from "../config/site";
+import {
+	chromeCopy,
+	htmlLang,
+	localeFromPathname,
+	localePath,
+	type UiLang,
+} from "../lib/i18n";
+import fontsEn from "../styles/fonts-en.css?url";
+import fontsNe from "../styles/fonts-ne.css?url";
+import fontsZh from "../styles/fonts-zh.css?url";
+import "../styles/global.css";
+
+type Props = {
+	title: string;
+	description: string;
+	path: string;
+	breadcrumbs: SeoBreadcrumb[];
+	includeWebsiteJsonLd: boolean;
+	contactPoints: SeoContactPoint[] | null;
+	faq: SeoFaq[] | null;
+	guessRedirect: boolean;
+};
+
+const { title, description, path, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq, guessRedirect } = Astro.props;
+const locale: UiLang = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
+const chrome = chromeCopy(locale);
+const registerWorker = import.meta.env.PROD;
+const fontHref = locale === "ne" ? fontsNe : locale === "zh" ? fontsZh : fontsEn;
+const navItems = [
+	{ path: "/", label: chrome.nav.home },
+	{ path: "/status/", label: chrome.nav.status },
+	{ path: "/find/", label: chrome.nav.find },
+	{ path: "/consular/", label: chrome.nav.consular },
+	{ path: "/help/", label: chrome.nav.help },
+] as const;
+const langChoices: { locale: UiLang; label: string }[] = [
+	{ locale: "ne", label: chrome.langPicker.ne },
+	{ locale: "en", label: chrome.langPicker.en },
+	{ locale: "zh", label: chrome.langPicker.zh },
+];
+---
+
+<!doctype html>
+<html lang={htmlLang(locale)}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<link rel="apple-touch-icon" href="/icon-192.png" />
+		<meta name="theme-color" content="#1a1610" />
+		<link rel="stylesheet" href={fontHref} />
+		<meta name="generator" content={Astro.generator} />
+		<Seo
+			title={title}
+			description={description}
+			path={path}
+			locale={locale}
+			breadcrumbs={breadcrumbs}
+			includeWebsiteJsonLd={includeWebsiteJsonLd}
+			contactPoints={contactPoints}
+			faq={faq}
+		/>
+		{
+			guessRedirect === true && (
+				<script is:inline>
+					(function () {
+						var KEY = "npflood.lang";
+						function isLang(value) {
+							return value === "ne" || value === "en" || value === "zh";
+						}
+						function looks(tag, prefix) {
+							var lower = String(tag).toLowerCase();
+							return lower === prefix || lower.indexOf(prefix + "-") === 0 || lower.indexOf(prefix + "_") === 0;
+						}
+						function detect(languages, ua) {
+							var i;
+							for (i = 0; i < languages.length; i += 1) {
+								if (looks(languages[i], "zh")) return "zh";
+								if (looks(languages[i], "ne")) return "ne";
+								if (looks(languages[i], "en")) return "en";
+							}
+							if (ua.indexOf("MicroMessenger") !== -1) {
+								for (i = 0; i < languages.length; i += 1) {
+									if (looks(languages[i], "zh")) return "zh";
+								}
+							}
+							return "ne";
+						}
+						var stored = null;
+						try {
+							stored = localStorage.getItem(KEY);
+						} catch (err) {
+							stored = null;
+						}
+						var languages = navigator.languages ? navigator.languages : navigator.language ? [navigator.language] : [];
+						var lang = stored !== null && isLang(stored) ? stored : detect(languages, navigator.userAgent || "");
+						if (stored === null) {
+							try {
+								localStorage.setItem(KEY, lang);
+							} catch (err) {}
+						}
+						if (lang === "en") {
+							location.replace("/en/");
+							return;
+						}
+						if (lang === "zh") {
+							location.replace("/zh/");
+						}
+					})();
+				</script>
+			)
+		}
+	</head>
+	<body>
+		<a class="skip" href="#main">{chrome.skipLink}</a>
+		<header class="site-header">
+			<div class="wrap">
+				<div class="header-top">
+					<a class="brand" href={localePath(locale, "/")}>
+						<span class="brand-mark">{site.name}</span>
+						<span class="brand-line">{chrome.brandLine}</span>
+					</a>
+					<nav class="lang-picker" aria-label={chrome.langNav}>
+						{
+							langChoices.map((item) => (
+								<a
+									class="lang-btn"
+									href={localePath(item.locale, path)}
+									data-lang-choice={item.locale}
+									aria-current={item.locale === locale ? "page" : undefined}
+								>
+									{item.label}
+								</a>
+							))
+						}
+					</nav>
+				</div>
+				<nav aria-label={chrome.mainNav}>
+					<ul class="nav">
+						{
+							navItems.map((item) => (
+								<li>
+									<a href={localePath(locale, item.path)} aria-current={item.path === path ? "page" : undefined}>
+										{item.label}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+				<nav class="crumbs" aria-label={chrome.breadcrumbNav}>
+					<ol>
+						{
+							breadcrumbs.map((crumb, index) => (
+								<li>
+									{index < breadcrumbs.length - 1 ? (
+										<a href={crumb.path}>{crumb.name}</a>
+									) : (
+										<span aria-current="page">{crumb.name}</span>
+									)}
+								</li>
+							))
+						}
+					</ol>
+				</nav>
+				<div class="site-share">
+					<img class="site-qr" src="/site-qr.png" width="128" height="128" alt={chrome.qrAlt} />
+					<div class="stack-tight">
+						<p>{chrome.qrCaption}</p>
+						<p>
+							<a href={`${site.origin}/`}>{`${site.origin}/`}</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main id="main" class="wrap">
+			<slot />
+		</main>
+		<footer class="site-footer" role="contentinfo" aria-label={chrome.contentinfo}>
+			<div class="wrap">
+				<p>{chrome.footerNote}</p>
+				<p>
+					<a href={site.sourceRepo} rel="noopener noreferrer">{chrome.footerSource}</a>
+				</p>
+				<p>{site.name}</p>
+			</div>
+		</footer>
+		<script is:inline>
+			(function () {
+				var KEY = "npflood.lang";
+				var links = document.querySelectorAll("[data-lang-choice]");
+				var i;
+				for (i = 0; i < links.length; i += 1) {
+					links[i].addEventListener("click", function () {
+						var choice = this.getAttribute("data-lang-choice");
+						if (choice !== "ne" && choice !== "en" && choice !== "zh") {
+							return;
+						}
+						try {
+							localStorage.setItem(KEY, choice);
+						} catch (err) {}
+					});
+				}
+			})();
+		</script>
+		{
+			registerWorker === false && (
+				<script is:inline>
+					if ("serviceWorker" in navigator) {
+						navigator.serviceWorker.getRegistrations().then(function (regs) {
+							regs.forEach(function (reg) {
+								reg.unregister();
+							});
+						});
+					}
+					if ("caches" in window) {
+						caches.keys().then(function (keys) {
+							keys.forEach(function (key) {
+								caches.delete(key);
+							});
+						});
+					}
+				</script>
+			)
+		}
+		{
+			registerWorker === true && (
+				<script is:inline>
+					if ("serviceWorker" in navigator) {
+						navigator.serviceWorker.register("/sw.js");
+					}
+				</script>
+			)
+		}
+	</body>
+</html>

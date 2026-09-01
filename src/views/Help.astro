@@ -1,0 +1,56 @@
+---
+import { donationLinks } from "../config/donations";
+import Layout from "../layouts/Layout.astro";
+import { chromeCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+
+const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
+const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
+const page = pages.help;
+const homePath = localePath(locale, "/");
+const here = localePath(locale, page.path);
+---
+
+<Layout
+	title={page.title}
+	description={page.description}
+	path={page.path}
+	breadcrumbs={[
+		{ name: "npflood.org", path: homePath },
+		{ name: page.h1, path: here },
+	]}
+	includeWebsiteJsonLd={false}
+	contactPoints={null}
+	faq={null}
+	guessRedirect={false}
+>
+	<h1 class="shiro">{page.h1}</h1>
+	<div class="lede">
+		<p>{page.lede}</p>
+	</div>
+	<div class="prose stack">
+		{pages.helpBody.map((block) => <p>{block}</p>)}
+	</div>
+	<section class="stack" aria-label={pages.helpDonationsTitle}>
+		<h2 class="tile-title">{pages.helpDonationsTitle}</h2>
+		<ul>
+			{
+				donationLinks.map((link) => (
+					<li>
+						<a href={link.href} rel="noopener noreferrer">
+							{pages.helpDonations[link.id]}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+	<section class="gate stack" aria-label={pages.helpHeldTitle}>
+		<p class="held-flag">{chrome.heldFlag}</p>
+		<h2 class="tile-title">{pages.helpHeldTitle}</h2>
+		<p>{pages.helpHeldBody}</p>
+	</section>
+	<p>
+		<a href={homePath}>{pages.chooserNav}</a>
+	</p>
+</Layout>

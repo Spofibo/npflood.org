@@ -1,0 +1,125 @@
+---
+import { site, absoluteUrl } from "../config/site";
+import { hreflangAlternates, localePath, ogLocale, schemaLanguage, type UiLang } from "../lib/i18n";
+
+export type SeoBreadcrumb = {
+	name: string;
+	path: string;
+};
+
+export type SeoContactPoint = {
+	name: string;
+	telephone: string;
+};
+
+export type SeoFaq = {
+	q: string;
+	a: string;
+};
+
+type Props = {
+	title: string;
+	description: string;
+	path: string;
+	locale: UiLang;
+	breadcrumbs: SeoBreadcrumb[];
+	includeWebsiteJsonLd: boolean;
+	contactPoints: SeoContactPoint[] | null;
+	faq: SeoFaq[] | null;
+};
+
+const { title, description, path, locale, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq } = Astro.props;
+const canonical = absoluteUrl(localePath(locale, path));
+const image = absoluteUrl(site.ogImagePath);
+const language = schemaLanguage(locale);
+const thisOg = ogLocale(locale);
+const alternates = hreflangAlternates(path).map((item) => ({
+	lang: item.lang,
+	href: absoluteUrl(item.href),
+}));
+const otherOg = (["ne_NP", "en_US", "zh_CN"] as const).filter((item) => item !== thisOg);
+
+const webpage = {
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	name: title,
+	description,
+	url: canonical,
+	inLanguage: language,
+	isPartOf: {
+		"@type": "WebSite",
+		name: site.name,
+		url: `${site.origin}/`,
+	},
+	breadcrumb: {
+		"@type": "BreadcrumbList",
+		itemListElement: breadcrumbs.map((crumb, index) => ({
+			"@type": "ListItem",
+			position: index + 1,
+			name: crumb.name,
+			item: absoluteUrl(crumb.path),
+		})),
+	},
+	mainEntity:
+		contactPoints === null
+			? undefined
+			: {
+					"@type": "ItemList",
+					itemListElement: contactPoints.map((point, index) => ({
+						"@type": "ContactPoint",
+						position: index + 1,
+						name: point.name,
+						telephone: point.telephone,
+					})),
+				},
+};
+
+const website = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: site.name,
+	url: `${site.origin}/`,
+	inLanguage: language,
+	description,
+};
+
+const faqPage =
+	faq === null
+		? null
+		: {
+				"@context": "https://schema.org",
+				"@type": "FAQPage",
+				mainEntity: faq.map((item) => ({
+					"@type": "Question",
+					name: item.q,
+					acceptedAnswer: {
+						"@type": "Answer",
+						text: item.a,
+					},
+				})),
+			};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{
+	alternates.map((item) => (
+		<link rel="alternate" hreflang={item.lang} href={item.href} />
+	))
+}
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={thisOg} />
+{otherOg.map((item) => <meta property="og:locale:alternate" content={item} />)}
+<meta property="og:image" content={image} />
+<meta property="og:site_name" content={site.name} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<script type="application/ld+json" set:html={JSON.stringify(webpage)} />
+{includeWebsiteJsonLd === true && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
+{faqPage !== null && <script type="application/ld+json" set:html={JSON.stringify(faqPage)} />}

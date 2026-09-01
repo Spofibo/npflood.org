@@ -1,0 +1,17 @@
+---
+import { chromeCopy, localeFromPathname } from "../lib/i18n";
+
+type Props = {
+	number: string;
+	label: string;
+};
+
+const { number, label } = Astro.props;
+const chrome = chromeCopy(localeFromPathname(Astro.url.pathname, Astro.currentLocale));
+const accessibleName = chrome.dialName.split("{label}").join(label).split("{number}").join(number);
+---
+
+<div class="dial-block stack">
+	<div>{label}</div>
+	<a href={`tel:${number}`} aria-label={accessibleName}>{number}</a>
+</div>
