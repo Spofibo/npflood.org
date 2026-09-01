@@ -2,7 +2,7 @@ import type { FieldSpec } from "../config/types";
 import enPaper from "../locales/en/paper.json";
 import nePaper from "../locales/ne/paper.json";
 import zhPaper from "../locales/zh/paper.json";
-import { formatPreparedDate } from "./date";
+import { formatGregorianPrepared, formatNepaliPrepared } from "./date";
 import { readNestedString } from "./nested-string";
 
 export type FieldCatalogs = {
@@ -83,14 +83,14 @@ export function header(titleKey: string, note: string, preparedOn: Date, extraKe
 	lines.push(`${readNestedString(enPaper, "noteLine")}: ${note}`);
 	lines.push(`${readNestedString(zhPaper, "noteLine")}: ${note}`);
 	lines.push("");
-	lines.push(`${readNestedString(nePaper, "prepared")}: ${formatPreparedDate(preparedOn, paperMonths(nePaper))}`);
-	lines.push(`${readNestedString(enPaper, "prepared")}: ${formatPreparedDate(preparedOn, paperMonths(enPaper))}`);
-	lines.push(`${readNestedString(zhPaper, "prepared")}: ${formatPreparedDate(preparedOn, paperMonths(zhPaper))}`);
+	lines.push(`${readNestedString(nePaper, "prepared")}: ${formatNepaliPrepared(preparedOn, paperMonths(nePaper))}`);
+	lines.push(`${readNestedString(enPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(enPaper))}`);
+	lines.push(`${readNestedString(zhPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(zhPaper))}`);
 	return lines.join("\n");
 }
 
 export function screenshotLines(): string[] {
-	return paperStack("screenshot");
+	return [...paperStack("screenshot"), "", ...paperStack("closing")];
 }
 
 export function assembleFieldBlock(
@@ -105,6 +105,9 @@ export function assembleFieldBlock(
 	const lines: string[] = [header(titleKey, note, preparedOn, extraKey), "", "---"];
 	for (const field of fields) {
 		const value = fieldValue(fields, field.id, values, catalogs);
+		if (field.kind === "checkbox" && field.required === false && value !== "yes") {
+			continue;
+		}
 		if (field.required === false && value.length === 0) {
 			continue;
 		}

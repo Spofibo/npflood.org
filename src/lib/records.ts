@@ -1,4 +1,4 @@
-import { isFormStatus, isStringRecord, type StoredForm } from "./storage";
+import { isStringRecord, type FormDraft } from "./storage";
 
 export type KerungValues = {
 	minor: string;
@@ -8,6 +8,8 @@ export type KerungValues = {
 	location: string;
 	nepalContact: string;
 	medical: string;
+	proxy: string;
+	proxyName: string;
 };
 
 export type CompanionRow = {
@@ -37,6 +39,8 @@ export type FindValues = {
 	reporterName: string;
 	reporterPhone: string;
 	relation: string;
+	alreadyReported: string;
+	reportReference: string;
 };
 
 export type ConsularValues = {
@@ -63,6 +67,8 @@ export function emptyKerungValues(): KerungValues {
 		location: "",
 		nepalContact: "",
 		medical: "no",
+		proxy: "no",
+		proxyName: "",
 	};
 }
 
@@ -83,6 +89,46 @@ export function emptyCompanion(): CompanionRow {
 	};
 }
 
+export function stripKerungIdentifying(
+	values: KerungValues,
+	rows: CompanionRow[],
+): { values: KerungValues; rows: CompanionRow[] } {
+	return {
+		values: {
+			minor: values.minor,
+			name: values.name,
+			passport: "",
+			wechatOrPhone: values.wechatOrPhone,
+			location: values.location,
+			nepalContact: values.nepalContact,
+			medical: values.medical,
+			proxy: values.proxy,
+			proxyName: values.proxyName,
+		},
+		rows: rows.map((row) => ({
+			name: row.name,
+			passport: "",
+			role: row.role,
+		})),
+	};
+}
+
+export function stripTrekIdentifying(values: TrekValues, rows: MemberRow[]): { values: TrekValues; rows: MemberRow[] } {
+	return {
+		values: {
+			agency: values.agency,
+			route: values.route,
+			lastContactWhen: values.lastContactWhen,
+			lastContactHow: values.lastContactHow,
+		},
+		rows: rows.map((row) => ({
+			name: row.name,
+			idNumber: "",
+			nationality: row.nationality,
+		})),
+	};
+}
+
 export function emptyMember(): MemberRow {
 	return {
 		name: "",
@@ -100,6 +146,8 @@ export function emptyFindValues(): FindValues {
 		reporterName: "",
 		reporterPhone: "",
 		relation: "",
+		alreadyReported: "no",
+		reportReference: "",
 	};
 }
 
@@ -147,7 +195,9 @@ function isKerungValues(value: unknown): value is KerungValues {
 		"wechatOrPhone" in value &&
 		"location" in value &&
 		"nepalContact" in value &&
-		"medical" in value
+		"medical" in value &&
+		"proxy" in value &&
+		"proxyName" in value
 	);
 }
 
@@ -163,56 +213,59 @@ function isTrekValues(value: unknown): value is TrekValues {
 	);
 }
 
-export function isKerungRecord(value: unknown): value is StoredForm<KerungValues, CompanionRow> {
+function isDraftEnvelope(value: unknown): value is Record<string, unknown> {
 	if (value === null || typeof value !== "object") {
 		return false;
 	}
 	const record = value as Record<string, unknown>;
-	if (isFormStatus(record.status) === false) {
-		return false;
-	}
-	if (typeof record.note !== "string") {
-		return false;
-	}
-	if (record.assembledText !== null && typeof record.assembledText !== "string") {
-		return false;
-	}
 	if (typeof record.updatedAt !== "string") {
-		return false;
-	}
-	if (isKerungValues(record.values) === false) {
 		return false;
 	}
 	if (!Array.isArray(record.rows)) {
 		return false;
 	}
-	return record.rows.every(isCompanionRow);
+	return true;
 }
 
-export function isTrekRecord(value: unknown): value is StoredForm<TrekValues, MemberRow> {
-	if (value === null || typeof value !== "object") {
+export function isKerungDraft(value: unknown): value is FormDraft<KerungValues, CompanionRow> {
+	if (isDraftEnvelope(value) === false) {
 		return false;
 	}
-	const record = value as Record<string, unknown>;
-	if (isFormStatus(record.status) === false) {
+	if (isKerungValues(value.values) === false) {
 		return false;
 	}
-	if (typeof record.note !== "string") {
+	return value.rows.every(isCompanionRow);
+}
+
+export function isTrekDraft(value: unknown): value is FormDraft<TrekValues, MemberRow> {
+	if (isDraftEnvelope(value) === false) {
 		return false;
 	}
-	if (record.assembledText !== null && typeof record.assembledText !== "string") {
+	if (isTrekValues(value.values) === false) {
 		return false;
 	}
-	if (typeof record.updatedAt !== "string") {
+	return value.rows.every(isMemberRow);
+}
+
+export function isFindDraft(value: unknown): value is FormDraft<FindValues, never> {
+	if (isDraftEnvelope(value) === false) {
 		return false;
 	}
-	if (isTrekValues(record.values) === false) {
+	return isFindValues(value.values) === true && value.rows.length === 0;
+}
+
+export function isConsularDraft(value: unknown): value is FormDraft<ConsularValues, never> {
+	if (isDraftEnvelope(value) === false) {
 		return false;
 	}
-	if (!Array.isArray(record.rows)) {
+	return isConsularValues(value.values) === true && value.rows.length === 0;
+}
+
+export function isSafeDraft(value: unknown): value is FormDraft<SafeValues, never> {
+	if (isDraftEnvelope(value) === false) {
 		return false;
 	}
-	return record.rows.every(isMemberRow);
+	return isSafeValues(value.values) === true && value.rows.length === 0;
 }
 
 function isFindValues(value: unknown): value is FindValues {
@@ -226,7 +279,9 @@ function isFindValues(value: unknown): value is FindValues {
 		"appearance" in value &&
 		"reporterName" in value &&
 		"reporterPhone" in value &&
-		"relation" in value
+		"relation" in value &&
+		"alreadyReported" in value &&
+		"reportReference" in value
 	);
 }
 
@@ -248,48 +303,4 @@ function isSafeValues(value: unknown): value is SafeValues {
 		return false;
 	}
 	return "name" in value && "location" in value && "familyPhone" in value && "line" in value;
-}
-
-function isStoredEnvelope(value: unknown): value is Record<string, unknown> {
-	if (value === null || typeof value !== "object") {
-		return false;
-	}
-	const record = value as Record<string, unknown>;
-	if (isFormStatus(record.status) === false) {
-		return false;
-	}
-	if (typeof record.note !== "string") {
-		return false;
-	}
-	if (record.assembledText !== null && typeof record.assembledText !== "string") {
-		return false;
-	}
-	if (typeof record.updatedAt !== "string") {
-		return false;
-	}
-	if (!Array.isArray(record.rows)) {
-		return false;
-	}
-	return true;
-}
-
-export function isFindRecord(value: unknown): value is StoredForm<FindValues, never> {
-	if (isStoredEnvelope(value) === false) {
-		return false;
-	}
-	return isFindValues(value.values) === true && value.rows.length === 0;
-}
-
-export function isConsularRecord(value: unknown): value is StoredForm<ConsularValues, never> {
-	if (isStoredEnvelope(value) === false) {
-		return false;
-	}
-	return isConsularValues(value.values) === true && value.rows.length === 0;
-}
-
-export function isSafeRecord(value: unknown): value is StoredForm<SafeValues, never> {
-	if (isStoredEnvelope(value) === false) {
-		return false;
-	}
-	return isSafeValues(value.values) === true && value.rows.length === 0;
 }

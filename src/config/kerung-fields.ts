@@ -1,6 +1,8 @@
 import type { FieldSpec, RepeatableSpec } from "./types";
 
-export const kerungStorageKey = "npflood.kerung.v1";
+export const kerungLegacyKey = "npflood.kerung.v1";
+export const kerungDraftKey = "npflood.kerung.draft.v1";
+export const kerungSessionKey = "npflood.kerung.session.v1";
 
 export const kerungFields: FieldSpec[] = [
 	{
@@ -52,6 +54,24 @@ export const kerungFields: FieldSpec[] = [
 		autocomplete: null,
 	},
 ];
+
+export const kerungProxyField: FieldSpec = {
+	id: "proxy",
+	kind: "checkbox",
+	required: false,
+	copyKey: "kerung.proxy",
+	options: null,
+	autocomplete: null,
+};
+
+export const kerungProxyNameField: FieldSpec = {
+	id: "proxyName",
+	kind: "text",
+	required: true,
+	copyKey: "kerung.proxyName",
+	options: null,
+	autocomplete: "name",
+};
 
 export const kerungCompanionSpec: RepeatableSpec = {
 	id: "companions",

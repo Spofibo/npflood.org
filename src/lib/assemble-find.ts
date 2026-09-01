@@ -24,6 +24,8 @@ export function assembleFindMessage(values: FindValues, note: string, preparedOn
 			reporterName: values.reporterName,
 			reporterPhone: values.reporterPhone,
 			relation: values.relation,
+			alreadyReported: values.alreadyReported,
+			reportReference: values.reportReference,
 		},
 		note,
 		preparedOn,

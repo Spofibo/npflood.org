@@ -170,7 +170,9 @@ export function showValidationBanner(form: HTMLElement, text: string): void {
 	form.querySelectorAll(":scope > .banner").forEach((node) => {
 		node.remove();
 	});
-	form.prepend(renderBanner("warn", text));
+	const banner = renderBanner("warn", text);
+	banner.setAttribute("aria-live", "assertive");
+	form.prepend(banner);
 }
 
 export function button(label: string, className: string): HTMLButtonElement {
@@ -220,11 +222,16 @@ export function paintAssembledPanel<TValues extends Record<string, string>, TRow
 		root.append(renderBanner("ok", form.markedSent));
 	}
 	root.append(renderNoteExplain(record.note, form));
+	const region = el("div", "stack", null);
+	region.setAttribute("aria-live", "polite");
+	const heading = el("h2", "tile-title", form.assembledHeading);
+	heading.tabIndex = -1;
 	const card = el("div", "refcard", null);
 	const pre = document.createElement("pre");
 	pre.textContent = record.assembledText;
 	card.append(pre);
-	root.append(card);
+	region.append(heading, card);
+	root.append(region);
 	root.append(renderSendPanel(destination, pre, form));
 	if (record.status === "assembled") {
 		const ask = el("div", "stack", null);
@@ -255,8 +262,6 @@ export function paintAssembledPanel<TValues extends Record<string, string>, TRow
 		});
 	});
 	root.append(back);
-	const focus = root.querySelector(".banner, pre");
-	if (focus instanceof HTMLElement) {
-		focus.scrollIntoView({ block: "center", inline: "nearest" });
-	}
+	heading.focus();
+	heading.scrollIntoView({ block: "center", inline: "nearest" });
 }

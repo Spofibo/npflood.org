@@ -1,6 +1,8 @@
 import type { FieldSpec, RepeatableSpec } from "./types";
 
-export const trekStorageKey = "npflood.trek.v1";
+export const trekLegacyKey = "npflood.trek.v1";
+export const trekDraftKey = "npflood.trek.draft.v1";
+export const trekSessionKey = "npflood.trek.session.v1";
 
 export const trekFields: FieldSpec[] = [
 	{

@@ -1,6 +1,8 @@
 import type { FieldSpec } from "./types";
 
-export const findStorageKey = "npflood.find.v1";
+export const findLegacyKey = "npflood.find.v1";
+export const findDraftKey = "npflood.find.draft.v1";
+export const findSessionKey = "npflood.find.session.v1";
 
 export const findFields: FieldSpec[] = [
 	{
@@ -56,6 +58,22 @@ export const findFields: FieldSpec[] = [
 		kind: "text",
 		required: true,
 		copyKey: "find.relation",
+		options: null,
+		autocomplete: "off",
+	},
+	{
+		id: "alreadyReported",
+		kind: "checkbox",
+		required: false,
+		copyKey: "find.alreadyReported",
+		options: null,
+		autocomplete: null,
+	},
+	{
+		id: "reportReference",
+		kind: "text",
+		required: false,
+		copyKey: "find.reportReference",
 		options: null,
 		autocomplete: "off",
 	},

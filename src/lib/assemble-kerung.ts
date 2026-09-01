@@ -1,4 +1,4 @@
-import { kerungCompanionSpec, kerungFields } from "../config/kerung-fields";
+import { kerungCompanionSpec, kerungFields, kerungProxyNameField } from "../config/kerung-fields";
 import enKerung from "../locales/en/fields/kerung.json";
 import neKerung from "../locales/ne/fields/kerung.json";
 import zhKerung from "../locales/zh/fields/kerung.json";
@@ -24,6 +24,8 @@ export function assembleKerungMessage(
 		location: values.location,
 		nepalContact: values.nepalContact,
 		medical: values.medical,
+		proxy: values.proxy,
+		proxyName: values.proxyName,
 	};
 	const lines: string[] = [header("kerungTitle", note, preparedOn, null), "", "---"];
 	for (const field of kerungFields) {
@@ -38,6 +40,11 @@ export function assembleKerungMessage(
 		lines.push(...paperStack("medicalYes"));
 	} else {
 		lines.push(...paperStack("medicalNo"));
+	}
+	if (values.proxy === "yes") {
+		lines.push("");
+		lines.push(paperStack("proxyHeading").join(" / "));
+		lines.push(tri(kerungProxyNameField, values.proxyName, catalogs));
 	}
 	if (companions.length > 0) {
 		lines.push("");

@@ -1,13 +1,21 @@
 import type { Destination } from "../config/destinations";
-import { kerungCompanionSpec, kerungFields, kerungStorageKey } from "../config/kerung-fields";
+import { kerungCompanionSpec, kerungDraftKey, kerungFields, kerungLegacyKey, kerungProxyField, kerungProxyNameField, kerungSessionKey } from "../config/kerung-fields";
 import { assembleKerungMessage } from "../lib/assemble-kerung";
 import { el, cssIdSelector, localizeField, readFieldValue, readNestedString, renderField, showErrors } from "../lib/dom";
 import { readFormPageConfig } from "../lib/form-page";
 import { button, ensureStorageWarn, namedRemoveButton, paintAssembledPanel, renderBanner, renderNoteExplain, renderStorageWarn, showValidationBanner } from "../lib/form-ui";
 import type { FieldsCopy, FormCopy } from "../lib/i18n";
 import { createNoteFromEntropy } from "../lib/note";
-import { emptyCompanion, emptyKerungValues, isKerungRecord, type CompanionRow, type KerungValues } from "../lib/records";
-import { loadStoredForm, saveStoredForm, storageAvailable, type StoredForm } from "../lib/storage";
+import { emptyCompanion, emptyKerungValues, isKerungDraft, stripKerungIdentifying, type CompanionRow, type KerungValues } from "../lib/records";
+import {
+	loadFormDraft,
+	loadFormSession,
+	migrateLegacyForm,
+	saveFormDraft,
+	saveFormSession,
+	storageAvailable,
+	type StoredForm,
+} from "../lib/storage";
 import { validateFields, validateRepeatableRows, type FieldError } from "../lib/validate";
 
 function readValues(form: HTMLElement): KerungValues {
@@ -27,6 +35,8 @@ function readValues(form: HTMLElement): KerungValues {
 		location: readFieldValue(form, "location", "textarea"),
 		nepalContact: readFieldValue(form, "nepalContact", "text"),
 		medical: readFieldValue(form, "medical", "checkbox"),
+		proxy: readFieldValue(form, "proxy", "checkbox"),
+		proxyName: readFieldValue(form, "proxyName", "text"),
 	};
 }
 
@@ -50,7 +60,7 @@ function formatDialName(template: string, label: string, number: string): string
 	return template.split("{label}").join(label).split("{number}").join(number);
 }
 
-function readKerungDial(raw: HTMLElement | null): { policeLabel: string; dialName: string } {
+function readKerungDial(raw: HTMLElement | null): { policeLabel: string; childHelplineLabel: string; dialName: string } {
 	if (raw === null || raw.textContent === null) {
 		throw new Error("Kerung dial copy is missing");
 	}
@@ -59,13 +69,29 @@ function readKerungDial(raw: HTMLElement | null): { policeLabel: string; dialNam
 		throw new Error("Kerung dial copy is missing");
 	}
 	const record = parsed as Record<string, unknown>;
-	if (typeof record.policeLabel !== "string" || typeof record.dialName !== "string") {
+	if (
+		typeof record.policeLabel !== "string" ||
+		typeof record.childHelplineLabel !== "string" ||
+		typeof record.dialName !== "string"
+	) {
 		throw new Error("Kerung dial copy is missing");
 	}
 	return {
 		policeLabel: record.policeLabel,
+		childHelplineLabel: record.childHelplineLabel,
 		dialName: record.dialName,
 	};
+}
+
+function renderDialLink(label: string, number: string, dialName: string): { block: HTMLElement; link: HTMLAnchorElement } {
+	const block = el("div", "dial-block stack", null);
+	block.append(el("div", null, label));
+	const link = document.createElement("a");
+	link.href = `tel:${number}`;
+	link.textContent = number;
+	link.setAttribute("aria-label", formatDialName(dialName, label, number));
+	block.append(link);
+	return { block, link };
 }
 
 function renderCompanion(
@@ -79,7 +105,10 @@ function renderCompanion(
 	block.dataset.companion = "true";
 	for (const field of kerungCompanionSpec.fields) {
 		const value = row[field.id as keyof CompanionRow];
-		block.append(renderField(localizeField(field, fieldCatalog), `companions.${index}.${field.id}`, value, form.selectPrompt));
+		const localized = localizeField(field, fieldCatalog);
+		const painted =
+			field.id === "passport" ? { ...localized, hint: form.retypeIdHint } : localized;
+		block.append(renderField(painted, `companions.${index}.${field.id}`, value, form.selectPrompt));
 	}
 	const removeLabel = readNestedString(fieldCatalog, kerungCompanionSpec.removeKey);
 	const nameInput = block.querySelector(`#${cssIdSelector(`companions.${index}.name`)}`);
@@ -96,45 +125,54 @@ function mount(
 	fieldCatalog: FieldsCopy,
 	destination: Destination,
 	policeLabel: string,
+	childHelplineLabel: string,
 	dialName: string,
 ): void {
-	let record: StoredForm<KerungValues, CompanionRow>;
+	migrateLegacyForm(kerungLegacyKey, kerungSessionKey);
 	let saveFailed = false;
+	let markedSent = false;
+	const session = loadFormSession(kerungSessionKey);
+	const draft = loadFormDraft(kerungDraftKey, isKerungDraft);
+	if (session !== null) {
+		markedSent = session.markedSent;
+	}
+	let record: StoredForm<KerungValues, CompanionRow> = {
+		status: "draft",
+		note: session !== null ? session.note : createNoteFromEntropy(),
+		values: draft !== null ? draft.values : emptyKerungValues(),
+		rows: draft !== null ? draft.rows : [],
+		assembledText: null,
+		updatedAt: new Date().toISOString(),
+	};
 	const persist = (next: StoredForm<KerungValues, CompanionRow>): void => {
-		const stored: StoredForm<KerungValues, CompanionRow> = {
-			status: next.status,
+		if (next.status === "sent") {
+			markedSent = true;
+		}
+		const now = new Date().toISOString();
+		const stripped = stripKerungIdentifying(next.values, next.rows);
+		const sessionSaved = saveFormSession(kerungSessionKey, {
 			note: next.note,
-			values: next.values,
-			rows: next.rows,
-			assembledText: next.assembledText,
-			updatedAt: new Date().toISOString(),
-		};
-		saveFailed = saveStoredForm(kerungStorageKey, stored) === false;
+			markedSent,
+			updatedAt: now,
+		});
+		const draftSaved = saveFormDraft(kerungDraftKey, {
+			values: stripped.values,
+			rows: stripped.rows,
+			updatedAt: now,
+		});
+		saveFailed = sessionSaved === false || draftSaved === false;
 		if (saveFailed === true) {
 			ensureStorageWarn(root, form.storageWarn);
 		}
 	};
-	const loaded = loadStoredForm(kerungStorageKey, isKerungRecord);
-	if (loaded === null) {
-		record = {
-			status: "draft",
-			note: createNoteFromEntropy(form.noteAdjectives, form.noteNouns),
-			values: emptyKerungValues(),
-			rows: [],
-			assembledText: null,
-			updatedAt: new Date().toISOString(),
-		};
-		persist(record);
-	} else {
-		record = loaded;
-	}
+	persist(record);
 
 	const paint = (): void => {
 		root.replaceChildren();
 		if (storageAvailable() === false || saveFailed === true) {
 			root.append(renderStorageWarn(form.storageWarn));
 		}
-		if (record.status === "assembled" || record.status === "sent") {
+		if ((record.status === "assembled" || record.status === "sent") && record.assembledText !== null) {
 			paintAssembledPanel(root, record, destination, form, (next) => {
 				record = next;
 				persist(record);
@@ -181,16 +219,40 @@ function mount(
 		minorBox.append(legend, choices);
 		formEl.append(minorBox);
 
-		const policeLink = document.createElement("a");
-		policeLink.href = "tel:100";
-		policeLink.textContent = "100";
-		policeLink.setAttribute("aria-label", formatDialName(dialName, policeLabel, "100"));
+		const childDial = renderDialLink(childHelplineLabel, "1098", dialName);
+		const policeDial = renderDialLink(policeLabel, "100", dialName);
+		const childLink = childDial.link;
 
 		const rest = el("div", "stack", null);
 		for (const field of kerungFields) {
 			const value = record.values[field.id as keyof KerungValues];
-			rest.append(renderField(localizeField(field, fieldCatalog), field.id, value, form.selectPrompt));
+			const localized = localizeField(field, fieldCatalog);
+			const painted = field.id === "passport" ? { ...localized, hint: form.retypeIdHint } : localized;
+			rest.append(renderField(painted, field.id, value, form.selectPrompt));
 		}
+		rest.append(renderField(localizeField(kerungProxyField, fieldCatalog), "proxy", record.values.proxy, form.selectPrompt));
+		const proxyNameBlock = renderField(
+			localizeField(kerungProxyNameField, fieldCatalog),
+			"proxyName",
+			record.values.proxyName,
+			form.selectPrompt,
+		);
+		rest.append(proxyNameBlock);
+		const syncProxy = (): void => {
+			const proxyInput = rest.querySelector("#proxy");
+			if (proxyInput instanceof HTMLInputElement && proxyInput.checked === true) {
+				proxyNameBlock.classList.remove("hidden");
+			} else {
+				proxyNameBlock.classList.add("hidden");
+			}
+		};
+		const proxyInput = rest.querySelector("#proxy");
+		if (proxyInput instanceof HTMLInputElement) {
+			proxyInput.addEventListener("change", () => {
+				syncProxy();
+			});
+		}
+		syncProxy();
 		const companionsHeading = el("h2", "tile-title", form.companionsHeading);
 		rest.append(companionsHeading);
 		const list = el("div", "stack", null);
@@ -224,15 +286,15 @@ function mount(
 		rest.append(list, add);
 		redrawCompanions();
 
-		const submit = button(form.prepare, "btn");
+		const submit = button(markedSent === true ? form.prepareUpdate : form.prepare, "btn");
 		submit.type = "submit";
 		submit.formNoValidate = true;
 		formEl.addEventListener("submit", (event) => {
 			event.preventDefault();
 			if (yes.checked === true) {
 				persistDraftFromDom();
-				policeLink.focus();
-				policeLink.scrollIntoView({ block: "center", inline: "nearest" });
+				childLink.focus();
+				childLink.scrollIntoView({ block: "center", inline: "nearest" });
 				return;
 			}
 			if (no.checked === false) {
@@ -241,7 +303,7 @@ function mount(
 						fieldId: "minor",
 						message: form.emptyRequired,
 					},
-				]);
+				], form.errorMarker);
 				showValidationBanner(formEl, form.validation);
 				return;
 			}
@@ -257,8 +319,14 @@ function mount(
 				form.needOneMember,
 			);
 			const all = [...errors, ...companionErrors];
+			if (record.values.proxy === "yes" && record.values.proxyName.trim().length === 0) {
+				all.push({
+					fieldId: "proxyName",
+					message: form.emptyRequired,
+				});
+			}
 			if (all.length > 0) {
-				showErrors(formEl, all);
+				showErrors(formEl, all, form.errorMarker);
 				showValidationBanner(formEl, form.validation);
 				return;
 			}
@@ -282,7 +350,7 @@ function mount(
 				note: record.note,
 				values: readValues(formEl),
 				rows: readCompanions(list),
-				assembledText: record.assembledText,
+				assembledText: null,
 				updatedAt: new Date().toISOString(),
 			};
 			persist(record);
@@ -294,10 +362,7 @@ function mount(
 
 		const minorStop = el("div", "stack", null);
 		minorStop.append(renderBanner("warn", form.minorStop));
-		const dial = el("div", "dial-block stack", null);
-		dial.append(el("div", null, policeLabel));
-		dial.append(policeLink);
-		minorStop.append(dial);
+		minorStop.append(childDial.block, policeDial.block);
 
 		const syncMinor = (): void => {
 			if (yes.checked === true) {
@@ -333,4 +398,4 @@ const dial = readKerungDial(configNode);
 if (root === null) {
 	throw new Error("Kerung form root is missing");
 }
-mount(root, page.form, page.fields, page.destination, dial.policeLabel, dial.dialName);
+mount(root, page.form, page.fields, page.destination, dial.policeLabel, dial.childHelplineLabel, dial.dialName);

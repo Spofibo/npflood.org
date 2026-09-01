@@ -165,7 +165,7 @@ export function readFieldValue(root: HTMLElement, name: string, kind: FieldSpec[
 	return "";
 }
 
-export function showErrors(root: HTMLElement, errors: FieldError[]): void {
+export function showErrors(root: HTMLElement, errors: FieldError[], errorMarker: string): void {
 	const existing = root.querySelectorAll(".error");
 	existing.forEach((node) => {
 		node.remove();
@@ -193,7 +193,7 @@ export function showErrors(root: HTMLElement, errors: FieldError[]): void {
 			throw new Error(`cannot paint error: no field with data-field-id ${error.fieldId}`);
 		}
 		field.classList.add("field--error");
-		const message = el("div", "error", error.message);
+		const message = el("div", "error", `${errorMarker} ${error.message}`);
 		message.id = `${error.fieldId}-error`;
 		field.append(message);
 		const control = field.querySelector("input, textarea, select");

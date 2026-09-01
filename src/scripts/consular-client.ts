@@ -1,7 +1,7 @@
-import { consularFields, consularStorageKey } from "../config/consular-fields";
+import { consularDraftKey, consularFields, consularLegacyKey, consularSessionKey } from "../config/consular-fields";
 import { assembleConsularMessage } from "../lib/assemble-consular";
 import { readFormPageConfig } from "../lib/form-page";
-import { emptyConsularValues, isConsularRecord } from "../lib/records";
+import { emptyConsularValues, isConsularDraft } from "../lib/records";
 import { mountSimpleForm } from "../lib/simple-form";
 
 const root = document.getElementById("consular-app");
@@ -10,10 +10,12 @@ if (root === null) {
 }
 const page = readFormPageConfig(document.getElementById("consular-config"), "Consular config is missing");
 mountSimpleForm(root, page.destination, {
-	storageKey: consularStorageKey,
+	draftKey: consularDraftKey,
+	sessionKey: consularSessionKey,
+	legacyKey: consularLegacyKey,
 	fields: consularFields,
 	emptyValues: emptyConsularValues,
-	isRecord: isConsularRecord,
+	isDraft: isConsularDraft,
 	assemble: assembleConsularMessage,
 	form: page.form,
 	fieldCatalog: page.fields,

@@ -4,14 +4,25 @@ import { el, localizeField, readFieldValue, renderField, showErrors } from "./do
 import type { FieldsCopy, FormCopy } from "./i18n";
 import { button, ensureStorageWarn, paintAssembledPanel, renderNoteExplain, renderStorageWarn, showValidationBanner } from "./form-ui";
 import { createNoteFromEntropy } from "./note";
-import { loadStoredForm, saveStoredForm, storageAvailable, type StoredForm } from "./storage";
+import {
+	loadFormDraft,
+	loadFormSession,
+	migrateLegacyForm,
+	saveFormDraft,
+	saveFormSession,
+	storageAvailable,
+	type FormDraft,
+	type StoredForm,
+} from "./storage";
 import { validateFields } from "./validate";
 
 export type SimpleFormConfig<TValues extends Record<string, string>> = {
-	storageKey: string;
+	draftKey: string;
+	sessionKey: string;
+	legacyKey: string;
 	fields: FieldSpec[];
 	emptyValues: () => TValues;
-	isRecord: (value: unknown) => value is StoredForm<TValues, never>;
+	isDraft: (value: unknown) => value is FormDraft<TValues, never>;
 	assemble: (values: TValues, note: string, preparedOn: Date) => string;
 	form: FormCopy;
 	fieldCatalog: FieldsCopy;
@@ -34,43 +45,52 @@ export function mountSimpleForm<TValues extends Record<string, string>>(
 	destination: Destination,
 	config: SimpleFormConfig<TValues>,
 ): void {
-	let record: StoredForm<TValues, never>;
+	migrateLegacyForm(config.legacyKey, config.sessionKey);
 	let saveFailed = false;
+	let markedSent = false;
+	const session = loadFormSession(config.sessionKey);
+	const draft = loadFormDraft(config.draftKey, config.isDraft);
+	if (session !== null) {
+		markedSent = session.markedSent;
+	}
+	let record: StoredForm<TValues, never> = {
+		status: "draft",
+		note: session !== null ? session.note : createNoteFromEntropy(),
+		values: draft !== null ? draft.values : config.emptyValues(),
+		rows: [],
+		assembledText: null,
+		updatedAt: new Date().toISOString(),
+	};
+
 	const persist = (next: StoredForm<TValues, never>): void => {
-		const stored: StoredForm<TValues, never> = {
-			status: next.status,
+		if (next.status === "sent") {
+			markedSent = true;
+		}
+		const now = new Date().toISOString();
+		const sessionSaved = saveFormSession(config.sessionKey, {
 			note: next.note,
+			markedSent,
+			updatedAt: now,
+		});
+		const draftSaved = saveFormDraft(config.draftKey, {
 			values: next.values,
-			rows: next.rows,
-			assembledText: next.assembledText,
-			updatedAt: new Date().toISOString(),
-		};
-		saveFailed = saveStoredForm(config.storageKey, stored) === false;
+			rows: [],
+			updatedAt: now,
+		});
+		saveFailed = sessionSaved === false || draftSaved === false;
 		if (saveFailed === true) {
 			ensureStorageWarn(root, config.form.storageWarn);
 		}
 	};
-	const loaded = loadStoredForm(config.storageKey, config.isRecord);
-	if (loaded === null) {
-		record = {
-			status: "draft",
-			note: createNoteFromEntropy(config.form.noteAdjectives, config.form.noteNouns),
-			values: config.emptyValues(),
-			rows: [],
-			assembledText: null,
-			updatedAt: new Date().toISOString(),
-		};
-		persist(record);
-	} else {
-		record = loaded;
-	}
+
+	persist(record);
 
 	const paint = (): void => {
 		root.replaceChildren();
 		if (storageAvailable() === false || saveFailed === true) {
 			root.append(renderStorageWarn(config.form.storageWarn));
 		}
-		if (record.status === "assembled" || record.status === "sent") {
+		if ((record.status === "assembled" || record.status === "sent") && record.assembledText !== null) {
 			paintAssembledPanel(root, record, destination, config.form, (next) => {
 				record = next;
 				persist(record);
@@ -101,12 +121,12 @@ export function mountSimpleForm<TValues extends Record<string, string>>(
 				note: record.note,
 				values: readValues(form, config.fields, config.emptyValues),
 				rows: [],
-				assembledText: record.assembledText,
+				assembledText: null,
 				updatedAt: new Date().toISOString(),
 			};
 			persist(record);
 		};
-		const submit = button(config.form.prepare, "btn");
+		const submit = button(markedSent === true ? config.form.prepareUpdate : config.form.prepare, "btn");
 		submit.type = "submit";
 		submit.formNoValidate = true;
 		form.addEventListener("submit", (event) => {
@@ -114,7 +134,7 @@ export function mountSimpleForm<TValues extends Record<string, string>>(
 			persistDraftFromDom();
 			const errors = validateFields(config.fields, record.values, "", config.form.emptyRequired);
 			if (errors.length > 0) {
-				showErrors(form, errors);
+				showErrors(form, errors, config.form.errorMarker);
 				showValidationBanner(form, config.form.validation);
 				return;
 			}

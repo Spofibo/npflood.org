@@ -1,13 +1,21 @@
 import type { Destination } from "../config/destinations";
-import { trekFields, trekMemberSpec, trekStorageKey } from "../config/trek-fields";
+import { trekDraftKey, trekFields, trekLegacyKey, trekMemberSpec, trekSessionKey } from "../config/trek-fields";
 import { assembleTrekMessage } from "../lib/assemble-trek";
 import { el, cssIdSelector, localizeField, readFieldValue, readNestedString, renderField, showErrors } from "../lib/dom";
 import { readFormPageConfig } from "../lib/form-page";
 import { button, ensureStorageWarn, namedRemoveButton, paintAssembledPanel, renderNoteExplain, renderStorageWarn, showValidationBanner } from "../lib/form-ui";
 import type { FieldsCopy, FormCopy } from "../lib/i18n";
 import { createNoteFromEntropy } from "../lib/note";
-import { emptyMember, emptyTrekValues, isTrekRecord, type MemberRow, type TrekValues } from "../lib/records";
-import { loadStoredForm, saveStoredForm, storageAvailable, type StoredForm } from "../lib/storage";
+import { emptyMember, emptyTrekValues, isTrekDraft, stripTrekIdentifying, type MemberRow, type TrekValues } from "../lib/records";
+import {
+	loadFormDraft,
+	loadFormSession,
+	migrateLegacyForm,
+	saveFormDraft,
+	saveFormSession,
+	storageAvailable,
+	type StoredForm,
+} from "../lib/storage";
 import { validateFields, validateRepeatableRows, type FieldError } from "../lib/validate";
 
 function readValues(form: HTMLElement): TrekValues {
@@ -43,7 +51,9 @@ function renderMember(
 	block.dataset.member = "true";
 	for (const field of trekMemberSpec.fields) {
 		const value = row[field.id as keyof MemberRow];
-		block.append(renderField(localizeField(field, fieldCatalog), `members.${index}.${field.id}`, value, form.selectPrompt));
+		const localized = localizeField(field, fieldCatalog);
+		const painted = field.id === "idNumber" ? { ...localized, hint: form.retypeIdHint } : localized;
+		block.append(renderField(painted, `members.${index}.${field.id}`, value, form.selectPrompt));
 	}
 	const removeLabel = readNestedString(fieldCatalog, trekMemberSpec.removeKey);
 	const nameInput = block.querySelector(`#${cssIdSelector(`members.${index}.name`)}`);
@@ -55,43 +65,51 @@ function renderMember(
 }
 
 function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, destination: Destination): void {
-	let record: StoredForm<TrekValues, MemberRow>;
+	migrateLegacyForm(trekLegacyKey, trekSessionKey);
 	let saveFailed = false;
+	let markedSent = false;
+	const session = loadFormSession(trekSessionKey);
+	const draft = loadFormDraft(trekDraftKey, isTrekDraft);
+	if (session !== null) {
+		markedSent = session.markedSent;
+	}
+	let record: StoredForm<TrekValues, MemberRow> = {
+		status: "draft",
+		note: session !== null ? session.note : createNoteFromEntropy(),
+		values: draft !== null ? draft.values : emptyTrekValues(),
+		rows: draft !== null ? draft.rows : [emptyMember()],
+		assembledText: null,
+		updatedAt: new Date().toISOString(),
+	};
 	const persist = (next: StoredForm<TrekValues, MemberRow>): void => {
-		const stored: StoredForm<TrekValues, MemberRow> = {
-			status: next.status,
+		if (next.status === "sent") {
+			markedSent = true;
+		}
+		const now = new Date().toISOString();
+		const stripped = stripTrekIdentifying(next.values, next.rows);
+		const sessionSaved = saveFormSession(trekSessionKey, {
 			note: next.note,
-			values: next.values,
-			rows: next.rows,
-			assembledText: next.assembledText,
-			updatedAt: new Date().toISOString(),
-		};
-		saveFailed = saveStoredForm(trekStorageKey, stored) === false;
+			markedSent,
+			updatedAt: now,
+		});
+		const draftSaved = saveFormDraft(trekDraftKey, {
+			values: stripped.values,
+			rows: stripped.rows,
+			updatedAt: now,
+		});
+		saveFailed = sessionSaved === false || draftSaved === false;
 		if (saveFailed === true) {
 			ensureStorageWarn(root, form.storageWarn);
 		}
 	};
-	const loaded = loadStoredForm(trekStorageKey, isTrekRecord);
-	if (loaded === null) {
-		record = {
-			status: "draft",
-			note: createNoteFromEntropy(form.noteAdjectives, form.noteNouns),
-			values: emptyTrekValues(),
-			rows: [emptyMember()],
-			assembledText: null,
-			updatedAt: new Date().toISOString(),
-		};
-		persist(record);
-	} else {
-		record = loaded;
-	}
+	persist(record);
 
 	const paint = (): void => {
 		root.replaceChildren();
 		if (storageAvailable() === false || saveFailed === true) {
 			root.append(renderStorageWarn(form.storageWarn));
 		}
-		if (record.status === "assembled" || record.status === "sent") {
+		if ((record.status === "assembled" || record.status === "sent") && record.assembledText !== null) {
 			paintAssembledPanel(root, record, destination, form, (next) => {
 				record = next;
 				persist(record);
@@ -120,7 +138,7 @@ function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, dest
 				note: record.note,
 				values: readValues(formEl),
 				rows: readMembers(list),
-				assembledText: record.assembledText,
+				assembledText: null,
 				updatedAt: new Date().toISOString(),
 			};
 			persist(record);
@@ -155,7 +173,7 @@ function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, dest
 		membersBox.append(list, add);
 		formEl.append(membersBox);
 		redrawMembers();
-		const submit = button(form.prepare, "btn");
+		const submit = button(markedSent === true ? form.prepareUpdate : form.prepare, "btn");
 		submit.type = "submit";
 		submit.formNoValidate = true;
 		formEl.addEventListener("submit", (event) => {
@@ -174,7 +192,7 @@ function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, dest
 				),
 			];
 			if (errors.length > 0) {
-				showErrors(formEl, errors);
+				showErrors(formEl, errors, form.errorMarker);
 				showValidationBanner(formEl, form.validation);
 				return;
 			}

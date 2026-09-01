@@ -1,6 +1,8 @@
 import type { FieldSpec } from "./types";
 
-export const consularStorageKey = "npflood.consular.v1";
+export const consularLegacyKey = "npflood.consular.v1";
+export const consularDraftKey = "npflood.consular.draft.v1";
+export const consularSessionKey = "npflood.consular.session.v1";
 
 export const consularFields: FieldSpec[] = [
 	{

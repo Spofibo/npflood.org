@@ -1,7 +1,7 @@
-import { safeFields, safeStorageKey } from "../config/safe-fields";
+import { safeDraftKey, safeFields, safeLegacyKey, safeSessionKey } from "../config/safe-fields";
 import { assembleSafeMessage } from "../lib/assemble-safe";
 import { readFormPageConfig } from "../lib/form-page";
-import { emptySafeValues, isSafeRecord } from "../lib/records";
+import { emptySafeValues, isSafeDraft } from "../lib/records";
 import { mountSimpleForm } from "../lib/simple-form";
 
 const root = document.getElementById("safe-app");
@@ -10,10 +10,12 @@ if (root === null) {
 }
 const page = readFormPageConfig(document.getElementById("safe-config"), "Safe config is missing");
 mountSimpleForm(root, page.destination, {
-	storageKey: safeStorageKey,
+	draftKey: safeDraftKey,
+	sessionKey: safeSessionKey,
+	legacyKey: safeLegacyKey,
 	fields: safeFields,
 	emptyValues: emptySafeValues,
-	isRecord: isSafeRecord,
+	isDraft: isSafeDraft,
 	assemble: assembleSafeMessage,
 	form: page.form,
 	fieldCatalog: page.fields,

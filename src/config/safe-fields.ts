@@ -1,6 +1,8 @@
 import type { FieldSpec } from "./types";
 
-export const safeStorageKey = "npflood.safe.v1";
+export const safeLegacyKey = "npflood.safe.v1";
+export const safeDraftKey = "npflood.safe.draft.v1";
+export const safeSessionKey = "npflood.safe.session.v1";
 
 export const safeFields: FieldSpec[] = [
 	{
