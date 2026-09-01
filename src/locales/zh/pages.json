@@ -214,7 +214,7 @@
 	"helpHeldBody": "志愿者联络人只有核实后才会写在这里。本站不接受志愿者报名。",
 	"helpNoMail": "本站不收邮件。遇险者请用紧急联络、寻人或境外寻亲页，不要用本页。",
 	"helpBuiltBy": "本工具由 Alexandru Budurovici 制作。",
-	"trekGuidance": "本页供旅行社工作人员使用，没有锁。如团队已安全或地点有变，请用同一方式补充。",
+	"trekGuidance": "本页供旅行社工作人员使用。这里填写的内容不会发送到 npflood.org。草稿只留在本机。如团队已安全或地点有变，请用同一方式补充。",
 	"homeLocales": {
 		"ne": "नेपाली",
 		"en": "English",

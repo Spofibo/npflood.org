@@ -214,7 +214,7 @@
 	"helpHeldBody": "Volunteer coordinators will be listed here only when confirmed. This site does not take volunteer sign-ups.",
 	"helpNoMail": "This site does not take mail. Distressed people should use Emergency contacts, Find, or Consular. Not this page.",
 	"helpBuiltBy": "This tool was built by Alexandru Budurovici.",
-	"trekGuidance": "This is for agency staff. There is no lock on the page. If the party is safe or the location changes, write that the same way you sent the first note.",
+	"trekGuidance": "This is for agency staff. Nothing entered here is sent to npflood.org. Drafts stay on this phone only. If the party is safe or the location changes, write that the same way you sent the first note.",
 	"homeLocales": {
 		"ne": "नेपाली",
 		"en": "English",
