@@ -10,6 +10,7 @@ const chrome = chromeCopy(locale);
 const page = pages.help;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
+const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 ---
 
 <Layout
@@ -50,9 +51,12 @@ const here = localePath(locale, page.path);
 		<h2 class="tile-title">{pages.helpHeldTitle}</h2>
 		<p>{pages.helpHeldBody}</p>
 	</section>
+	<p>{pages.helpNoMail}</p>
 	<p>
-		<a href={`mailto:${site.operatorEmail}`}>{chrome.officialContact}</a>
-		: {site.operatorEmail}
+		<a href={copyIssueUrl} rel="noopener noreferrer">{pages.helpCorrections}</a>
+	</p>
+	<p>
+		<a href={site.builderUrl} rel="noopener noreferrer">{pages.helpBuiltBy}</a>
 	</p>
 	<p>
 		<a href={homePath}>{pages.chooserNav}</a>

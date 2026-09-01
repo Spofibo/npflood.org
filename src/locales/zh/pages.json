@@ -179,6 +179,9 @@
 	},
 	"helpHeldTitle": "志愿者联络人尚未公布",
 	"helpHeldBody": "志愿者联络人只有核实后才会写在这里。本站不接受志愿者报名。",
+	"helpNoMail": "本站不收邮件。遇险者请用状态、寻人或境外寻亲页，不要用本页。",
+	"helpCorrections": "如需更正已核实号码或译文，请在 GitHub 上开一个 issue。",
+	"helpBuiltBy": "本工具由 Alexandru Budurovici 制作。",
 	"trekGuidance": "本页供旅行社工作人员使用，没有锁。如团队已安全或地点有变，请用同一方式补充。",
 	"homeLocales": {
 		"ne": "नेपाली",

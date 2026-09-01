@@ -41,6 +41,7 @@ const langChoices: { locale: UiLang; label: string }[] = [
 	{ locale: "zh", label: chrome.langPicker.zh },
 ];
 const builtDay = site.builtAt.slice(0, 10);
+const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 ---
 
 <!doctype html>
@@ -140,9 +141,9 @@ const builtDay = site.builtAt.slice(0, 10);
 					{chrome.lastUpdated} {builtDay}
 				</p>
 				<p>{chrome.antiPhishing}</p>
+				<p>{chrome.noMail}</p>
 				<p>
-					<a href={`mailto:${site.operatorEmail}`}>{chrome.officialContact}</a>
-					: {site.operatorEmail}
+					<a href={copyIssueUrl} rel="noopener noreferrer">{chrome.corrections}</a>
 				</p>
 				<p>
 					<a href={site.sourceRepo} rel="noopener noreferrer">{chrome.footerSource}</a>

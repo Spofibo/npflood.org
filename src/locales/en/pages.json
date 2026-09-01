@@ -179,6 +179,9 @@
 	},
 	"helpHeldTitle": "Volunteer coordinators not listed yet",
 	"helpHeldBody": "Volunteer coordinators will be listed here only when confirmed. This site does not take volunteer sign-ups.",
+	"helpNoMail": "This site does not take mail. Distressed people should use Status, Find, or Consular. Not this page.",
+	"helpCorrections": "To correct a confirmed number or translation, open a GitHub issue.",
+	"helpBuiltBy": "This tool was built by Alexandru Budurovici.",
 	"trekGuidance": "This is for agency staff. There is no lock on the page. If the party is safe or the location changes, write that the same way you sent the first note.",
 	"homeLocales": {
 		"ne": "नेपाली",
