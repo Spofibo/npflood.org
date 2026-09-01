@@ -20,6 +20,13 @@
 		"h1": "Immediate danger",
 		"lede": "Pick where you are. Nepal phones are not local emergency numbers in Gyirong, China."
 	},
+	"needs": {
+		"path": "/needs/",
+		"title": "Basic supplies and shelter | npflood.org",
+		"description": "Official desks that take requests for help after the Bhote Koshi flood. This is not a live list of water, shelter, or stock. Contacts appear only when confirmed.",
+		"h1": "Basic supplies and shelter",
+		"lede": "This page lists official desks that take requests for help. This is not a live list of water, shelter, sanitation, or charging stock."
+	},
 	"find": {
 		"path": "/find/",
 		"title": "Looking for someone in Nepal | npflood.org",
@@ -171,6 +178,18 @@
 	"dangerChinaTitle": "I am in Gyirong (China)",
 	"dangerChinaBody": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
 	"dangerKerungLink": "Prepare a Gyirong message",
+	"needsNepalBody": "Official Nepal relief request contacts will appear here once confirmed. This is not a donation page.",
+	"needsChinaBody": "You are in China. Confirmed relief contacts are not listed yet.",
+	"needsHeld": [
+		{
+			"title": "Nepal Red Cross request-for-help",
+			"body": "No contact yet. A number or official page for requesting help will appear here once confirmed."
+		},
+		{
+			"title": "District or local relief desk",
+			"body": "No contact yet. A district or local desk that takes relief requests will appear here once confirmed."
+		}
+	],
 	"kerungChinaBanner": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
 	"findBody": [
 		"A police post or the nearest police office in Nepal. Dial 100.",
