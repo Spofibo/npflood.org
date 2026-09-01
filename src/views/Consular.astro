@@ -1,5 +1,7 @@
 ---
+import Dial from "../components/Dial.astro";
 import { emptyDestination } from "../config/destinations";
+import { dnaHelplineDisplay, dnaHelplineTel, dnaMailbox } from "../config/official-lists";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy, paperCopy } from "../lib/i18n";
 
@@ -24,11 +26,13 @@ const here = localePath(locale, page.path);
 	includeWebsiteJsonLd={false}
 	contactPoints={null}
 	faq={null}
-	guessRedirect={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
 		<p>{page.lede}</p>
+	</div>
+	<div class="banner">
+		<p>{pages.outOfContact}</p>
 	</div>
 	<div class="prose stack">
 		<p>{paper.consularCannotMatch}</p>
@@ -36,7 +40,20 @@ const here = localePath(locale, page.path);
 		<p>
 			<a href="https://familylinks.icrc.org/" rel="noopener noreferrer">{pages.icrcFamilyLinksLabel}</a>
 		</p>
+		<p>{pages.consularRemains}</p>
 	</div>
+	<Dial number="1144" label={pages.phones.touristPolice} />
+	<section class="stack" aria-label={pages.dnaTitle}>
+		<h2 class="tile-title">{pages.dnaTitle}</h2>
+		<p>{pages.dnaBody}</p>
+		<p>
+			<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
+		</p>
+		<div class="dial-block stack">
+			<div>{pages.dnaHelplineLabel}</div>
+			<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
+		</div>
+	</section>
 	<noscript>
 		<div class="note">
 			<p>{form.noscript}</p>

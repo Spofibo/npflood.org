@@ -1,5 +1,6 @@
 ---
 import { donationLinks } from "../config/donations";
+import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
 import { chromeCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
@@ -22,7 +23,6 @@ const here = localePath(locale, page.path);
 	includeWebsiteJsonLd={false}
 	contactPoints={null}
 	faq={null}
-	guessRedirect={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
@@ -50,6 +50,10 @@ const here = localePath(locale, page.path);
 		<h2 class="tile-title">{pages.helpHeldTitle}</h2>
 		<p>{pages.helpHeldBody}</p>
 	</section>
+	<p>
+		<a href={`mailto:${site.operatorEmail}`}>{chrome.officialContact}</a>
+		: {site.operatorEmail}
+	</p>
 	<p>
 		<a href={homePath}>{pages.chooserNav}</a>
 	</p>

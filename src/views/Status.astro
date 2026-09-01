@@ -1,5 +1,6 @@
 ---
 import Dial from "../components/Dial.astro";
+import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
 import { localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
@@ -8,6 +9,7 @@ const pages = pagesCopy(locale);
 const page = pages.status;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
+const builtDay = site.builtAt.slice(0, 10);
 ---
 
 <Layout
@@ -23,19 +25,25 @@ const here = localePath(locale, page.path);
 		{ name: pages.phones.police, telephone: "100" },
 		{ name: pages.phones.fire, telephone: "101" },
 		{ name: pages.phones.ambulance, telephone: "102" },
+		{ name: pages.phones.bipad, telephone: "1234" },
+		{ name: pages.phones.neoc, telephone: "1149" },
 	]}
 	faq={null}
-	guessRedirect={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
 		<p>{page.lede}</p>
+	</div>
+	<div class="banner banner--warn">
+		<p>{pages.statusHazard}</p>
 	</div>
 	{pages.statusBody.map((block) => <p>{block}</p>)}
 	<div class="dial-list">
 		<Dial number="100" label={pages.phones.police} />
 		<Dial number="101" label={pages.phones.fire} />
 		<Dial number="102" label={pages.phones.ambulance} />
+		<Dial number="1234" label={pages.phones.bipad} />
+		<Dial number="1149" label={pages.phones.neoc} />
 	</div>
 	<section class="waiting stack" aria-label={pages.statusWaiting}>
 		<h2 class="tile-title">{pages.statusWaiting}</h2>
@@ -47,5 +55,6 @@ const here = localePath(locale, page.path);
 				</div>
 			))
 		}
+		<p>{pages.lastReviewed} {builtDay}</p>
 	</section>
 </Layout>

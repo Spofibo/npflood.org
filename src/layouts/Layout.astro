@@ -21,10 +21,9 @@ type Props = {
 	includeWebsiteJsonLd: boolean;
 	contactPoints: SeoContactPoint[] | null;
 	faq: SeoFaq[] | null;
-	guessRedirect: boolean;
 };
 
-const { title, description, path, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq, guessRedirect } = Astro.props;
+const { title, description, path, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq } = Astro.props;
 const locale: UiLang = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const chrome = chromeCopy(locale);
 const registerWorker = import.meta.env.PROD;
@@ -41,6 +40,7 @@ const langChoices: { locale: UiLang; label: string }[] = [
 	{ locale: "en", label: chrome.langPicker.en },
 	{ locale: "zh", label: chrome.langPicker.zh },
 ];
+const builtDay = site.builtAt.slice(0, 10);
 ---
 
 <!doctype html>
@@ -65,56 +65,6 @@ const langChoices: { locale: UiLang; label: string }[] = [
 			contactPoints={contactPoints}
 			faq={faq}
 		/>
-		{
-			guessRedirect === true && (
-				<script is:inline>
-					(function () {
-						var KEY = "npflood.lang";
-						function isLang(value) {
-							return value === "ne" || value === "en" || value === "zh";
-						}
-						function looks(tag, prefix) {
-							var lower = String(tag).toLowerCase();
-							return lower === prefix || lower.indexOf(prefix + "-") === 0 || lower.indexOf(prefix + "_") === 0;
-						}
-						function detect(languages, ua) {
-							var i;
-							for (i = 0; i < languages.length; i += 1) {
-								if (looks(languages[i], "zh")) return "zh";
-								if (looks(languages[i], "ne")) return "ne";
-								if (looks(languages[i], "en")) return "en";
-							}
-							if (ua.indexOf("MicroMessenger") !== -1) {
-								for (i = 0; i < languages.length; i += 1) {
-									if (looks(languages[i], "zh")) return "zh";
-								}
-							}
-							return "ne";
-						}
-						var stored = null;
-						try {
-							stored = localStorage.getItem(KEY);
-						} catch (err) {
-							stored = null;
-						}
-						var languages = navigator.languages ? navigator.languages : navigator.language ? [navigator.language] : [];
-						var lang = stored !== null && isLang(stored) ? stored : detect(languages, navigator.userAgent || "");
-						if (stored === null) {
-							try {
-								localStorage.setItem(KEY, lang);
-							} catch (err) {}
-						}
-						if (lang === "en") {
-							location.replace("/en/");
-							return;
-						}
-						if (lang === "zh") {
-							location.replace("/zh/");
-						}
-					})();
-				</script>
-			)
-		}
 	</head>
 	<body>
 		<a class="skip" href="#main">{chrome.skipLink}</a>
@@ -180,11 +130,20 @@ const langChoices: { locale: UiLang; label: string }[] = [
 			</div>
 		</header>
 		<main id="main" class="wrap">
+			<p class="banner" data-saved-copy="true">{chrome.savedCopy}</p>
 			<slot />
 		</main>
 		<footer class="site-footer" role="contentinfo" aria-label={chrome.contentinfo}>
 			<div class="wrap">
 				<p>{chrome.footerNote}</p>
+				<p id="site-freshness" data-built-at={site.builtAt} data-unmaintained={chrome.unmaintained}>
+					{chrome.lastUpdated} {builtDay}
+				</p>
+				<p>{chrome.antiPhishing}</p>
+				<p>
+					<a href={`mailto:${site.operatorEmail}`}>{chrome.officialContact}</a>
+					: {site.operatorEmail}
+				</p>
 				<p>
 					<a href={site.sourceRepo} rel="noopener noreferrer">{chrome.footerSource}</a>
 				</p>
@@ -193,19 +152,22 @@ const langChoices: { locale: UiLang; label: string }[] = [
 		</footer>
 		<script is:inline>
 			(function () {
-				var KEY = "npflood.lang";
-				var links = document.querySelectorAll("[data-lang-choice]");
-				var i;
-				for (i = 0; i < links.length; i += 1) {
-					links[i].addEventListener("click", function () {
-						var choice = this.getAttribute("data-lang-choice");
-						if (choice !== "ne" && choice !== "en" && choice !== "zh") {
-							return;
-						}
-						try {
-							localStorage.setItem(KEY, choice);
-						} catch (err) {}
-					});
+				var el = document.getElementById("site-freshness");
+				if (el === null) {
+					return;
+				}
+				var built = el.getAttribute("data-built-at");
+				var warning = el.getAttribute("data-unmaintained");
+				if (built === null || warning === null) {
+					return;
+				}
+				var then = Date.parse(built);
+				if (isNaN(then) === true) {
+					return;
+				}
+				if (Date.now() - then > 7 * 24 * 60 * 60 * 1000) {
+					el.textContent = warning;
+					el.className = "banner banner--warn";
 				}
 			})();
 		</script>

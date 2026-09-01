@@ -529,15 +529,19 @@ a.btn:not(.btn--quiet):visited {
 	display: none;
 }
 
+[data-saved-copy="true"] {
+	display: none;
+}
+
 @media print {
-	.site-header,
 	.site-footer,
+	.header-top,
 	.nav,
+	.crumbs,
 	.skip,
 	.btn,
 	.btn-row,
 	.lang-picker,
-	.site-share,
 	noscript {
 		display: none !important;
 	}

@@ -1,6 +1,7 @@
 ---
 import Dial from "../components/Dial.astro";
 import { emptyDestination } from "../config/destinations";
+import { dnaHelplineDisplay, dnaHelplineTel, dnaMailbox, officialFindLists } from "../config/official-lists";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy, paperCopy } from "../lib/i18n";
 
@@ -12,6 +13,13 @@ const fields = fieldsCopy(locale);
 const page = pages.find;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
+const findListLabels = {
+	police: pages.findListPolice,
+	deadBodies: pages.findListDeadBodies,
+	disaster: pages.findListDisaster,
+	pmo: pages.findListPmo,
+	aggregator: pages.findListAggregator,
+};
 ---
 
 <Layout
@@ -25,17 +33,48 @@ const here = localePath(locale, page.path);
 	includeWebsiteJsonLd={false}
 	contactPoints={null}
 	faq={null}
-	guessRedirect={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
 		<p>{page.lede}</p>
+	</div>
+	<div class="banner">
+		<p>{pages.outOfContact}</p>
 	</div>
 	<div class="prose stack">
 		<p>{paper.findCannotMatch}</p>
 		{pages.findBody.map((block) => <p>{block}</p>)}
 	</div>
 	<Dial number="100" label={pages.phones.police} />
+	<div id="find-child-dial">
+		<Dial number="104" label={pages.phones.missingChild} />
+	</div>
+	<section class="stack" aria-label={pages.findListsTitle}>
+		<h2 class="tile-title">{pages.findListsTitle}</h2>
+		<p>{pages.findListsDisclaimer}</p>
+		<ul>
+			{
+				officialFindLists.map((item) => (
+					<li>
+						<a href={item.href} rel="noopener noreferrer">
+							{findListLabels[item.id]}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+	<section class="stack" aria-label={pages.dnaTitle}>
+		<h2 class="tile-title">{pages.dnaTitle}</h2>
+		<p>{pages.dnaBody}</p>
+		<p>
+			<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
+		</p>
+		<div class="dial-block stack">
+			<div>{pages.dnaHelplineLabel}</div>
+			<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
+		</div>
+	</section>
 	<noscript>
 		<div class="note">
 			<p>{form.noscript}</p>

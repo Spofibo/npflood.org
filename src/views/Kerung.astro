@@ -24,7 +24,6 @@ const here = localePath(locale, page.path);
 	includeWebsiteJsonLd={false}
 	contactPoints={null}
 	faq={null}
-	guessRedirect={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
@@ -46,6 +45,7 @@ const here = localePath(locale, page.path);
 			form,
 			fields: { kerung: fields.kerung },
 			policeLabel: pages.phones.police,
+			childHelplineLabel: pages.phones.childHelpline,
 			dialName: chrome.dialName,
 		})}
 	/>

@@ -1,4 +1,5 @@
 ---
+import Dial from "../components/Dial.astro";
 import { trekDestination } from "../config/destinations";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
@@ -23,7 +24,6 @@ const here = localePath(locale, page.path);
 	includeWebsiteJsonLd={false}
 	contactPoints={null}
 	faq={null}
-	guessRedirect={false}
 >
 	<h1 class="shiro">{page.h1}</h1>
 	<div class="lede">
@@ -32,6 +32,7 @@ const here = localePath(locale, page.path);
 	<aside class="note">
 		<p>{pages.trekGuidance}</p>
 	</aside>
+	<Dial number="1144" label={pages.phones.touristPolice} />
 	<noscript>
 		<div class="note">
 			<p>{form.noscript}</p>
