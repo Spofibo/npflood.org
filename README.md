@@ -37,7 +37,8 @@ Write confirmed values only. Do not invent placeholders.
 - Destinations: `src/config/destinations.ts`
 - Donation URLs: `src/config/donations.ts`
 - Official find lists and DNA mailbox: `src/config/official-lists.ts`
-- Operator mailbox: `src/config/site.ts` (`contact@npflood.org`, inbound for officials and organisations)
+
+There is no operator mailbox. The site does not take mail. Confirmed-number and translation fixes go through the GitHub copy issue on the Spofibo repo. The builder name is on Help only.
 
 Identifying draft answers stay in the browser and expire after 6 hours. The Latin note stays 30 days. Passport numbers and trek ID numbers are not saved.
 
