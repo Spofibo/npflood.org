@@ -1,6 +1,6 @@
 ---
 import NoscriptFields from "../components/NoscriptFields.astro";
-import { emptyDestination } from "../config/destinations";
+import { closedDestination } from "../config/destinations";
 import { safeFields } from "../config/safe-fields";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
@@ -47,7 +47,7 @@ const here = localePath(locale, page.path);
    <script
       id="safe-config"
       type="application/json"
-      set:html={JSON.stringify({ destination: emptyDestination, form, fields: { safe: fields.safe } })}
+      set:html={JSON.stringify({ destination: closedDestination, form, fields: { safe: fields.safe } })}
    />
    <div id="safe-app" class="stack"></div>
    <script src="../scripts/safe-client.ts"></script>

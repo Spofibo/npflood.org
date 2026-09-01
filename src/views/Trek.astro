@@ -1,7 +1,7 @@
 ---
 import NoscriptFields from "../components/NoscriptFields.astro";
 import PhoneDial from "../components/PhoneDial.astro";
-import { trekDestination } from "../config/destinations";
+import { closedDestination } from "../config/destinations";
 import { trekFields, trekMemberSpec } from "../config/trek-fields";
 import Layout from "../layouts/Layout.astro";
 import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
@@ -54,7 +54,7 @@ const here = localePath(locale, page.path);
    <script
       id="trek-config"
       type="application/json"
-      set:html={JSON.stringify({ destination: trekDestination, form, fields: { trek: fields.trek } })}
+      set:html={JSON.stringify({ destination: closedDestination, form, fields: { trek: fields.trek } })}
    />
    <div id="trek-app" class="stack"></div>
    <script src="../scripts/trek-client.ts"></script>

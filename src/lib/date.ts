@@ -22,10 +22,10 @@ const BS_MONTH_NAMES_NE = [
 
 const BS_RANGE_START_UTC_MS = Date.UTC(2025, 3, 14);
 
-export type BsDate = {
-   year: number;
-   month: number;
-   day: number;
+type BsDate = {
+	year: number;
+	month: number;
+	day: number;
 };
 
 const NPT_OFFSET_MS = (5 * 60 + 45) * 60 * 1000;
@@ -53,8 +53,8 @@ export function formatVerifiedNpt(iso: string, months: readonly string[]): strin
    return `${npt.getUTCDate()} ${month} ${npt.getUTCFullYear()}, ${pad2(npt.getUTCHours())}:${pad2(npt.getUTCMinutes())} NPT`;
 }
 
-export function formatClock(date: Date): string {
-   return `${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
+function formatClock(date: Date): string {
+	return `${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
 }
 
 export function formatGregorianPrepared(date: Date, months: readonly string[]): string {
@@ -68,7 +68,7 @@ export function formatGregorianPrepared(date: Date, months: readonly string[]): 
    return `${date.getDate()} ${month} ${date.getFullYear()}, ${formatClock(date)}`;
 }
 
-export function gregorianToBs(date: Date): BsDate | null {
+function gregorianToBs(date: Date): BsDate | null {
    const utc = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
    if (utc < BS_RANGE_START_UTC_MS) {
       return null;

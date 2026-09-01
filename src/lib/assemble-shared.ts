@@ -3,6 +3,7 @@ import enPaper from "../locales/en/paper.json";
 import nePaper from "../locales/ne/paper.json";
 import zhPaper from "../locales/zh/paper.json";
 import { formatGregorianPrepared, formatNepaliPrepared } from "./date";
+import type { UiLang } from "./i18n";
 import { readNestedString } from "./nested-string";
 
 export type FieldCatalogs = {
@@ -11,10 +12,8 @@ export type FieldCatalogs = {
    zh: unknown;
 };
 
-export type PaperLang = "ne" | "en" | "zh";
-
 export type PaperLine = {
-   lang: PaperLang;
+   lang: UiLang;
    text: string;
 };
 

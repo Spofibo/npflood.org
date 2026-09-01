@@ -5,8 +5,8 @@ export type FieldError = {
    message: string;
 };
 
-export function textIsFilled(value: string): boolean {
-   return value.trim().length > 0;
+function textIsFilled(value: string): boolean {
+	return value.trim().length > 0;
 }
 
 export function validateFields(

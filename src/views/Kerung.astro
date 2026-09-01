@@ -1,7 +1,7 @@
 ---
 import NoscriptFields from "../components/NoscriptFields.astro";
 import PhoneDial from "../components/PhoneDial.astro";
-import { kerungDestination } from "../config/destinations";
+import { closedDestination } from "../config/destinations";
 import {
    kerungCompanionSpec,
    kerungFields,
@@ -91,7 +91,7 @@ const companionGroup = {
       id="kerung-config"
       type="application/json"
       set:html={JSON.stringify({
-         destination: kerungDestination,
+         destination: closedDestination,
          form,
          fields: { kerung: fields.kerung },
          policeLabel: pages.phones.police,

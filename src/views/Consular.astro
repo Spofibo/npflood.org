@@ -2,7 +2,7 @@
 import NoscriptFields from "../components/NoscriptFields.astro";
 import PhoneDial from "../components/PhoneDial.astro";
 import { consularFields } from "../config/consular-fields";
-import { emptyDestination } from "../config/destinations";
+import { closedDestination } from "../config/destinations";
 import { dnaHelplineDisplay, dnaHelplineTel, dnaMailbox } from "../config/official-lists";
 import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
@@ -95,7 +95,7 @@ const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper
    <script
       id="consular-config"
       type="application/json"
-      set:html={JSON.stringify({ destination: emptyDestination, form, fields: { consular: fields.consular } })}
+      set:html={JSON.stringify({ destination: closedDestination, form, fields: { consular: fields.consular } })}
    />
    <div id="consular-app" class="stack"></div>
    <script src="../scripts/consular-client.ts"></script>

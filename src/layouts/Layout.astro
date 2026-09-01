@@ -3,7 +3,6 @@ import Seo, { type SeoBreadcrumb, type SeoContactPoint, type SeoFaq } from "../c
 import { site } from "../config/site";
 import {
    chromeCopy,
-   htmlLang,
    localeFromPathname,
    localePath,
    paperCopy,
@@ -48,7 +47,7 @@ const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 ---
 
 <!doctype html>
-<html lang={htmlLang(locale)}>
+<html lang={locale}>
    <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

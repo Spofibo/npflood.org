@@ -1,4 +1,4 @@
-export const NOTE_ADJECTIVES = [
+const NOTE_ADJECTIVES = [
    "able",
    "amber",
    "azure",
@@ -33,7 +33,7 @@ export const NOTE_ADJECTIVES = [
    "young",
 ] as const;
 
-export const NOTE_NOUNS = [
+const NOTE_NOUNS = [
    "basin",
    "bridge",
    "brook",
@@ -68,9 +68,7 @@ export const NOTE_NOUNS = [
    "yard",
 ] as const;
 
-export const NOTE_DIGIT_COUNT = 1000;
-
-export const NOTE_COMBINATIONS = NOTE_ADJECTIVES.length * NOTE_NOUNS.length * NOTE_DIGIT_COUNT;
+const NOTE_DIGIT_COUNT = 1000;
 
 function padDigits(value: number): string {
    if (value < 0 || value > 999) {
@@ -85,13 +83,7 @@ function padDigits(value: number): string {
    return String(value);
 }
 
-export function createNote(adjectiveIndex: number, nounIndex: number, digit: number): string {
-   if (NOTE_ADJECTIVES.length !== 32) {
-      throw new Error(`note adjectives must be 32, received ${NOTE_ADJECTIVES.length}`);
-   }
-   if (NOTE_NOUNS.length !== 32) {
-      throw new Error(`note nouns must be 32, received ${NOTE_NOUNS.length}`);
-   }
+function createNote(adjectiveIndex: number, nounIndex: number, digit: number): string {
    const adjective = NOTE_ADJECTIVES[adjectiveIndex];
    const noun = NOTE_NOUNS[nounIndex];
    if (adjective === undefined) {
@@ -108,8 +100,4 @@ export function createNoteFromEntropy(): string {
    const nounIndex = Math.floor(Math.random() * NOTE_NOUNS.length);
    const digit = Math.floor(Math.random() * NOTE_DIGIT_COUNT);
    return createNote(adjectiveIndex, nounIndex, digit);
-}
-
-export function isLatinNote(value: string): boolean {
-   return /^[a-z]+-[a-z]+-[0-9]{3}$/.test(value);
 }

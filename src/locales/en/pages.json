@@ -86,6 +86,10 @@
       "label": "I need Nepal emergency numbers"
     },
     {
+      "path": "/needs/",
+      "label": "I need water, shelter, or other basic supplies"
+    },
+    {
       "path": "/safe/",
       "label": "I am safe, I need to tell someone"
     },

@@ -4,7 +4,6 @@ export const site = {
    name: "npflood.org",
    ogImagePath: "/og.png",
    sourceRepo: "https://github.com/Spofibo/npflood.org",
-   builderName: "Alexandru Budurovici",
    builderUrl: "https://budurovici.com/",
    builtAt: new Date().toISOString(),
 };

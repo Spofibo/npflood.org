@@ -27,8 +27,8 @@ export type FormSession = {
    updatedAt: string;
 };
 
-export const DRAFT_TTL_MS = 6 * 60 * 60 * 1000;
-export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+const DRAFT_TTL_MS = 6 * 60 * 60 * 1000;
+const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
 const formKeys = [
    { draft: findDraftKey, session: findSessionKey, legacy: findLegacyKey },
@@ -102,10 +102,6 @@ function writeJson(key: string, value: unknown): boolean {
       }
       throw error;
    }
-}
-
-export function isFormStatus(value: unknown): value is FormStatus {
-   return value === "draft" || value === "assembled" || value === "sent";
 }
 
 export function isStringRecord(value: unknown): value is Record<string, string> {

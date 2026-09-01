@@ -2,7 +2,7 @@
 import NoscriptFields from "../components/NoscriptFields.astro";
 import PhoneDial from "../components/PhoneDial.astro";
 import { findFields } from "../config/find-fields";
-import { emptyDestination } from "../config/destinations";
+import { closedDestination } from "../config/destinations";
 import {
    aggregatorList,
    dnaHelplineDisplay,
@@ -142,7 +142,7 @@ const remainsLabels = {
    <script
       id="find-config"
       type="application/json"
-      set:html={JSON.stringify({ destination: emptyDestination, form, fields: { find: fields.find } })}
+      set:html={JSON.stringify({ destination: closedDestination, form, fields: { find: fields.find } })}
    />
    <div id="find-app" class="stack"></div>
    <script src="../scripts/find-client.ts"></script>

@@ -6,23 +6,7 @@ export type Destination = {
    officialChannelUrl: string | null;
 };
 
-export const kerungDestination: Destination = {
-   confirmed: false,
-   wechatId: null,
-   phone: null,
-   qrImageSrc: null,
-   officialChannelUrl: null,
-};
-
-export const trekDestination: Destination = {
-   confirmed: false,
-   wechatId: null,
-   phone: null,
-   qrImageSrc: null,
-   officialChannelUrl: null,
-};
-
-export const emptyDestination: Destination = {
+export const closedDestination: Destination = {
    confirmed: false,
    wechatId: null,
    phone: null,

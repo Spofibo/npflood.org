@@ -9,19 +9,9 @@ export function setPrintMode(mode: "card" | "page"): void {
    delete document.body.dataset.print;
 }
 
-function langAttr(lang: PaperLine["lang"]): string {
-   if (lang === "ne") {
-      return "ne";
-   }
-   if (lang === "en") {
-      return "en";
-   }
-   return "zh";
-}
-
 function langLine(line: PaperLine, className: string | null): HTMLElement {
    const node = el("p", className, line.text);
-   node.lang = langAttr(line.lang);
+   node.lang = line.lang;
    return node;
 }
 

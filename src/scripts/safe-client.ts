@@ -1,5 +1,5 @@
 import { safeDraftKey, safeFields, safeLegacyKey, safeSessionKey } from "../config/safe-fields";
-import { assembleSafePaper } from "../lib/assemble-safe";
+import { assembleSafePaper } from "../lib/assemble-simple";
 import { readFormPageConfig } from "../lib/form-page";
 import { emptySafeValues, isSafeDraft } from "../lib/records";
 import { mountSimpleForm } from "../lib/simple-form";

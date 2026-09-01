@@ -50,7 +50,7 @@ const zhFields = {
 };
 
 export type UiLang = "ne" | "en" | "zh";
-export type Namespace = "chrome" | "pages" | "form" | "fields" | "paper";
+type Namespace = "chrome" | "pages" | "form" | "fields" | "paper";
 export type FormCopy = typeof enForm;
 export type FieldsCopy = typeof enFields;
 export type ChromeCopy = typeof enChrome;
@@ -91,10 +91,6 @@ assertSameKeys("zh", "form");
 assertSameKeys("zh", "fields");
 assertSameKeys("zh", "paper");
 
-export function isUiLang(value: string): value is UiLang {
-   return value === "ne" || value === "en" || value === "zh";
-}
-
 export function chromeCopy(locale: UiLang): ChromeCopy {
    return catalogs[locale].chrome;
 }
@@ -119,9 +115,6 @@ export function localePath(locale: UiLang, path: string): string {
    if (!path.startsWith("/")) {
       throw new Error(`localePath expected a leading slash, received ${path}`);
    }
-   if (path !== "/" && path.endsWith("/") === false) {
-      throw new Error(`localePath expected a trailing slash, received ${path}`);
-   }
    if (locale === "ne") {
       return path;
    }
@@ -131,13 +124,6 @@ export function localePath(locale: UiLang, path: string): string {
    return `/${locale}${path}`;
 }
 
-export function pageLocale(current: string | undefined): UiLang {
-   if (current !== undefined && isUiLang(current)) {
-      return current;
-   }
-   return "ne";
-}
-
 export function localeFromPathname(pathname: string, current: string | undefined): UiLang {
    if (pathname === "/en" || pathname.startsWith("/en/")) {
       return "en";
@@ -145,17 +131,10 @@ export function localeFromPathname(pathname: string, current: string | undefined
    if (pathname === "/zh" || pathname.startsWith("/zh/")) {
       return "zh";
    }
-   return pageLocale(current);
-}
-
-export function htmlLang(locale: UiLang): string {
-   if (locale === "ne") {
-      return "ne";
+   if (current === "ne" || current === "en" || current === "zh") {
+      return current;
    }
-   if (locale === "en") {
-      return "en";
-   }
-   return "zh";
+   return "ne";
 }
 
 export function ogLocale(locale: UiLang): string {

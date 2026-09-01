@@ -1,5 +1,5 @@
 import { consularDraftKey, consularFields, consularLegacyKey, consularSessionKey } from "../config/consular-fields";
-import { assembleConsularPaper } from "../lib/assemble-consular";
+import { assembleConsularPaper } from "../lib/assemble-simple";
 import { readFormPageConfig } from "../lib/form-page";
 import { emptyConsularValues, isConsularDraft } from "../lib/records";
 import { mountSimpleForm } from "../lib/simple-form";
