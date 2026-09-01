@@ -1,18 +1,18 @@
 ---
 type Props = {
-	label: string;
+   label: string;
 };
 
 const { label } = Astro.props;
 ---
 
 <p class="no-print">
-	<button type="button" class="btn btn--quiet" data-print-page>{label}</button>
+   <button type="button" class="btn btn--quiet" data-print-page>{label}</button>
 </p>
 <script>
-	document.querySelectorAll("[data-print-page]").forEach((button) => {
-		button.addEventListener("click", () => {
-			window.print();
-		});
-	});
+   document.querySelectorAll("[data-print-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+         window.print();
+      });
+   });
 </script>

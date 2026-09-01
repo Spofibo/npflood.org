@@ -14,52 +14,52 @@ const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={false}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={false}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<div class="prose stack">
-		{pages.helpBody.map((block) => <p>{block}</p>)}
-	</div>
-	<section class="stack" aria-label={pages.helpDonationsTitle}>
-		<h2 class="tile-title">{pages.helpDonationsTitle}</h2>
-		<ul>
-			{
-				donationLinks.map((link) => (
-					<li>
-						<a href={link.href} rel="noopener noreferrer">
-							{pages.helpDonations[link.id]}
-						</a>
-					</li>
-				))
-			}
-		</ul>
-	</section>
-	<section class="gate stack" aria-label={pages.helpHeldTitle}>
-		<p class="held-flag">{chrome.heldFlag}</p>
-		<h2 class="tile-title">{pages.helpHeldTitle}</h2>
-		<p>{pages.helpHeldBody}</p>
-	</section>
-	<p>{pages.helpNoMail}</p>
-	<p>
-		<a href={copyIssueUrl} rel="noopener noreferrer">{chrome.corrections}</a>
-	</p>
-	<p>
-		<a href={site.builderUrl} rel="noopener noreferrer">{pages.helpBuiltBy}</a>
-	</p>
-	<p>
-		<a href={homePath}>{pages.chooserNav}</a>
-	</p>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <div class="prose stack">
+      {pages.helpBody.map((block) => <p>{block}</p>)}
+   </div>
+   <section class="stack" aria-label={pages.helpDonationsTitle}>
+      <h2 class="tile-title">{pages.helpDonationsTitle}</h2>
+      <ul>
+         {
+            donationLinks.map((link) => (
+               <li>
+                  <a href={link.href} rel="noopener noreferrer">
+                     {pages.helpDonations[link.id]}
+                  </a>
+               </li>
+            ))
+         }
+      </ul>
+   </section>
+   <section class="gate stack" aria-label={pages.helpHeldTitle}>
+      <p class="held-flag">{chrome.heldFlag}</p>
+      <h2 class="tile-title">{pages.helpHeldTitle}</h2>
+      <p>{pages.helpHeldBody}</p>
+   </section>
+   <p>{pages.helpNoMail}</p>
+   <p>
+      <a href={copyIssueUrl} rel="noopener noreferrer">{chrome.corrections}</a>
+   </p>
+   <p>
+      <a href={site.builderUrl} rel="noopener noreferrer">{pages.helpBuiltBy}</a>
+   </p>
+   <p>
+      <a href={homePath}>{pages.chooserNav}</a>
+   </p>
 </Layout>

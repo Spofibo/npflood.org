@@ -11,29 +11,29 @@ const homePath = localePath(locale, "/");
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path="/"
-	breadcrumbs={[{ name: "npflood.org", path: homePath }]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={false}
+   title={page.title}
+   description={page.description}
+   path="/"
+   breadcrumbs={[{ name: "npflood.org", path: homePath }]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={false}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<p>
-		<a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
-	</p>
-	<p>
-		<a href={localePath(locale, "/status/")}>{form.statusLink}</a>
-	</p>
-	<ul class="chooser" aria-label={pages.chooserNav}>
-		<li><a href="/">{pages.homeLocales.ne}</a></li>
-		<li><a href="/en/">{pages.homeLocales.en}</a></li>
-		<li><a href="/zh/">{pages.homeLocales.zh}</a></li>
-	</ul>
-	<PhoneDial id="police" />
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <p>
+      <a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
+   </p>
+   <p>
+      <a href={localePath(locale, "/status/")}>{form.statusLink}</a>
+   </p>
+   <ul class="chooser" aria-label={pages.chooserNav}>
+      <li><a href="/">{pages.homeLocales.ne}</a></li>
+      <li><a href="/en/">{pages.homeLocales.en}</a></li>
+      <li><a href="/zh/">{pages.homeLocales.zh}</a></li>
+   </ul>
+   <PhoneDial id="police" />
 </Layout>

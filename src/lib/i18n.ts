@@ -28,25 +28,25 @@ import zhPaper from "../locales/zh/paper.json";
 import { collectKeys } from "./nested-string";
 
 const enFields = {
-	kerung: enKerungFields,
-	trek: enTrekFields,
-	find: enFindFields,
-	consular: enConsularFields,
-	safe: enSafeFields,
+   kerung: enKerungFields,
+   trek: enTrekFields,
+   find: enFindFields,
+   consular: enConsularFields,
+   safe: enSafeFields,
 };
 const neFields = {
-	kerung: neKerungFields,
-	trek: neTrekFields,
-	find: neFindFields,
-	consular: neConsularFields,
-	safe: neSafeFields,
+   kerung: neKerungFields,
+   trek: neTrekFields,
+   find: neFindFields,
+   consular: neConsularFields,
+   safe: neSafeFields,
 };
 const zhFields = {
-	kerung: zhKerungFields,
-	trek: zhTrekFields,
-	find: zhFindFields,
-	consular: zhConsularFields,
-	safe: zhSafeFields,
+   kerung: zhKerungFields,
+   trek: zhTrekFields,
+   find: zhFindFields,
+   consular: zhConsularFields,
+   safe: zhSafeFields,
 };
 
 export type UiLang = "ne" | "en" | "zh";
@@ -58,26 +58,26 @@ export type PagesCopy = typeof enPages;
 export type PaperCopy = typeof enPaper;
 
 const catalogs = {
-	ne: { chrome: neChrome, pages: nePages, form: neForm, fields: neFields, paper: nePaper },
-	en: { chrome: enChrome, pages: enPages, form: enForm, fields: enFields, paper: enPaper },
-	zh: { chrome: zhChrome, pages: zhPages, form: zhForm, fields: zhFields, paper: zhPaper },
+   ne: { chrome: neChrome, pages: nePages, form: neForm, fields: neFields, paper: nePaper },
+   en: { chrome: enChrome, pages: enPages, form: enForm, fields: enFields, paper: enPaper },
+   zh: { chrome: zhChrome, pages: zhPages, form: zhForm, fields: zhFields, paper: zhPaper },
 } as const;
 
 function assertSameKeys(locale: UiLang, namespace: Namespace): void {
-	const english: string[] = [];
-	const other: string[] = [];
-	collectKeys(catalogs.en[namespace], "", english);
-	collectKeys(catalogs[locale][namespace], "", other);
-	english.sort();
-	other.sort();
-	if (english.length !== other.length) {
-		throw new Error(`locale ${locale} namespace ${namespace} key count ${other.length} does not match en ${english.length}`);
-	}
-	for (let index = 0; index < english.length; index += 1) {
-		if (english[index] !== other[index]) {
-			throw new Error(`locale ${locale} namespace ${namespace} key mismatch at ${english[index]} vs ${other[index]}`);
-		}
-	}
+   const english: string[] = [];
+   const other: string[] = [];
+   collectKeys(catalogs.en[namespace], "", english);
+   collectKeys(catalogs[locale][namespace], "", other);
+   english.sort();
+   other.sort();
+   if (english.length !== other.length) {
+      throw new Error(`locale ${locale} namespace ${namespace} key count ${other.length} does not match en ${english.length}`);
+   }
+   for (let index = 0; index < english.length; index += 1) {
+      if (english[index] !== other[index]) {
+         throw new Error(`locale ${locale} namespace ${namespace} key mismatch at ${english[index]} vs ${other[index]}`);
+      }
+   }
 }
 
 assertSameKeys("ne", "chrome");
@@ -92,94 +92,97 @@ assertSameKeys("zh", "fields");
 assertSameKeys("zh", "paper");
 
 export function isUiLang(value: string): value is UiLang {
-	return value === "ne" || value === "en" || value === "zh";
+   return value === "ne" || value === "en" || value === "zh";
 }
 
 export function chromeCopy(locale: UiLang): ChromeCopy {
-	return catalogs[locale].chrome;
+   return catalogs[locale].chrome;
 }
 
 export function pagesCopy(locale: UiLang): PagesCopy {
-	return catalogs[locale].pages;
+   return catalogs[locale].pages;
 }
 
 export function formCopy(locale: UiLang): FormCopy {
-	return catalogs[locale].form;
+   return catalogs[locale].form;
 }
 
 export function fieldsCopy(locale: UiLang): FieldsCopy {
-	return catalogs[locale].fields;
+   return catalogs[locale].fields;
 }
 
 export function paperCopy(locale: UiLang): PaperCopy {
-	return catalogs[locale].paper;
+   return catalogs[locale].paper;
 }
 
 export function localePath(locale: UiLang, path: string): string {
-	if (!path.startsWith("/")) {
-		throw new Error(`localePath expected a leading slash, received ${path}`);
-	}
-	if (locale === "ne") {
-		return path;
-	}
-	if (path === "/") {
-		return `/${locale}/`;
-	}
-	return `/${locale}${path}`;
+   if (!path.startsWith("/")) {
+      throw new Error(`localePath expected a leading slash, received ${path}`);
+   }
+   if (path !== "/" && path.endsWith("/") === false) {
+      throw new Error(`localePath expected a trailing slash, received ${path}`);
+   }
+   if (locale === "ne") {
+      return path;
+   }
+   if (path === "/") {
+      return `/${locale}/`;
+   }
+   return `/${locale}${path}`;
 }
 
 export function pageLocale(current: string | undefined): UiLang {
-	if (current !== undefined && isUiLang(current)) {
-		return current;
-	}
-	return "ne";
+   if (current !== undefined && isUiLang(current)) {
+      return current;
+   }
+   return "ne";
 }
 
 export function localeFromPathname(pathname: string, current: string | undefined): UiLang {
-	if (pathname === "/en" || pathname.startsWith("/en/")) {
-		return "en";
-	}
-	if (pathname === "/zh" || pathname.startsWith("/zh/")) {
-		return "zh";
-	}
-	return pageLocale(current);
+   if (pathname === "/en" || pathname.startsWith("/en/")) {
+      return "en";
+   }
+   if (pathname === "/zh" || pathname.startsWith("/zh/")) {
+      return "zh";
+   }
+   return pageLocale(current);
 }
 
 export function htmlLang(locale: UiLang): string {
-	if (locale === "ne") {
-		return "ne";
-	}
-	if (locale === "en") {
-		return "en";
-	}
-	return "zh";
+   if (locale === "ne") {
+      return "ne";
+   }
+   if (locale === "en") {
+      return "en";
+   }
+   return "zh";
 }
 
 export function ogLocale(locale: UiLang): string {
-	if (locale === "ne") {
-		return "ne_NP";
-	}
-	if (locale === "en") {
-		return "en_US";
-	}
-	return "zh_CN";
+   if (locale === "ne") {
+      return "ne_NP";
+   }
+   if (locale === "en") {
+      return "en_US";
+   }
+   return "zh_CN";
 }
 
 export function schemaLanguage(locale: UiLang): string {
-	if (locale === "ne") {
-		return "ne-NP";
-	}
-	if (locale === "en") {
-		return "en-US";
-	}
-	return "zh-CN";
+   if (locale === "ne") {
+      return "ne-NP";
+   }
+   if (locale === "en") {
+      return "en-US";
+   }
+   return "zh-CN";
 }
 
 export function hreflangAlternates(path: string): { lang: string; href: string }[] {
-	return [
-		{ lang: "ne-NP", href: path },
-		{ lang: "en-US", href: localePath("en", path) },
-		{ lang: "zh-CN", href: localePath("zh", path) },
-		{ lang: "x-default", href: path },
-	];
+   return [
+      { lang: "ne-NP", href: path },
+      { lang: "en-US", href: localePath("en", path) },
+      { lang: "zh-CN", href: localePath("zh", path) },
+      { lang: "x-default", href: path },
+   ];
 }

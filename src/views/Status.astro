@@ -17,49 +17,49 @@ const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={[
-		{ name: pages.phones.police, telephone: "100" },
-		{ name: pages.phones.fire, telephone: "101" },
-		{ name: pages.phones.ambulance, telephone: "102" },
-		{ name: pages.phones.bipad, telephone: "1234" },
-		{ name: pages.phones.neoc, telephone: "1149" },
-	]}
-	faq={null}
-	printScriptFonts={false}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={[
+      { name: pages.phones.police, telephone: "100" },
+      { name: pages.phones.fire, telephone: "101" },
+      { name: pages.phones.ambulance, telephone: "102" },
+      { name: pages.phones.bipad, telephone: "1234" },
+      { name: pages.phones.neoc, telephone: "1149" },
+   ]}
+   faq={null}
+   printScriptFonts={false}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<PrintPage label={chrome.print} />
-	<div class="banner banner--warn">
-		<p>{pages.statusHazard}</p>
-	</div>
-	{pages.statusBody.map((block) => <p>{block}</p>)}
-	<p>
-		<a href={localePath(locale, "/danger/")}>{pages.statusChinaLink}</a>
-	</p>
-	<div class="dial-list">
-		{nepalEmergencyIds.map((id) => <PhoneDial id={id} />)}
-	</div>
-	<section class="waiting stack" aria-label={pages.statusWaiting}>
-		<h2 class="tile-title">{pages.statusWaiting}</h2>
-		{
-			pages.statusHeld.map((slot) => (
-				<div class="held-slot stack">
-					<h3 class="tile-title">{slot.title}</h3>
-					<p>{slot.body}</p>
-				</div>
-			))
-		}
-		<p>{verified}</p>
-	</section>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <PrintPage label={chrome.print} />
+   <div class="banner banner--warn">
+      <p>{pages.statusHazard}</p>
+   </div>
+   {pages.statusBody.map((block) => <p>{block}</p>)}
+   <p>
+      <a href={localePath(locale, "/danger/")}>{pages.statusChinaLink}</a>
+   </p>
+   <div class="dial-list">
+      {nepalEmergencyIds.map((id) => <PhoneDial id={id} />)}
+   </div>
+   <section class="waiting stack" aria-label={pages.statusWaiting}>
+      <h2 class="tile-title">{pages.statusWaiting}</h2>
+      {
+         pages.statusHeld.map((slot) => (
+            <div class="held-slot stack">
+               <h3 class="tile-title">{slot.title}</h3>
+               <p>{slot.body}</p>
+            </div>
+         ))
+      }
+      <p>{verified}</p>
+   </section>
 </Layout>

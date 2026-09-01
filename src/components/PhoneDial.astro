@@ -6,7 +6,7 @@ import { chromeCopy, localeFromPathname, pagesCopy, paperCopy } from "../lib/i18
 import Dial from "./Dial.astro";
 
 type Props = {
-	id: PhoneId;
+   id: PhoneId;
 };
 
 const { id } = Astro.props;
@@ -18,9 +18,9 @@ const verified = `${chrome.lastVerified} ${stamp}`;
 ---
 
 <Dial
-	number={phoneNumbers[id]}
-	label={pages.phones[id]}
-	sourceLabel={pages.phoneSources[id]}
-	sourceHref={phoneSourceHrefs[id]}
-	verified={verified}
+   number={phoneNumbers[id]}
+   label={pages.phones[id]}
+   sourceLabel={pages.phoneSources[id]}
+   sourceHref={phoneSourceHrefs[id]}
+   verified={verified}
 />

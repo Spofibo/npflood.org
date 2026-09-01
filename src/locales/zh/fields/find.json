@@ -1,38 +1,38 @@
 {
-	"missingName": {
-		"label": "失联者姓名",
-		"hint": "尽量按护照或证件上的写法。"
-	},
-	"age": {
-		"label": "年龄（如知道）",
-		"hint": ""
-	},
-	"lastSeen": {
-		"label": "最后出现的地点和时间",
-		"hint": "地点、道路、车辆、营地、日期。"
-	},
-	"appearance": {
-		"label": "外貌或衣着",
-		"hint": ""
-	},
-	"reporterName": {
-		"label": "您的姓名",
-		"hint": ""
-	},
-	"reporterPhone": {
-		"label": "您的电话",
-		"hint": "警察或医院可以回拨的号码。"
-	},
-	"relation": {
-		"label": "与失联者的关系",
-		"hint": ""
-	},
-	"alreadyReported": {
-		"label": "我已向警察或其他官方窗口报案",
-		"hint": ""
-	},
-	"reportReference": {
-		"label": "参考编号（如有）",
-		"hint": "警察、医院或社区档案号。"
-	}
+  "missingName": {
+    "label": "失联者姓名",
+    "hint": "尽量按护照或证件上的写法。"
+  },
+  "age": {
+    "label": "年龄（如知道）",
+    "hint": ""
+  },
+  "lastSeen": {
+    "label": "最后出现的地点和时间",
+    "hint": "地点、道路、车辆、营地、日期。"
+  },
+  "appearance": {
+    "label": "外貌或衣着",
+    "hint": ""
+  },
+  "reporterName": {
+    "label": "您的姓名",
+    "hint": ""
+  },
+  "reporterPhone": {
+    "label": "您的电话",
+    "hint": "警察或医院可以回拨的号码。"
+  },
+  "relation": {
+    "label": "与失联者的关系",
+    "hint": ""
+  },
+  "alreadyReported": {
+    "label": "我已向警察或其他官方窗口报案",
+    "hint": ""
+  },
+  "reportReference": {
+    "label": "参考编号（如有）",
+    "hint": "警察、医院或社区档案号。"
+  }
 }

@@ -1,41 +1,41 @@
 {
-	"agency": {
-		"label": "旅行社名称",
-		"hint": ""
-	},
-	"route": {
-		"label": "路线或地区",
-		"hint": "路线、营地、县区、最后已知位置。"
-	},
-	"lastContactWhen": {
-		"label": "最后确认联系的时间",
-		"hint": "日期和时间，尽量写清。"
-	},
-	"lastContactHow": {
-		"label": "最后确认联系的方式",
-		"hint": "",
-		"options": {
-			"radio": "无线电",
-			"satphone": "卫星电话",
-			"phone": "手机或电话",
-			"in_person": "当面",
-			"other": "其他"
-		}
-	},
-	"member": {
-		"add": "添加队员",
-		"remove": "删除该队员",
-		"name": {
-			"label": "护照上的姓名",
-			"hint": ""
-		},
-		"idNumber": {
-			"label": "护照或旅行社编号",
-			"hint": ""
-		},
-		"nationality": {
-			"label": "国籍（如知道）",
-			"hint": ""
-		}
-	}
+  "agency": {
+    "label": "旅行社名称",
+    "hint": ""
+  },
+  "route": {
+    "label": "路线或地区",
+    "hint": "路线、营地、县区、最后已知位置。"
+  },
+  "lastContactWhen": {
+    "label": "最后确认联系的时间",
+    "hint": "日期和时间，尽量写清。"
+  },
+  "lastContactHow": {
+    "label": "最后确认联系的方式",
+    "hint": "",
+    "options": {
+      "radio": "无线电",
+      "satphone": "卫星电话",
+      "phone": "手机或电话",
+      "in_person": "当面",
+      "other": "其他"
+    }
+  },
+  "member": {
+    "add": "添加队员",
+    "remove": "删除该队员",
+    "name": {
+      "label": "护照上的姓名",
+      "hint": ""
+    },
+    "idNumber": {
+      "label": "护照或旅行社编号",
+      "hint": ""
+    },
+    "nationality": {
+      "label": "国籍（如知道）",
+      "hint": ""
+    }
+  }
 }

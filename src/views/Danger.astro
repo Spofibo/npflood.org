@@ -14,39 +14,39 @@ const here = localePath(locale, page.path);
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={false}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={false}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<PrintPage label={chrome.print} />
-	<section class="place-block stack" aria-label={pages.dangerNepalTitle}>
-		<h2 class="tile-title">{pages.dangerNepalTitle}</h2>
-		<p>{pages.dangerNepalBody}</p>
-		<div class="dial-list">
-			{nepalEmergencyIds.map((id) => <PhoneDial id={id} />)}
-		</div>
-		<p>
-			<a href={localePath(locale, "/status/")}>{pages.dangerNepalLink}</a>
-		</p>
-	</section>
-	<section class="place-block place-block--china gate stack" aria-label={pages.dangerChinaTitle}>
-		<p class="held-flag">{chrome.heldFlag}</p>
-		<h2 class="tile-title">{pages.dangerChinaTitle}</h2>
-		<p>{pages.dangerChinaBody}</p>
-		<p>
-			<a href={localePath(locale, "/kerung/")}>{pages.dangerKerungLink}</a>
-		</p>
-	</section>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <PrintPage label={chrome.print} />
+   <section class="place-block stack" aria-label={pages.dangerNepalTitle}>
+      <h2 class="tile-title">{pages.dangerNepalTitle}</h2>
+      <p>{pages.dangerNepalBody}</p>
+      <div class="dial-list">
+         {nepalEmergencyIds.map((id) => <PhoneDial id={id} />)}
+      </div>
+      <p>
+         <a href={localePath(locale, "/status/")}>{pages.dangerNepalLink}</a>
+      </p>
+   </section>
+   <section class="place-block place-block--china gate stack" aria-label={pages.dangerChinaTitle}>
+      <p class="held-flag">{chrome.heldFlag}</p>
+      <h2 class="tile-title">{pages.dangerChinaTitle}</h2>
+      <p>{pages.dangerChinaBody}</p>
+      <p>
+         <a href={localePath(locale, "/kerung/")}>{pages.dangerKerungLink}</a>
+      </p>
+   </section>
 </Layout>

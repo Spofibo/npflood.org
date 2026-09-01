@@ -1,73 +1,73 @@
 :root {
-	--paper: #f4efe4;
-	--ink: #1a1610;
-	--ink-muted: #4a4338;
-	--rule: #1a1610;
-	--rule-thickness: 0.2rem;
-	--accent: #6b2d12;
-	--held-bg: #e6d8b8;
-	--held-ink: #3d2a10;
-	--focus: #0b5cab;
-	--line: #c9c0ae;
-	--wash: #efe6d4;
-	--btn-hover: #2c261c;
-	--danger-bg: #3b1010;
-	--danger-ink: #fff4f0;
-	--ok-bg: #14301c;
-	--ok-ink: #edfff2;
-	--font-ne: "Noto Sans Devanagari", "Noto Sans", sans-serif;
-	--font-en: "Noto Sans", sans-serif;
-	--font-zh: "Noto Sans SC", "Noto Sans", sans-serif;
-	--font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
-	--space-1: 0.25rem;
-	--space-2: 0.5rem;
-	--space-3: 0.75rem;
-	--space-4: 1rem;
-	--space-5: 1.5rem;
-	--space-6: 2rem;
-	--space-7: 3rem;
-	--measure: 42rem;
-	--tap: 2.75rem;
-	--radius: 0.15rem;
-	--loud-bg: #1a1610;
-	--loud-ink: #f4efe4;
-	--loud-accent: #f2c14e;
+   --paper: #f4efe4;
+   --ink: #1a1610;
+   --ink-muted: #4a4338;
+   --rule: #1a1610;
+   --rule-thickness: 0.2rem;
+   --accent: #6b2d12;
+   --held-bg: #e6d8b8;
+   --held-ink: #3d2a10;
+   --focus: #0b5cab;
+   --line: #c9c0ae;
+   --wash: #efe6d4;
+   --btn-hover: #2c261c;
+   --danger-bg: #3b1010;
+   --danger-ink: #fff4f0;
+   --ok-bg: #14301c;
+   --ok-ink: #edfff2;
+   --font-ne: "Noto Sans Devanagari", "Noto Sans", sans-serif;
+   --font-en: "Noto Sans", sans-serif;
+   --font-zh: "Noto Sans SC", "Noto Sans", sans-serif;
+   --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+   --space-1: 0.25rem;
+   --space-2: 0.5rem;
+   --space-3: 0.75rem;
+   --space-4: 1rem;
+   --space-5: 1.5rem;
+   --space-6: 2rem;
+   --space-7: 3rem;
+   --measure: 42rem;
+   --tap: 2.75rem;
+   --radius: 0.15rem;
+   --loud-bg: #1a1610;
+   --loud-ink: #f4efe4;
+   --loud-accent: #f2c14e;
 }
 
 html {
-	background: var(--paper);
-	color: var(--ink);
-	color-scheme: light;
-	font-family: var(--font-en);
-	font-size: 112.5%;
-	line-height: 1.45;
-	-webkit-text-size-adjust: 100%;
+   background: var(--paper);
+   color: var(--ink);
+   color-scheme: light;
+   font-family: var(--font-en);
+   font-size: 112.5%;
+   line-height: 1.45;
+   -webkit-text-size-adjust: 100%;
 }
 
 button,
 input,
 select,
 textarea {
-	color-scheme: light;
+   color-scheme: light;
 }
 
 html[lang="ne"] {
-	font-family: var(--font-ne);
+   font-family: var(--font-ne);
 }
 
 html[lang="zh"] {
-	font-family: var(--font-zh);
+   font-family: var(--font-zh);
 }
 
 body {
-	margin: 0;
-	min-height: 100vh;
+   margin: 0;
+   min-height: 100vh;
 }
 
 [lang="ne"] {
-	font-family: var(--font-ne);
+   font-family: var(--font-ne);
 }
 
 [lang="zh"] {
-	font-family: var(--font-zh);
+   font-family: var(--font-zh);
 }

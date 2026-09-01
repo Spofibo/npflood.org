@@ -1,61 +1,61 @@
 {
-	"name": {
-		"label": "护照上的姓名",
-		"hint": "请与护照完全一致。"
-	},
-	"passport": {
-		"label": "护照号码",
-		"hint": ""
-	},
-	"wechatOrPhone": {
-		"label": "微信号或电话",
-		"hint": "当前使用此设备的人的联系方式。"
-	},
-	"location": {
-		"label": "当前位置",
-		"hint": "地点、道路、避难所，或坐标。"
-	},
-	"nepalContact": {
-		"label": "尼泊尔联系电话",
-		"hint": "家人、司机、旅馆，或任何在尼泊尔能接通的人。"
-	},
-	"medical": {
-		"label": "同行中有人需要医疗帮助",
-		"hint": ""
-	},
-	"companion": {
-		"add": "添加同行人员",
-		"remove": "删除此人",
-		"name": {
-			"label": "护照上的姓名",
-			"hint": ""
-		},
-		"passport": {
-			"label": "护照号码",
-			"hint": ""
-		},
-		"role": {
-			"label": "关系或角色",
-			"hint": "",
-			"options": {
-				"driver": "司机",
-				"helper": "助手",
-				"family": "家人",
-				"other": "其他"
-			}
-		}
-	},
-	"minor": {
-		"question": "这是为无人陪伴的未成年人填写的吗？",
-		"yes": "是，无人陪伴的未成年人",
-		"no": "不是"
-	},
-	"proxy": {
-		"label": "我在为他人填写",
-		"hint": ""
-	},
-	"proxyName": {
-		"label": "您的姓名和关系",
-		"hint": "填写人是谁，与当事人是什么关系。"
-	}
+  "name": {
+    "label": "护照上的姓名",
+    "hint": "请与护照完全一致。"
+  },
+  "passport": {
+    "label": "护照号码",
+    "hint": ""
+  },
+  "wechatOrPhone": {
+    "label": "微信号或电话",
+    "hint": "当前使用此设备的人的联系方式。"
+  },
+  "location": {
+    "label": "当前位置",
+    "hint": "地点、道路、避难所，或坐标。"
+  },
+  "nepalContact": {
+    "label": "尼泊尔联系电话",
+    "hint": "家人、司机、旅馆，或任何在尼泊尔能接通的人。"
+  },
+  "medical": {
+    "label": "同行中有人需要医疗帮助",
+    "hint": ""
+  },
+  "companion": {
+    "add": "添加同行人员",
+    "remove": "删除此人",
+    "name": {
+      "label": "护照上的姓名",
+      "hint": ""
+    },
+    "passport": {
+      "label": "护照号码",
+      "hint": ""
+    },
+    "role": {
+      "label": "关系或角色",
+      "hint": "",
+      "options": {
+        "driver": "司机",
+        "helper": "助手",
+        "family": "家人",
+        "other": "其他"
+      }
+    }
+  },
+  "minor": {
+    "question": "这是为无人陪伴的未成年人填写的吗？",
+    "yes": "是，无人陪伴的未成年人",
+    "no": "不是"
+  },
+  "proxy": {
+    "label": "我在为他人填写",
+    "hint": ""
+  },
+  "proxyName": {
+    "label": "您的姓名和关系",
+    "hint": "填写人是谁，与当事人是什么关系。"
+  }
 }

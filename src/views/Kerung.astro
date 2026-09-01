@@ -3,22 +3,22 @@ import NoscriptFields from "../components/NoscriptFields.astro";
 import PhoneDial from "../components/PhoneDial.astro";
 import { kerungDestination } from "../config/destinations";
 import {
-	kerungCompanionSpec,
-	kerungFields,
-	kerungProxyField,
-	kerungProxyNameField,
+   kerungCompanionSpec,
+   kerungFields,
+   kerungProxyField,
+   kerungProxyNameField,
 } from "../config/kerung-fields";
 import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
 import { formatVerifiedNpt } from "../lib/date";
 import {
-	chromeCopy,
-	fieldsCopy,
-	formCopy,
-	localeFromPathname,
-	localePath,
-	pagesCopy,
-	paperCopy,
+   chromeCopy,
+   fieldsCopy,
+   formCopy,
+   localeFromPathname,
+   localePath,
+   pagesCopy,
+   paperCopy,
 } from "../lib/i18n";
 import { noscriptFieldLines } from "../lib/noscript-fields";
 
@@ -32,76 +32,76 @@ const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
 const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paperCopy(locale).months)}`;
 const kerungLines = [
-	{
-		label: fields.kerung.minor.question,
-		hint: `${fields.kerung.minor.yes} / ${fields.kerung.minor.no}`,
-	},
-	...noscriptFieldLines(kerungFields, fields),
-	...noscriptFieldLines([kerungProxyField, kerungProxyNameField], fields),
+   {
+      label: fields.kerung.minor.question,
+      hint: `${fields.kerung.minor.yes} / ${fields.kerung.minor.no}`,
+   },
+   ...noscriptFieldLines(kerungFields, fields),
+   ...noscriptFieldLines([kerungProxyField, kerungProxyNameField], fields),
 ];
 const companionGroup = {
-	heading: form.companionsHeading,
-	lines: noscriptFieldLines(kerungCompanionSpec.fields, fields),
+   heading: form.companionsHeading,
+   lines: noscriptFieldLines(kerungCompanionSpec.fields, fields),
 };
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={true}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={true}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<div class="banner banner--warn">
-		<p>{pages.kerungChinaBanner}</p>
-	</div>
-	<p>
-		<a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
-	</p>
-	<NoscriptFields
-		intro={form.noscript}
-		assembleNote={form.noscriptAssemble}
-		lines={kerungLines}
-		groups={[companionGroup]}
-		statusHref={localePath(locale, "/status/")}
-		statusLabel={form.statusLink}
-		dangerHref={localePath(locale, "/danger/")}
-		dangerLabel={form.dangerLink}
-		showStatus={false}
-		showDanger={true}
-	/>
-	<noscript>
-		<div class="note stack">
-			<p>{form.minorStop}</p>
-			<PhoneDial id="childHelpline" />
-			<PhoneDial id="police" />
-		</div>
-	</noscript>
-	<script
-		id="kerung-config"
-		type="application/json"
-		set:html={JSON.stringify({
-			destination: kerungDestination,
-			form,
-			fields: { kerung: fields.kerung },
-			policeLabel: pages.phones.police,
-			childHelplineLabel: pages.phones.childHelpline,
-			dialName: chrome.dialName,
-			policeSource: pages.phoneSources.police,
-			childSource: pages.phoneSources.childHelpline,
-			verified,
-		})}
-	/>
-	<div id="kerung-app" class="stack"></div>
-	<script src="../scripts/kerung-client.ts"></script>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <div class="banner banner--warn">
+      <p>{pages.kerungChinaBanner}</p>
+   </div>
+   <p>
+      <a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
+   </p>
+   <NoscriptFields
+      intro={form.noscript}
+      assembleNote={form.noscriptAssemble}
+      lines={kerungLines}
+      groups={[companionGroup]}
+      statusHref={localePath(locale, "/status/")}
+      statusLabel={form.statusLink}
+      dangerHref={localePath(locale, "/danger/")}
+      dangerLabel={form.dangerLink}
+      showStatus={false}
+      showDanger={true}
+   />
+   <noscript>
+      <div class="note stack">
+         <p>{form.minorStop}</p>
+         <PhoneDial id="childHelpline" />
+         <PhoneDial id="police" />
+      </div>
+   </noscript>
+   <script
+      id="kerung-config"
+      type="application/json"
+      set:html={JSON.stringify({
+         destination: kerungDestination,
+         form,
+         fields: { kerung: fields.kerung },
+         policeLabel: pages.phones.police,
+         childHelplineLabel: pages.phones.childHelpline,
+         dialName: chrome.dialName,
+         policeSource: pages.phoneSources.police,
+         childSource: pages.phoneSources.childHelpline,
+         verified,
+      })}
+   />
+   <div id="kerung-app" class="stack"></div>
+   <script src="../scripts/kerung-client.ts"></script>
 </Layout>

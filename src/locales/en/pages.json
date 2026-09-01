@@ -1,242 +1,242 @@
 {
-	"home": {
-		"path": "/",
-		"title": "Bhote Koshi flood help | npflood.org",
-		"description": "Bhote Koshi flood tools: Nepal emergency contacts, I am safe, looking for family, and a message for people at Gyirong in China. You send the message yourself.",
-		"h1": "Bhote Koshi flood. Response tools",
-		"lede": "What do you need? Choose one. You are not registered here, and we do not keep a list."
-	},
-	"status": {
-		"path": "/status/",
-		"title": "Nepal emergency contacts | npflood.org",
-		"description": "Confirmed Nepal phones for the Bhote Koshi flood: Police 100, fire 101, ambulance 102, Bipad Helpline 1234, National Emergency Operation Centre 1149. This site does not give live road or evacuation status.",
-		"h1": "Emergency contacts",
-		"lede": "These are confirmed Nepal phones. This site does not provide live road, border, or evacuation status. Follow DHM and NDRRMA only."
-	},
-	"danger": {
-		"path": "/danger/",
-		"title": "Immediate danger | npflood.org",
-		"description": "If you are in immediate danger, pick Nepal or Gyirong in China. Nepal phones are not local emergency numbers in China.",
-		"h1": "Immediate danger",
-		"lede": "Pick where you are. Nepal phones are not local emergency numbers in Gyirong, China."
-	},
-	"needs": {
-		"path": "/needs/",
-		"title": "Basic supplies and shelter | npflood.org",
-		"description": "Official desks that take requests for help after the Bhote Koshi flood. This is not a live list of water, shelter, or stock. Contacts appear only when confirmed.",
-		"h1": "Basic supplies and shelter",
-		"lede": "This page lists official desks that take requests for help. This is not a live list of water, shelter, sanitation, or charging stock."
-	},
-	"find": {
-		"path": "/find/",
-		"title": "Looking for someone in Nepal | npflood.org",
-		"description": "If you are in Nepal looking for someone after the Bhote Koshi flood, prepare a note and take it to police, a hospital, or a ward office. This site cannot find anyone.",
-		"h1": "Looking for someone in Nepal",
-		"lede": "This site cannot find a person. We have no list. Prepare the details below and take them to police, a hospital, or a ward office."
-	},
-	"consular": {
-		"path": "/consular/",
-		"title": "Looking for family from abroad | npflood.org",
-		"description": "If you are abroad looking for family after the Bhote Koshi flood, prepare a note and take it to your embassy or ICRC family links.",
-		"h1": "Abroad, looking for family",
-		"lede": "You are abroad. Take these details to your embassy or to ICRC Restoring Family Links. We will not invent embassy numbers."
-	},
-	"help": {
-		"path": "/help/",
-		"title": "Volunteer and donate | npflood.org",
-		"description": "How to help after the Bhote Koshi flood. Official donation links, and volunteer coordinators when confirmed. This site does not take money.",
-		"h1": "Volunteer or donate",
-		"lede": "We do not take volunteer sign-ups. Donation links below go to official organisations. This site does not take money."
-	},
-	"kerung": {
-		"path": "/kerung/",
-		"title": "Gyirong message | npflood.org",
-		"description": "Prepares a message for people at Gyirong (Kerung) in China. You give or send it yourself. This is not a registration.",
-		"h1": "Gyirong. Prepare your message",
-		"lede": "This form prepares a message. You give or send it yourself on paper, by SMS, WhatsApp, or WeChat. You are not registered here."
-	},
-	"trek": {
-		"path": "/trek/",
-		"title": "Trek party message | npflood.org",
-		"description": "Prepares a trek party manifest message. Agency staff give or send it themselves.",
-		"h1": "Trek party. Prepare the message",
-		"lede": "For agency staff. The page assembles a party manifest. You give or send it yourself."
-	},
-	"safe": {
-		"path": "/safe/",
-		"title": "I am safe | npflood.org",
-		"description": "Prepare a short I-am-safe message for family. You send it yourself.",
-		"h1": "I am safe",
-		"lede": "A short message for family. You send it yourself by SMS, WhatsApp, or on paper."
-	},
-	"notFound": {
-		"path": "/404/",
-		"title": "Page not found | npflood.org",
-		"description": "That address is not a page. See Nepal emergency contacts, or call Police 100 if you are in Nepal.",
-		"h1": "This page is not here",
-		"lede": "The link may be wrong. If you need emergency numbers, pick Nepal or China on the danger page."
-	},
-	"chooser": [
-		{
-			"path": "/danger/",
-			"label": "I am in immediate danger / need urgent medical help"
-		},
-		{
-			"path": "/status/",
-			"label": "I need Nepal emergency numbers"
-		},
-		{
-			"path": "/safe/",
-			"label": "I am safe, I need to tell someone"
-		},
-		{
-			"path": "/find/",
-			"label": "I am looking for someone in Nepal"
-		},
-		{
-			"path": "/kerung/",
-			"label": "I am at Gyirong / Kerung (China)"
-		},
-		{
-			"path": "/trek/",
-			"label": "I have a trek party"
-		},
-		{
-			"path": "/consular/",
-			"label": "I am abroad, looking for family"
-		},
-		{
-			"path": "/help/",
-			"label": "I want to help"
-		}
-	],
-	"chooserNav": "What do you need",
-	"faqTitle": "Questions",
-	"statusWaiting": "Lines not listed yet",
-	"faq": [
-		{
-			"q": "Is this a government registry?",
-			"a": "No. This site does not keep a list of people. You are not registered here."
-		},
-		{
-			"q": "Can this site find a missing person?",
-			"a": "No. Prepare a note and take it to police, a hospital, a ward office, your embassy, or ICRC Restoring Family Links."
-		},
-		{
-			"q": "Which phone numbers work now?",
-			"a": "In Nepal: Police 100, fire 101, ambulance 102, Bipad Helpline 1234, National Emergency Operation Centre 1149. In Gyirong (China): no local emergency numbers are listed yet. Do not dial Nepal 100 as local police in China."
-		},
-		{
-			"q": "What do I do with the message this site prepares?",
-			"a": "Give or send it yourself on paper, SMS, WhatsApp, or WeChat. There is no inbox here."
-		}
-	],
-	"phones": {
-		"police": "Police",
-		"fire": "Fire",
-		"ambulance": "Ambulance",
-		"bipad": "Bipad Helpline",
-		"neoc": "National Emergency Operation Centre",
-		"childHelpline": "Child Helpline",
-		"missingChild": "Missing Child Response",
-		"touristPolice": "Tourist Police"
-	},
-	"phoneSources": {
-		"police": "Nepal Police",
-		"fire": "Nepal Police",
-		"ambulance": "Nepal Police",
-		"bipad": "NDRRMA",
-		"neoc": "National Emergency Operation Centre",
-		"childHelpline": "Child Helpline Nepal",
-		"missingChild": "Nepal Police",
-		"touristPolice": "Nepal Tourism Board"
-	},
-	"statusHazard": "If you are on the Bhote Koshi or Trishuli floodplain in Nepal, sleep on high ground. A landslide-formed lake upstream could breach. Follow DHM and NDRRMA warnings only, not forwarded messages, including this page.",
-	"outOfContact": "Out of contact does not mean dead. Roads and phone lines are down. Most people listed as missing are alive and unreachable.",
-	"statusBody": [
-		"These phones are for Nepal, including Rasuwa. Numbers can change. Prefer what a local official tells you on the ground.",
-		"If you are in Gyirong (China), do not dial these as local emergency services."
-	],
-	"statusChinaLink": "Gyirong is in China. Open the danger page, or prepare a Gyirong message.",
-	"statusHeld": [
-		{
-			"title": "Consulate General of Nepal in Lhasa",
-			"body": "No number yet. WeChat, phone, or an official notice will appear here once confirmed."
-		},
-		{
-			"title": "TAAN",
-			"body": "No number yet. The official contact for trekking agencies will appear here once confirmed."
-		},
-		{
-			"title": "District administration / flood line",
-			"body": "No number yet. A DAO or district flood helpline will appear here once confirmed."
-		}
-	],
-	"dangerNepalTitle": "I am in Nepal",
-	"dangerNepalBody": "Call these Nepal numbers. Ambulance is 102.",
-	"dangerNepalLink": "All Nepal emergency contacts",
-	"dangerChinaTitle": "I am in Gyirong (China)",
-	"dangerChinaBody": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
-	"dangerKerungLink": "Prepare a Gyirong message",
-	"needsNepalBody": "Official Nepal relief request contacts will appear here once confirmed. This is not a donation page.",
-	"needsChinaBody": "You are in China. Confirmed relief contacts are not listed yet.",
-	"needsHeld": [
-		{
-			"title": "Nepal Red Cross request-for-help",
-			"body": "No contact yet. A number or official page for requesting help will appear here once confirmed."
-		},
-		{
-			"title": "District or local relief desk",
-			"body": "No contact yet. A district or local desk that takes relief requests will appear here once confirmed."
-		}
-	],
-	"kerungChinaBanner": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
-	"findBody": [
-		"A police post or the nearest police office in Nepal. Dial 100.",
-		"The nearest hospital or health post.",
-		"The ward office, municipality, or district administration office."
-	],
-	"consularBody": [
-		"Call your own country's embassy or consulate. They may have a flood desk.",
-		"For Nepali families, watch official Nepal government notices and the Consulate General in Lhasa. Their number will appear on Emergency contacts when it is confirmed."
-	],
-	"icrcFamilyLinksLabel": "ICRC Restoring Family Links",
-	"findListsTitle": "Official lists (not this site)",
-	"findListsDisclaimer": "These sites are not npflood.org. This site cannot look anyone up. We have no list.",
-	"findListPolice": "Nepal Police missing and unidentified registers",
-	"findListDeadBodies": "Nepal Police unidentified remains (Rasuwa)",
-	"findListDisaster": "Nepal Police disaster unidentified remains",
-	"findListPmo": "Government rescue request portal (Office of the Prime Minister). Their counts are theirs, not ours.",
-	"findListAggregator": "lostinnepal.org",
-	"aggregatorTitle": "Independent aggregator of official sources",
-	"aggregatorDisclaimer": "This is not a government site. It collects official lists. This site cannot search it.",
-	"unofficialDeath": "Social media posts, news reports, and family statements are not official confirmation of death or identification.",
-	"identificationGate": "If authorities have told you identification may be required",
-	"dnaTitle": "If photo identification is not possible",
-	"dnaBody": "The Government of Nepal facilitates DNA matching where photo ID fails or remains are temporarily interred. First-degree relatives can send DNA profiles or give blood samples.",
-	"dnaMailtoLabel": "DNA profiles: dnacodis@nepalpolice.gov.np",
-	"dnaHelplineLabel": "Nepal Police DNA helpline",
-	"consularRemains": "A published nine-step process exists for returning foreign nationals' remains, coordinated through embassies. Ask your own embassy. This site does not list the steps.",
-	"helpBody": [
-		"Share the emergency contacts page and this site. Do not spread unconfirmed numbers.",
-		"Only trust official organisations for blood, clothes, or money. This site does not take money or bank details.",
-		"Do not travel to the flood area to help unless an official coordinator asked you to. Unrequested arrivals use helicopter seats that injured people need."
-	],
-	"helpDonationsTitle": "Where to donate",
-	"helpDonations": {
-		"pmdrf": "Prime Minister Disaster Relief Fund (official government)",
-		"wck": "World Central Kitchen",
-		"nrcs": "Nepal Red Cross",
-		"caritas": "Caritas Nepal"
-	},
-	"helpHeldTitle": "Volunteer coordinators not listed yet",
-	"helpHeldBody": "Volunteer coordinators will be listed here only when confirmed. This site does not take volunteer sign-ups.",
-	"helpNoMail": "This site does not take mail. Distressed people should use Emergency contacts, Find, or Consular. Not this page.",
-	"helpBuiltBy": "This tool was built by Alexandru Budurovici.",
-	"trekGuidance": "This is for agency staff. Nothing entered here is sent to npflood.org. Drafts stay on this phone only. If the party is safe or the location changes, write that the same way you sent the first note.",
-	"homeLocales": {
-		"ne": "नेपाली",
-		"en": "English",
-		"zh": "中文"
-	}
+  "home": {
+    "path": "/",
+    "title": "Bhote Koshi flood help | npflood.org",
+    "description": "Bhote Koshi flood tools: Nepal emergency contacts, I am safe, looking for family, and a message for people at Gyirong in China. You send the message yourself.",
+    "h1": "Bhote Koshi flood. Response tools",
+    "lede": "What do you need? Choose one. You are not registered here, and we do not keep a list."
+  },
+  "status": {
+    "path": "/status/",
+    "title": "Nepal emergency contacts | npflood.org",
+    "description": "Confirmed Nepal phones for the Bhote Koshi flood: Police 100, fire 101, ambulance 102, Bipad Helpline 1234, National Emergency Operation Centre 1149. This site does not give live road or evacuation status.",
+    "h1": "Emergency contacts",
+    "lede": "These are confirmed Nepal phones. This site does not provide live road, border, or evacuation status. Follow DHM and NDRRMA only."
+  },
+  "danger": {
+    "path": "/danger/",
+    "title": "Immediate danger | npflood.org",
+    "description": "If you are in immediate danger, pick Nepal or Gyirong in China. Nepal phones are not local emergency numbers in China.",
+    "h1": "Immediate danger",
+    "lede": "Pick where you are. Nepal phones are not local emergency numbers in Gyirong, China."
+  },
+  "needs": {
+    "path": "/needs/",
+    "title": "Basic supplies and shelter | npflood.org",
+    "description": "Official desks that take requests for help after the Bhote Koshi flood. This is not a live list of water, shelter, or stock. Contacts appear only when confirmed.",
+    "h1": "Basic supplies and shelter",
+    "lede": "This page lists official desks that take requests for help. This is not a live list of water, shelter, sanitation, or charging stock."
+  },
+  "find": {
+    "path": "/find/",
+    "title": "Looking for someone in Nepal | npflood.org",
+    "description": "If you are in Nepal looking for someone after the Bhote Koshi flood, prepare a note and take it to police, a hospital, or a ward office. This site cannot find anyone.",
+    "h1": "Looking for someone in Nepal",
+    "lede": "This site cannot find a person. We have no list. Prepare the details below and take them to police, a hospital, or a ward office."
+  },
+  "consular": {
+    "path": "/consular/",
+    "title": "Looking for family from abroad | npflood.org",
+    "description": "If you are abroad looking for family after the Bhote Koshi flood, prepare a note and take it to your embassy or ICRC family links.",
+    "h1": "Abroad, looking for family",
+    "lede": "You are abroad. Take these details to your embassy or to ICRC Restoring Family Links. We will not invent embassy numbers."
+  },
+  "help": {
+    "path": "/help/",
+    "title": "Volunteer and donate | npflood.org",
+    "description": "How to help after the Bhote Koshi flood. Official donation links, and volunteer coordinators when confirmed. This site does not take money.",
+    "h1": "Volunteer or donate",
+    "lede": "We do not take volunteer sign-ups. Donation links below go to official organisations. This site does not take money."
+  },
+  "kerung": {
+    "path": "/kerung/",
+    "title": "Gyirong message | npflood.org",
+    "description": "Prepares a message for people at Gyirong (Kerung) in China. You give or send it yourself. This is not a registration.",
+    "h1": "Gyirong. Prepare your message",
+    "lede": "This form prepares a message. You give or send it yourself on paper, by SMS, WhatsApp, or WeChat. You are not registered here."
+  },
+  "trek": {
+    "path": "/trek/",
+    "title": "Trek party message | npflood.org",
+    "description": "Prepares a trek party manifest message. Agency staff give or send it themselves.",
+    "h1": "Trek party. Prepare the message",
+    "lede": "For agency staff. The page assembles a party manifest. You give or send it yourself."
+  },
+  "safe": {
+    "path": "/safe/",
+    "title": "I am safe | npflood.org",
+    "description": "Prepare a short I-am-safe message for family. You send it yourself.",
+    "h1": "I am safe",
+    "lede": "A short message for family. You send it yourself by SMS, WhatsApp, or on paper."
+  },
+  "notFound": {
+    "path": "/404/",
+    "title": "Page not found | npflood.org",
+    "description": "That address is not a page. See Nepal emergency contacts, or call Police 100 if you are in Nepal.",
+    "h1": "This page is not here",
+    "lede": "The link may be wrong. If you need emergency numbers, pick Nepal or China on the danger page."
+  },
+  "chooser": [
+    {
+      "path": "/danger/",
+      "label": "I am in immediate danger / need urgent medical help"
+    },
+    {
+      "path": "/status/",
+      "label": "I need Nepal emergency numbers"
+    },
+    {
+      "path": "/safe/",
+      "label": "I am safe, I need to tell someone"
+    },
+    {
+      "path": "/find/",
+      "label": "I am looking for someone in Nepal"
+    },
+    {
+      "path": "/kerung/",
+      "label": "I am at Gyirong / Kerung (China)"
+    },
+    {
+      "path": "/trek/",
+      "label": "I have a trek party"
+    },
+    {
+      "path": "/consular/",
+      "label": "I am abroad, looking for family"
+    },
+    {
+      "path": "/help/",
+      "label": "I want to help"
+    }
+  ],
+  "chooserNav": "What do you need",
+  "faqTitle": "Questions",
+  "statusWaiting": "Lines not listed yet",
+  "faq": [
+    {
+      "q": "Is this a government registry?",
+      "a": "No. This site does not keep a list of people. You are not registered here."
+    },
+    {
+      "q": "Can this site find a missing person?",
+      "a": "No. Prepare a note and take it to police, a hospital, a ward office, your embassy, or ICRC Restoring Family Links."
+    },
+    {
+      "q": "Which phone numbers work now?",
+      "a": "In Nepal: Police 100, fire 101, ambulance 102, Bipad Helpline 1234, National Emergency Operation Centre 1149. In Gyirong (China): no local emergency numbers are listed yet. Do not dial Nepal 100 as local police in China."
+    },
+    {
+      "q": "What do I do with the message this site prepares?",
+      "a": "Give or send it yourself on paper, SMS, WhatsApp, or WeChat. There is no inbox here."
+    }
+  ],
+  "phones": {
+    "police": "Police",
+    "fire": "Fire",
+    "ambulance": "Ambulance",
+    "bipad": "Bipad Helpline",
+    "neoc": "National Emergency Operation Centre",
+    "childHelpline": "Child Helpline",
+    "missingChild": "Missing Child Response",
+    "touristPolice": "Tourist Police"
+  },
+  "phoneSources": {
+    "police": "Nepal Police",
+    "fire": "Nepal Police",
+    "ambulance": "Nepal Police",
+    "bipad": "NDRRMA",
+    "neoc": "National Emergency Operation Centre",
+    "childHelpline": "Child Helpline Nepal",
+    "missingChild": "Nepal Police",
+    "touristPolice": "Nepal Tourism Board"
+  },
+  "statusHazard": "If you are on the Bhote Koshi or Trishuli floodplain in Nepal, sleep on high ground. A landslide-formed lake upstream could breach. Follow DHM and NDRRMA warnings only, not forwarded messages, including this page.",
+  "outOfContact": "Out of contact does not mean dead. Roads and phone lines are down. Most people listed as missing are alive and unreachable.",
+  "statusBody": [
+    "These phones are for Nepal, including Rasuwa. Numbers can change. Prefer what a local official tells you on the ground.",
+    "If you are in Gyirong (China), do not dial these as local emergency services."
+  ],
+  "statusChinaLink": "Gyirong is in China. Open the danger page, or prepare a Gyirong message.",
+  "statusHeld": [
+    {
+      "title": "Consulate General of Nepal in Lhasa",
+      "body": "No number yet. WeChat, phone, or an official notice will appear here once confirmed."
+    },
+    {
+      "title": "TAAN",
+      "body": "No number yet. The official contact for trekking agencies will appear here once confirmed."
+    },
+    {
+      "title": "District administration / flood line",
+      "body": "No number yet. A DAO or district flood helpline will appear here once confirmed."
+    }
+  ],
+  "dangerNepalTitle": "I am in Nepal",
+  "dangerNepalBody": "Call these Nepal numbers. Ambulance is 102.",
+  "dangerNepalLink": "All Nepal emergency contacts",
+  "dangerChinaTitle": "I am in Gyirong (China)",
+  "dangerChinaBody": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
+  "dangerKerungLink": "Prepare a Gyirong message",
+  "needsNepalBody": "Official Nepal relief request contacts will appear here once confirmed. This is not a donation page.",
+  "needsChinaBody": "You are in China. Confirmed relief contacts are not listed yet.",
+  "needsHeld": [
+    {
+      "title": "Nepal Red Cross request-for-help",
+      "body": "No contact yet. A number or official page for requesting help will appear here once confirmed."
+    },
+    {
+      "title": "District or local relief desk",
+      "body": "No contact yet. A district or local desk that takes relief requests will appear here once confirmed."
+    }
+  ],
+  "kerungChinaBanner": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
+  "findBody": [
+    "A police post or the nearest police office in Nepal. Dial 100.",
+    "The nearest hospital or health post.",
+    "The ward office, municipality, or district administration office."
+  ],
+  "consularBody": [
+    "Call your own country's embassy or consulate. They may have a flood desk.",
+    "For Nepali families, watch official Nepal government notices and the Consulate General in Lhasa. Their number will appear on Emergency contacts when it is confirmed."
+  ],
+  "icrcFamilyLinksLabel": "ICRC Restoring Family Links",
+  "findListsTitle": "Official lists (not this site)",
+  "findListsDisclaimer": "These sites are not npflood.org. This site cannot look anyone up. We have no list.",
+  "findListPolice": "Nepal Police missing and unidentified registers",
+  "findListDeadBodies": "Nepal Police unidentified remains (Rasuwa)",
+  "findListDisaster": "Nepal Police disaster unidentified remains",
+  "findListPmo": "Government rescue request portal (Office of the Prime Minister). Their counts are theirs, not ours.",
+  "findListAggregator": "lostinnepal.org",
+  "aggregatorTitle": "Independent aggregator of official sources",
+  "aggregatorDisclaimer": "This is not a government site. It collects official lists. This site cannot search it.",
+  "unofficialDeath": "Social media posts, news reports, and family statements are not official confirmation of death or identification.",
+  "identificationGate": "If authorities have told you identification may be required",
+  "dnaTitle": "If photo identification is not possible",
+  "dnaBody": "The Government of Nepal facilitates DNA matching where photo ID fails or remains are temporarily interred. First-degree relatives can send DNA profiles or give blood samples.",
+  "dnaMailtoLabel": "DNA profiles: dnacodis@nepalpolice.gov.np",
+  "dnaHelplineLabel": "Nepal Police DNA helpline",
+  "consularRemains": "A published nine-step process exists for returning foreign nationals' remains, coordinated through embassies. Ask your own embassy. This site does not list the steps.",
+  "helpBody": [
+    "Share the emergency contacts page and this site. Do not spread unconfirmed numbers.",
+    "Only trust official organisations for blood, clothes, or money. This site does not take money or bank details.",
+    "Do not travel to the flood area to help unless an official coordinator asked you to. Unrequested arrivals use helicopter seats that injured people need."
+  ],
+  "helpDonationsTitle": "Where to donate",
+  "helpDonations": {
+    "pmdrf": "Prime Minister Disaster Relief Fund (official government)",
+    "wck": "World Central Kitchen",
+    "nrcs": "Nepal Red Cross",
+    "caritas": "Caritas Nepal"
+  },
+  "helpHeldTitle": "Volunteer coordinators not listed yet",
+  "helpHeldBody": "Volunteer coordinators will be listed here only when confirmed. This site does not take volunteer sign-ups.",
+  "helpNoMail": "This site does not take mail. Distressed people should use Emergency contacts, Find, or Consular. Not this page.",
+  "helpBuiltBy": "This tool was built by Alexandru Budurovici.",
+  "trekGuidance": "This is for agency staff. Nothing entered here is sent to npflood.org. Drafts stay on this phone only. If the party is safe or the location changes, write that the same way you sent the first note.",
+  "homeLocales": {
+    "ne": "नेपाली",
+    "en": "English",
+    "zh": "中文"
+  }
 }

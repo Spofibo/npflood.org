@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="npflood.org">
-	<rect width="32" height="32" fill="#f4efe4"/>
-	<rect width="32" height="4" fill="#1a1610"/>
-	<text
-		x="16"
-		y="24"
-		text-anchor="middle"
-		font-family="ui-sans-serif, system-ui, sans-serif"
-		font-size="14"
-		font-weight="700"
-		fill="#1a1610"
-	>NP</text>
+   <rect width="32" height="32" fill="#f4efe4"/>
+   <rect width="32" height="4" fill="#1a1610"/>
+   <text
+      x="16"
+      y="24"
+      text-anchor="middle"
+      font-family="ui-sans-serif, system-ui, sans-serif"
+      font-size="14"
+      font-weight="700"
+      fill="#1a1610"
+   >NP</text>
 </svg>

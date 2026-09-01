@@ -1,34 +1,34 @@
 {
-	"brandLine": "Bhote Koshi flood. Response tools",
-	"footerNote": "This is not a government registry, and this site does not keep a list of people. Volunteer tools.",
-	"footerSource": "Source is public on GitHub",
-	"skipLink": "Skip to the main text",
-	"langNav": "Language",
-	"mainNav": "Main",
-	"breadcrumbNav": "Breadcrumb",
-	"contentinfo": "Site",
-	"nav": {
-		"home": "Home",
-		"status": "Emergency contacts",
-		"find": "Looking for someone",
-		"consular": "Family abroad",
-		"help": "Help"
-	},
-	"langPicker": {
-		"ne": "नेपाली",
-		"en": "English",
-		"zh": "中文"
-	},
-	"qrCaption": "This QR opens npflood.org. It is not a payment QR.",
-	"qrAlt": "QR code that opens https://npflood.org/",
-	"heldFlag": "Not listed yet",
-	"dialName": "Call {label} {number}",
-	"lastVerified": "Last verified",
-	"unmaintained": "This page has not been reviewed for more than 7 days. If you are in Nepal, call 1234 or 100.",
-	"savedCopy": "Showing a saved copy. Numbers and forms may be out of date. If you are in Nepal, call 1234 or 100.",
-	"antiPhishing": "npflood.org is the only address. A different address asking for a passport number is not us.",
-	"noMail": "This site does not take mail.",
-	"noMoney": "This site does not take money or bank details.",
-	"corrections": "Report incorrect or outdated information",
-	"print": "Print"
+  "brandLine": "Bhote Koshi flood. Response tools",
+  "footerNote": "This is not a government registry, and this site does not keep a list of people. Volunteer tools.",
+  "footerSource": "Source is public on GitHub",
+  "skipLink": "Skip to the main text",
+  "langNav": "Language",
+  "mainNav": "Main",
+  "breadcrumbNav": "Breadcrumb",
+  "contentinfo": "Site",
+  "nav": {
+    "home": "Home",
+    "status": "Emergency contacts",
+    "find": "Looking for someone",
+    "consular": "Family abroad",
+    "help": "Help"
+  },
+  "langPicker": {
+    "ne": "नेपाली",
+    "en": "English",
+    "zh": "中文"
+  },
+  "qrCaption": "This QR opens npflood.org. It is not a payment QR.",
+  "qrAlt": "QR code that opens https://npflood.org/",
+  "heldFlag": "Not listed yet",
+  "dialName": "Call {label} {number}",
+  "lastVerified": "Last verified",
+  "unmaintained": "This page has not been reviewed for more than 7 days. If you are in Nepal, call 1234 or 100.",
+  "savedCopy": "Showing a saved copy. Numbers and forms may be out of date. If you are in Nepal, call 1234 or 100.",
+  "antiPhishing": "npflood.org is the only address. A different address asking for a passport number is not us.",
+  "noMail": "This site does not take mail.",
+  "noMoney": "This site does not take money or bank details.",
+  "corrections": "Report incorrect or outdated information",
+  "print": "Print"
 }

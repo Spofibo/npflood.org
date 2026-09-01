@@ -11,40 +11,40 @@ const homePath = localePath(locale, "/");
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[{ name: "npflood.org", path: homePath }]}
-	includeWebsiteJsonLd={true}
-	contactPoints={null}
-	faq={pages.faq}
-	printScriptFonts={false}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[{ name: "npflood.org", path: homePath }]}
+   includeWebsiteJsonLd={true}
+   contactPoints={null}
+   faq={pages.faq}
+   printScriptFonts={false}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<PrintPage label={chrome.print} />
-	<ol class="chooser" aria-label={pages.chooserNav}>
-		{
-			pages.chooser.map((item) => (
-				<li>
-					<a href={localePath(locale, item.path)}>{item.label}</a>
-				</li>
-			))
-		}
-	</ol>
-	<details class="faq">
-		<summary>{pages.faqTitle}</summary>
-		<dl>
-			{
-				pages.faq.map((item) => (
-					<div>
-						<dt>{item.q}</dt>
-						<dd>{item.a}</dd>
-					</div>
-				))
-			}
-		</dl>
-	</details>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <PrintPage label={chrome.print} />
+   <ol class="chooser" aria-label={pages.chooserNav}>
+      {
+         pages.chooser.map((item) => (
+            <li>
+               <a href={localePath(locale, item.path)}>{item.label}</a>
+            </li>
+         ))
+      }
+   </ol>
+   <details class="faq">
+      <summary>{pages.faqTitle}</summary>
+      <dl>
+         {
+            pages.faq.map((item) => (
+               <div>
+                  <dt>{item.q}</dt>
+                  <dd>{item.a}</dd>
+               </div>
+            ))
+         }
+      </dl>
+   </details>
 </Layout>

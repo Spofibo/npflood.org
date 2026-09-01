@@ -16,39 +16,39 @@ const here = localePath(locale, page.path);
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={true}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={true}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<NoscriptFields
-		intro={form.noscript}
-		assembleNote={form.noscriptAssemble}
-		lines={noscriptFieldLines(safeFields, fields)}
-		groups={[]}
-		statusHref={localePath(locale, "/status/")}
-		statusLabel={form.statusLink}
-		dangerHref={localePath(locale, "/danger/")}
-		dangerLabel={form.dangerLink}
-		showStatus={true}
-		showDanger={true}
-	/>
-	<script
-		id="safe-config"
-		type="application/json"
-		set:html={JSON.stringify({ destination: emptyDestination, form, fields: { safe: fields.safe } })}
-	/>
-	<div id="safe-app" class="stack"></div>
-	<script src="../scripts/safe-client.ts"></script>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <NoscriptFields
+      intro={form.noscript}
+      assembleNote={form.noscriptAssemble}
+      lines={noscriptFieldLines(safeFields, fields)}
+      groups={[]}
+      statusHref={localePath(locale, "/status/")}
+      statusLabel={form.statusLink}
+      dangerHref={localePath(locale, "/danger/")}
+      dangerLabel={form.dangerLink}
+      showStatus={true}
+      showDanger={true}
+   />
+   <script
+      id="safe-config"
+      type="application/json"
+      set:html={JSON.stringify({ destination: emptyDestination, form, fields: { safe: fields.safe } })}
+   />
+   <div id="safe-app" class="stack"></div>
+   <script src="../scripts/safe-client.ts"></script>
 </Layout>

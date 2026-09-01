@@ -1,78 +1,78 @@
 ---
 type Line = {
-	label: string;
-	hint: string;
+   label: string;
+   hint: string;
 };
 
 type Props = {
-	intro: string;
-	assembleNote: string;
-	lines: Line[];
-	groups: { heading: string; lines: Line[] }[];
-	statusHref: string;
-	statusLabel: string;
-	dangerHref: string;
-	dangerLabel: string;
-	showStatus: boolean;
-	showDanger: boolean;
+   intro: string;
+   assembleNote: string;
+   lines: Line[];
+   groups: { heading: string; lines: Line[] }[];
+   statusHref: string;
+   statusLabel: string;
+   dangerHref: string;
+   dangerLabel: string;
+   showStatus: boolean;
+   showDanger: boolean;
 };
 
 const {
-	intro,
-	assembleNote,
-	lines,
-	groups,
-	statusHref,
-	statusLabel,
-	dangerHref,
-	dangerLabel,
-	showStatus,
-	showDanger,
+   intro,
+   assembleNote,
+   lines,
+   groups,
+   statusHref,
+   statusLabel,
+   dangerHref,
+   dangerLabel,
+   showStatus,
+   showDanger,
 } = Astro.props;
 ---
 
 <noscript>
-	<div class="note stack">
-		<p>{intro}</p>
-		<p>{assembleNote}</p>
-		{
-			showDanger === true && (
-				<p>
-					<a href={dangerHref}>{dangerLabel}</a>
-				</p>
-			)
-		}
-		{
-			showStatus === true && (
-				<p>
-					<a href={statusHref}>{statusLabel}</a>
-				</p>
-			)
-		}
-		<dl class="noscript-fields">
-			{
-				lines.map((line) => (
-					<div>
-						<dt>{line.label}</dt>
-						{line.hint.length > 0 ? <dd>{line.hint}</dd> : null}
-					</div>
-				))
-			}
-		</dl>
-		{
-			groups.map((group) => (
-				<div class="stack">
-					<h2 class="tile-title">{group.heading}</h2>
-					<dl class="noscript-fields">
-						{group.lines.map((line) => (
-							<div>
-								<dt>{line.label}</dt>
-								{line.hint.length > 0 ? <dd>{line.hint}</dd> : null}
-							</div>
-						))}
-					</dl>
-				</div>
-			))
-		}
-	</div>
+   <div class="note stack">
+      <p>{intro}</p>
+      <p>{assembleNote}</p>
+      {
+         showDanger === true && (
+            <p>
+               <a href={dangerHref}>{dangerLabel}</a>
+            </p>
+         )
+      }
+      {
+         showStatus === true && (
+            <p>
+               <a href={statusHref}>{statusLabel}</a>
+            </p>
+         )
+      }
+      <dl class="noscript-fields">
+         {
+            lines.map((line) => (
+               <div>
+                  <dt>{line.label}</dt>
+                  {line.hint.length > 0 ? <dd>{line.hint}</dd> : null}
+               </div>
+            ))
+         }
+      </dl>
+      {
+         groups.map((group) => (
+            <div class="stack">
+               <h2 class="tile-title">{group.heading}</h2>
+               <dl class="noscript-fields">
+                  {group.lines.map((line) => (
+                     <div>
+                        <dt>{line.label}</dt>
+                        {line.hint.length > 0 ? <dd>{line.hint}</dd> : null}
+                     </div>
+                  ))}
+               </dl>
+            </div>
+         ))
+      }
+   </div>
 </noscript>

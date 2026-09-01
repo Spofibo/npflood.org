@@ -17,45 +17,45 @@ const here = localePath(locale, page.path);
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={true}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={true}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<div class="page-chrome">
-		<aside class="note">
-			<p>{pages.trekGuidance}</p>
-		</aside>
-		<PhoneDial id="touristPolice" />
-	</div>
-	<NoscriptFields
-		intro={form.noscript}
-		assembleNote={form.noscriptAssemble}
-		lines={noscriptFieldLines(trekFields, fields)}
-		groups={[{ heading: form.membersHeading, lines: noscriptFieldLines(trekMemberSpec.fields, fields) }]}
-		statusHref={localePath(locale, "/status/")}
-		statusLabel={form.statusLink}
-		dangerHref={localePath(locale, "/danger/")}
-		dangerLabel={form.dangerLink}
-		showStatus={true}
-		showDanger={true}
-	/>
-	<script
-		id="trek-config"
-		type="application/json"
-		set:html={JSON.stringify({ destination: trekDestination, form, fields: { trek: fields.trek } })}
-	/>
-	<div id="trek-app" class="stack"></div>
-	<script src="../scripts/trek-client.ts"></script>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <div class="page-chrome">
+      <aside class="note">
+         <p>{pages.trekGuidance}</p>
+      </aside>
+      <PhoneDial id="touristPolice" />
+   </div>
+   <NoscriptFields
+      intro={form.noscript}
+      assembleNote={form.noscriptAssemble}
+      lines={noscriptFieldLines(trekFields, fields)}
+      groups={[{ heading: form.membersHeading, lines: noscriptFieldLines(trekMemberSpec.fields, fields) }]}
+      statusHref={localePath(locale, "/status/")}
+      statusLabel={form.statusLink}
+      dangerHref={localePath(locale, "/danger/")}
+      dangerLabel={form.dangerLink}
+      showStatus={true}
+      showDanger={true}
+   />
+   <script
+      id="trek-config"
+      type="application/json"
+      set:html={JSON.stringify({ destination: trekDestination, form, fields: { trek: fields.trek } })}
+   />
+   <div id="trek-app" class="stack"></div>
+   <script src="../scripts/trek-client.ts"></script>
 </Layout>

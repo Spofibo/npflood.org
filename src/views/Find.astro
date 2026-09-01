@@ -4,24 +4,24 @@ import PhoneDial from "../components/PhoneDial.astro";
 import { findFields } from "../config/find-fields";
 import { emptyDestination } from "../config/destinations";
 import {
-	aggregatorList,
-	dnaHelplineDisplay,
-	dnaHelplineTel,
-	dnaMailbox,
-	officialFindLists,
-	remainsFindLists,
+   aggregatorList,
+   dnaHelplineDisplay,
+   dnaHelplineTel,
+   dnaMailbox,
+   officialFindLists,
+   remainsFindLists,
 } from "../config/official-lists";
 import { site } from "../config/site";
 import Layout from "../layouts/Layout.astro";
 import { formatVerifiedNpt } from "../lib/date";
 import {
-	chromeCopy,
-	fieldsCopy,
-	formCopy,
-	localeFromPathname,
-	localePath,
-	pagesCopy,
-	paperCopy,
+   chromeCopy,
+   fieldsCopy,
+   formCopy,
+   localeFromPathname,
+   localePath,
+   pagesCopy,
+   paperCopy,
 } from "../lib/i18n";
 import { noscriptFieldLines } from "../lib/noscript-fields";
 
@@ -36,114 +36,114 @@ const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
 const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper.months)}`;
 const officialLabels = {
-	police: pages.findListPolice,
-	pmo: pages.findListPmo,
+   police: pages.findListPolice,
+   pmo: pages.findListPmo,
 } as const;
 const remainsLabels = {
-	deadBodies: pages.findListDeadBodies,
-	disaster: pages.findListDisaster,
+   deadBodies: pages.findListDeadBodies,
+   disaster: pages.findListDisaster,
 } as const;
 ---
 
 <Layout
-	title={page.title}
-	description={page.description}
-	path={page.path}
-	breadcrumbs={[
-		{ name: "npflood.org", path: homePath },
-		{ name: page.h1, path: here },
-	]}
-	includeWebsiteJsonLd={false}
-	contactPoints={null}
-	faq={null}
-	printScriptFonts={true}
+   title={page.title}
+   description={page.description}
+   path={page.path}
+   breadcrumbs={[
+      { name: "npflood.org", path: homePath },
+      { name: page.h1, path: here },
+   ]}
+   includeWebsiteJsonLd={false}
+   contactPoints={null}
+   faq={null}
+   printScriptFonts={true}
 >
-	<h1 class="shiro">{page.h1}</h1>
-	<div class="lede">
-		<p>{page.lede}</p>
-	</div>
-	<div class="page-chrome">
-		<div class="banner">
-			<p>{pages.outOfContact}</p>
-		</div>
-		<div class="prose stack">
-			<p>{paper.findCannotMatch}</p>
-			{pages.findBody.map((block) => <p>{block}</p>)}
-		</div>
-		<PhoneDial id="police" />
-		<div id="find-child-dial">
-			<PhoneDial id="missingChild" />
-		</div>
-		<section class="stack" aria-label={pages.findListsTitle}>
-			<h2 class="tile-title">{pages.findListsTitle}</h2>
-			<p>{pages.findListsDisclaimer}</p>
-			<ul>
-				{
-					officialFindLists.map((item) => (
-						<li>
-							<a href={item.href} rel="noopener noreferrer">
-								{officialLabels[item.id]}
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</section>
-		<section class="stack" aria-label={pages.aggregatorTitle}>
-			<h2 class="tile-title">{pages.aggregatorTitle}</h2>
-			<p>{pages.aggregatorDisclaimer}</p>
-			<p>
-				<a href={aggregatorList.href} rel="noopener noreferrer">{pages.findListAggregator}</a>
-			</p>
-		</section>
-		<p>{pages.unofficialDeath}</p>
-		<details class="gate-details">
-			<summary>{pages.identificationGate}</summary>
-			<div class="stack">
-				<ul>
-					{
-						remainsFindLists.map((item) => (
-							<li>
-								<a href={item.href} rel="noopener noreferrer">
-									{remainsLabels[item.id]}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-				<section class="stack" aria-label={pages.dnaTitle}>
-					<h2 class="tile-title">{pages.dnaTitle}</h2>
-					<p>{pages.dnaBody}</p>
-					<p>
-						<a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
-					</p>
-					<div class="dial-block stack">
-						<div>{pages.dnaHelplineLabel}</div>
-						<a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
-						<p class="dial-meta">{pages.phoneSources.police}</p>
-						<p class="dial-meta">{verified}</p>
-					</div>
-				</section>
-			</div>
-		</details>
-	</div>
-	<NoscriptFields
-		intro={form.noscript}
-		assembleNote={form.noscriptAssemble}
-		lines={noscriptFieldLines(findFields, fields)}
-		groups={[]}
-		statusHref={localePath(locale, "/status/")}
-		statusLabel={form.statusLink}
-		dangerHref={localePath(locale, "/danger/")}
-		dangerLabel={form.dangerLink}
-		showStatus={true}
-		showDanger={true}
-	/>
-	<script
-		id="find-config"
-		type="application/json"
-		set:html={JSON.stringify({ destination: emptyDestination, form, fields: { find: fields.find } })}
-	/>
-	<div id="find-app" class="stack"></div>
-	<script src="../scripts/find-client.ts"></script>
+   <h1 class="shiro">{page.h1}</h1>
+   <div class="lede">
+      <p>{page.lede}</p>
+   </div>
+   <div class="page-chrome">
+      <div class="banner">
+         <p>{pages.outOfContact}</p>
+      </div>
+      <div class="prose stack">
+         <p>{paper.findCannotMatch}</p>
+         {pages.findBody.map((block) => <p>{block}</p>)}
+      </div>
+      <PhoneDial id="police" />
+      <div id="find-child-dial">
+         <PhoneDial id="missingChild" />
+      </div>
+      <section class="stack" aria-label={pages.findListsTitle}>
+         <h2 class="tile-title">{pages.findListsTitle}</h2>
+         <p>{pages.findListsDisclaimer}</p>
+         <ul>
+            {
+               officialFindLists.map((item) => (
+                  <li>
+                     <a href={item.href} rel="noopener noreferrer">
+                        {officialLabels[item.id]}
+                     </a>
+                  </li>
+               ))
+            }
+         </ul>
+      </section>
+      <section class="stack" aria-label={pages.aggregatorTitle}>
+         <h2 class="tile-title">{pages.aggregatorTitle}</h2>
+         <p>{pages.aggregatorDisclaimer}</p>
+         <p>
+            <a href={aggregatorList.href} rel="noopener noreferrer">{pages.findListAggregator}</a>
+         </p>
+      </section>
+      <p>{pages.unofficialDeath}</p>
+      <details class="gate-details">
+         <summary>{pages.identificationGate}</summary>
+         <div class="stack">
+            <ul>
+               {
+                  remainsFindLists.map((item) => (
+                     <li>
+                        <a href={item.href} rel="noopener noreferrer">
+                           {remainsLabels[item.id]}
+                        </a>
+                     </li>
+                  ))
+               }
+            </ul>
+            <section class="stack" aria-label={pages.dnaTitle}>
+               <h2 class="tile-title">{pages.dnaTitle}</h2>
+               <p>{pages.dnaBody}</p>
+               <p>
+                  <a href={`mailto:${dnaMailbox}`}>{pages.dnaMailtoLabel}</a>
+               </p>
+               <div class="dial-block stack">
+                  <div>{pages.dnaHelplineLabel}</div>
+                  <a href={`tel:${dnaHelplineTel}`}>{dnaHelplineDisplay}</a>
+                  <p class="dial-meta">{pages.phoneSources.police}</p>
+                  <p class="dial-meta">{verified}</p>
+               </div>
+            </section>
+         </div>
+      </details>
+   </div>
+   <NoscriptFields
+      intro={form.noscript}
+      assembleNote={form.noscriptAssemble}
+      lines={noscriptFieldLines(findFields, fields)}
+      groups={[]}
+      statusHref={localePath(locale, "/status/")}
+      statusLabel={form.statusLink}
+      dangerHref={localePath(locale, "/danger/")}
+      dangerLabel={form.dangerLink}
+      showStatus={true}
+      showDanger={true}
+   />
+   <script
+      id="find-config"
+      type="application/json"
+      set:html={JSON.stringify({ destination: emptyDestination, form, fields: { find: fields.find } })}
+   />
+   <div id="find-app" class="stack"></div>
+   <script src="../scripts/find-client.ts"></script>
 </Layout>

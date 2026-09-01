@@ -2,12 +2,12 @@
 import Seo, { type SeoBreadcrumb, type SeoContactPoint, type SeoFaq } from "../components/Seo.astro";
 import { site } from "../config/site";
 import {
-	chromeCopy,
-	htmlLang,
-	localeFromPathname,
-	localePath,
-	paperCopy,
-	type UiLang,
+   chromeCopy,
+   htmlLang,
+   localeFromPathname,
+   localePath,
+   paperCopy,
+   type UiLang,
 } from "../lib/i18n";
 import { formatVerifiedNpt } from "../lib/date";
 import fontsEn from "../styles/fonts-en.css?url";
@@ -16,14 +16,14 @@ import fontsZh from "../styles/fonts-zh.css?url";
 import "../styles/global.css";
 
 type Props = {
-	title: string;
-	description: string;
-	path: string;
-	breadcrumbs: SeoBreadcrumb[];
-	includeWebsiteJsonLd: boolean;
-	contactPoints: SeoContactPoint[] | null;
-	faq: SeoFaq[] | null;
-	printScriptFonts: boolean;
+   title: string;
+   description: string;
+   path: string;
+   breadcrumbs: SeoBreadcrumb[];
+   includeWebsiteJsonLd: boolean;
+   contactPoints: SeoContactPoint[] | null;
+   faq: SeoFaq[] | null;
+   printScriptFonts: boolean;
 };
 
 const { title, description, path, breadcrumbs, includeWebsiteJsonLd, contactPoints, faq, printScriptFonts } = Astro.props;
@@ -32,16 +32,16 @@ const chrome = chromeCopy(locale);
 const registerWorker = import.meta.env.PROD;
 const fontHref = locale === "ne" ? fontsNe : locale === "zh" ? fontsZh : fontsEn;
 const navItems = [
-	{ path: "/", label: chrome.nav.home },
-	{ path: "/status/", label: chrome.nav.status },
-	{ path: "/find/", label: chrome.nav.find },
-	{ path: "/consular/", label: chrome.nav.consular },
-	{ path: "/help/", label: chrome.nav.help },
+   { path: "/", label: chrome.nav.home },
+   { path: "/status/", label: chrome.nav.status },
+   { path: "/find/", label: chrome.nav.find },
+   { path: "/consular/", label: chrome.nav.consular },
+   { path: "/help/", label: chrome.nav.help },
 ] as const;
 const langChoices: { locale: UiLang; label: string }[] = [
-	{ locale: "ne", label: chrome.langPicker.ne },
-	{ locale: "en", label: chrome.langPicker.en },
-	{ locale: "zh", label: chrome.langPicker.zh },
+   { locale: "ne", label: chrome.langPicker.ne },
+   { locale: "en", label: chrome.langPicker.en },
+   { locale: "zh", label: chrome.langPicker.zh },
 ];
 const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paperCopy(locale).months)}`;
 const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
@@ -49,163 +49,163 @@ const copyIssueUrl = `${site.sourceRepo}/issues/new?template=copy.md`;
 
 <!doctype html>
 <html lang={htmlLang(locale)}>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" href="/favicon.ico" sizes="32x32" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="manifest" href="/manifest.webmanifest" />
-		<link rel="apple-touch-icon" href="/icon-192.png" />
-		<meta name="theme-color" content="#1a1610" />
-		<link rel="stylesheet" href={fontHref} />
-		{printScriptFonts === true && locale !== "ne" ? <link rel="stylesheet" href={fontsNe} media="print" /> : null}
-		{printScriptFonts === true && locale !== "zh" ? <link rel="stylesheet" href={fontsZh} media="print" /> : null}
-		<meta name="generator" content={Astro.generator} />
-		<Seo
-			title={title}
-			description={description}
-			path={path}
-			locale={locale}
-			breadcrumbs={breadcrumbs}
-			includeWebsiteJsonLd={includeWebsiteJsonLd}
-			contactPoints={contactPoints}
-			faq={faq}
-		/>
-	</head>
-	<body>
-		<a class="skip" href="#main">{chrome.skipLink}</a>
-		<header class="site-header">
-			<div class="wrap">
-				<div class="header-top">
-					<a class="brand" href={localePath(locale, "/")}>
-						<span class="brand-mark">{site.name}</span>
-						<span class="brand-line">{chrome.brandLine}</span>
-					</a>
-					<nav class="lang-picker" aria-label={chrome.langNav}>
-						{
-							langChoices.map((item) => (
-								<a
-									class="lang-btn"
-									href={localePath(item.locale, path)}
-									data-lang-choice={item.locale}
-									aria-current={item.locale === locale ? "page" : undefined}
-								>
-									{item.label}
-								</a>
-							))
-						}
-					</nav>
-				</div>
-				<nav aria-label={chrome.mainNav}>
-					<ul class="nav">
-						{
-							navItems.map((item) => (
-								<li>
-									<a href={localePath(locale, item.path)} aria-current={item.path === path ? "page" : undefined}>
-										{item.label}
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</nav>
-				<nav class="crumbs" aria-label={chrome.breadcrumbNav}>
-					<ol>
-						{
-							breadcrumbs.map((crumb, index) => (
-								<li>
-									{index < breadcrumbs.length - 1 ? (
-										<a href={crumb.path}>{crumb.name}</a>
-									) : (
-										<span aria-current="page">{crumb.name}</span>
-									)}
-								</li>
-							))
-						}
-					</ol>
-				</nav>
-				<div class="site-share">
-					<img class="site-qr" src="/site-qr.png" width="128" height="128" alt={chrome.qrAlt} />
-					<div class="stack-tight">
-						<p>{chrome.qrCaption}</p>
-						<p>
-							<a href={`${site.origin}/`}>{`${site.origin}/`}</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</header>
-		<main id="main" class="wrap">
-			<p class="banner" data-saved-copy="true">{chrome.savedCopy}</p>
-			<slot />
-		</main>
-		<footer class="site-footer" role="contentinfo" aria-label={chrome.contentinfo}>
-			<div class="wrap">
-				<p>{chrome.footerNote}</p>
-				<p id="site-freshness" data-built-at={site.builtAt} data-unmaintained={chrome.unmaintained}>
-					{verified}
-				</p>
-				<p>{chrome.antiPhishing}</p>
-				<p>{chrome.noMoney}</p>
-				<p>{chrome.noMail}</p>
-				<p>
-					<a href={copyIssueUrl} rel="noopener noreferrer">{chrome.corrections}</a>
-				</p>
-				<p>
-					<a href={site.sourceRepo} rel="noopener noreferrer">{chrome.footerSource}</a>
-				</p>
-				<p>{site.name}</p>
-			</div>
-		</footer>
-		<script is:inline>
-			(function () {
-				var el = document.getElementById("site-freshness");
-				if (el === null) {
-					return;
-				}
-				var built = el.getAttribute("data-built-at");
-				var warning = el.getAttribute("data-unmaintained");
-				if (built === null || warning === null) {
-					return;
-				}
-				var then = Date.parse(built);
-				if (isNaN(then) === true) {
-					return;
-				}
-				if (Date.now() - then > 7 * 24 * 60 * 60 * 1000) {
-					el.textContent = warning;
-					el.className = "banner banner--warn";
-				}
-			})();
-		</script>
-		{
-			registerWorker === false && (
-				<script is:inline>
-					if ("serviceWorker" in navigator) {
-						navigator.serviceWorker.getRegistrations().then(function (regs) {
-							regs.forEach(function (reg) {
-								reg.unregister();
-							});
-						});
-					}
-					if ("caches" in window) {
-						caches.keys().then(function (keys) {
-							keys.forEach(function (key) {
-								caches.delete(key);
-							});
-						});
-					}
-				</script>
-			)
-		}
-		{
-			registerWorker === true && (
-				<script is:inline>
-					if ("serviceWorker" in navigator) {
-						navigator.serviceWorker.register("/sw.js");
-					}
-				</script>
-			)
-		}
-	</body>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" sizes="32x32" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="manifest" href="/manifest.webmanifest" />
+      <link rel="apple-touch-icon" href="/icon-192.png" />
+      <meta name="theme-color" content="#1a1610" />
+      <link rel="stylesheet" href={fontHref} />
+      {printScriptFonts === true && locale !== "ne" ? <link rel="stylesheet" href={fontsNe} media="print" /> : null}
+      {printScriptFonts === true && locale !== "zh" ? <link rel="stylesheet" href={fontsZh} media="print" /> : null}
+      <meta name="generator" content={Astro.generator} />
+      <Seo
+         title={title}
+         description={description}
+         path={path}
+         locale={locale}
+         breadcrumbs={breadcrumbs}
+         includeWebsiteJsonLd={includeWebsiteJsonLd}
+         contactPoints={contactPoints}
+         faq={faq}
+      />
+   </head>
+   <body>
+      <a class="skip" href="#main">{chrome.skipLink}</a>
+      <header class="site-header">
+         <div class="wrap">
+            <div class="header-top">
+               <a class="brand" href={localePath(locale, "/")}>
+                  <span class="brand-mark">{site.name}</span>
+                  <span class="brand-line">{chrome.brandLine}</span>
+               </a>
+               <nav class="lang-picker" aria-label={chrome.langNav}>
+                  {
+                     langChoices.map((item) => (
+                        <a
+                           class="lang-btn"
+                           href={localePath(item.locale, path)}
+                           data-lang-choice={item.locale}
+                           aria-current={item.locale === locale ? "page" : undefined}
+                        >
+                           {item.label}
+                        </a>
+                     ))
+                  }
+               </nav>
+            </div>
+            <nav aria-label={chrome.mainNav}>
+               <ul class="nav">
+                  {
+                     navItems.map((item) => (
+                        <li>
+                           <a href={localePath(locale, item.path)} aria-current={item.path === path ? "page" : undefined}>
+                              {item.label}
+                           </a>
+                        </li>
+                     ))
+                  }
+               </ul>
+            </nav>
+            <nav class="crumbs" aria-label={chrome.breadcrumbNav}>
+               <ol>
+                  {
+                     breadcrumbs.map((crumb, index) => (
+                        <li>
+                           {index < breadcrumbs.length - 1 ? (
+                              <a href={crumb.path}>{crumb.name}</a>
+                           ) : (
+                              <span aria-current="page">{crumb.name}</span>
+                           )}
+                        </li>
+                     ))
+                  }
+               </ol>
+            </nav>
+            <div class="site-share">
+               <img class="site-qr" src="/site-qr.png" width="128" height="128" alt={chrome.qrAlt} />
+               <div class="stack-tight">
+                  <p>{chrome.qrCaption}</p>
+                  <p>
+                     <a href={`${site.origin}/`}>{`${site.origin}/`}</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </header>
+      <main id="main" class="wrap">
+         <p class="banner" data-saved-copy="true">{chrome.savedCopy}</p>
+         <slot />
+      </main>
+      <footer class="site-footer" role="contentinfo" aria-label={chrome.contentinfo}>
+         <div class="wrap">
+            <p>{chrome.footerNote}</p>
+            <p id="site-freshness" data-built-at={site.builtAt} data-unmaintained={chrome.unmaintained}>
+               {verified}
+            </p>
+            <p>{chrome.antiPhishing}</p>
+            <p>{chrome.noMoney}</p>
+            <p>{chrome.noMail}</p>
+            <p>
+               <a href={copyIssueUrl} rel="noopener noreferrer">{chrome.corrections}</a>
+            </p>
+            <p>
+               <a href={site.sourceRepo} rel="noopener noreferrer">{chrome.footerSource}</a>
+            </p>
+            <p>{site.name}</p>
+         </div>
+      </footer>
+      <script is:inline>
+         (function () {
+            var el = document.getElementById("site-freshness");
+            if (el === null) {
+               return;
+            }
+            var built = el.getAttribute("data-built-at");
+            var warning = el.getAttribute("data-unmaintained");
+            if (built === null || warning === null) {
+               return;
+            }
+            var then = Date.parse(built);
+            if (isNaN(then) === true) {
+               return;
+            }
+            if (Date.now() - then > 7 * 24 * 60 * 60 * 1000) {
+               el.textContent = warning;
+               el.className = "banner banner--warn";
+            }
+         })();
+      </script>
+      {
+         registerWorker === false && (
+            <script is:inline>
+               if ("serviceWorker" in navigator) {
+                  navigator.serviceWorker.getRegistrations().then(function (regs) {
+                     regs.forEach(function (reg) {
+                        reg.unregister();
+                     });
+                  });
+               }
+               if ("caches" in window) {
+                  caches.keys().then(function (keys) {
+                     keys.forEach(function (key) {
+                        caches.delete(key);
+                     });
+                  });
+               }
+            </script>
+         )
+      }
+      {
+         registerWorker === true && (
+            <script is:inline>
+               if ("serviceWorker" in navigator) {
+                  navigator.serviceWorker.register("/sw.js");
+               }
+            </script>
+         )
+      }
+   </body>
 </html>

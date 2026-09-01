@@ -6,25 +6,25 @@ import { fieldBlockSections, type PaperSection } from "./assemble-shared";
 import type { ConsularValues } from "./records";
 
 const catalogs = {
-	ne: { consular: neConsular },
-	en: { consular: enConsular },
-	zh: { consular: zhConsular },
+   ne: { consular: neConsular },
+   en: { consular: enConsular },
+   zh: { consular: zhConsular },
 };
 
 export function assembleConsularPaper(values: ConsularValues, note: string, preparedOn: Date): PaperSection[] {
-	return fieldBlockSections(
-		"consularTitle",
-		"consularCannotMatch",
-		consularFields,
-		{
-			yourName: values.yourName,
-			country: values.country,
-			missingName: values.missingName,
-			lastKnownPlace: values.lastKnownPlace,
-			reachYou: values.reachYou,
-		},
-		note,
-		preparedOn,
-		catalogs,
-	);
+   return fieldBlockSections(
+      "consularTitle",
+      "consularCannotMatch",
+      consularFields,
+      {
+         yourName: values.yourName,
+         country: values.country,
+         missingName: values.missingName,
+         lastKnownPlace: values.lastKnownPlace,
+         reachYou: values.reachYou,
+      },
+      note,
+      preparedOn,
+      catalogs,
+   );
 }
