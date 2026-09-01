@@ -1,0 +1,41 @@
+{
+	"agency": {
+		"label": "Agency name",
+		"hint": ""
+	},
+	"route": {
+		"label": "Route or area",
+		"hint": "Trail, camp, district, last known point."
+	},
+	"lastContactWhen": {
+		"label": "When was last confirmed contact",
+		"hint": "Date and time, as much as you know."
+	},
+	"lastContactHow": {
+		"label": "How was last confirmed contact",
+		"hint": "",
+		"options": {
+			"radio": "Radio",
+			"satphone": "Satellite phone",
+			"phone": "Mobile or phone",
+			"in_person": "In person",
+			"other": "Other"
+		}
+	},
+	"member": {
+		"add": "Add a party member",
+		"remove": "Remove this member",
+		"name": {
+			"label": "Name as printed on the passport",
+			"hint": ""
+		},
+		"idNumber": {
+			"label": "Passport or agency ID",
+			"hint": ""
+		},
+		"nationality": {
+			"label": "Nationality, if known",
+			"hint": ""
+		}
+	}
+}

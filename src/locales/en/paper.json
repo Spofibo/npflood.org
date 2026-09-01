@@ -1,0 +1,31 @@
+{
+	"kerungTitle": "Bhote Koshi / Kerung: message",
+	"trekTitle": "Trek party manifest: message",
+	"findTitle": "Missing person: details",
+	"consularTitle": "Family search from abroad: details",
+	"safeTitle": "I am safe",
+	"notRegistration": "This is not a registration. Nobody has received this until you give or send it.",
+	"findCannotMatch": "This site cannot find anyone. Take this paper to police, a hospital, or a ward office.",
+	"consularCannotMatch": "This site does not reconnect families. Take this paper to your embassy or ICRC Restoring Family Links.",
+	"noteLine": "Your note (not a tracking number. We cannot look this up)",
+	"prepared": "Date prepared",
+	"medicalYes": "Medical help needed: yes",
+	"medicalNo": "Medical help needed: no",
+	"companionsHeading": "Someone travelling with me",
+	"membersHeading": "Party members",
+	"screenshot": "If you are reading a photo of this block, it is complete as shown. Reply the same way and quote the note.",
+	"months": [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	]
+}

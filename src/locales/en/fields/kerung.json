@@ -1,0 +1,53 @@
+{
+	"name": {
+		"label": "Name as printed on the passport",
+		"hint": "Use the same spelling and order as the passport."
+	},
+	"passport": {
+		"label": "Passport number",
+		"hint": ""
+	},
+	"wechatOrPhone": {
+		"label": "WeChat ID or phone",
+		"hint": "The contact for the person using this device."
+	},
+	"location": {
+		"label": "Current location",
+		"hint": "Place, road, shelter, or GPS if you have it."
+	},
+	"nepalContact": {
+		"label": "A Nepal contact number",
+		"hint": "Family, driver, hotel, anyone reachable in Nepal."
+	},
+	"medical": {
+		"label": "Someone in this group needs medical help",
+		"hint": ""
+	},
+	"companion": {
+		"add": "Add someone travelling with me",
+		"remove": "Remove this person",
+		"name": {
+			"label": "Name as printed on the passport",
+			"hint": ""
+		},
+		"passport": {
+			"label": "Passport number",
+			"hint": ""
+		},
+		"role": {
+			"label": "Role",
+			"hint": "",
+			"options": {
+				"driver": "Driver",
+				"helper": "Helper",
+				"family": "Family",
+				"other": "Other"
+			}
+		}
+	},
+	"minor": {
+		"question": "Is this for an unaccompanied minor?",
+		"yes": "Yes, an unaccompanied minor",
+		"no": "No"
+	}
+}

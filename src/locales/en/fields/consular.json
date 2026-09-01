@@ -1,0 +1,22 @@
+{
+	"yourName": {
+		"label": "Your name",
+		"hint": "You are writing from abroad."
+	},
+	"country": {
+		"label": "Country you are in now",
+		"hint": ""
+	},
+	"missingName": {
+		"label": "Name of the person missing in Nepal",
+		"hint": ""
+	},
+	"lastKnownPlace": {
+		"label": "Last known place in Nepal",
+		"hint": "District, village, hotel, route, as much as you know."
+	},
+	"reachYou": {
+		"label": "How to reach you",
+		"hint": "Phone, email, WhatsApp, or WeChat. Include your time zone."
+	}
+}

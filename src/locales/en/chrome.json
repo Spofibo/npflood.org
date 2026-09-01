@@ -1,0 +1,26 @@
+{
+	"brandLine": "Bhote Koshi flood. Response tools",
+	"footerNote": "This is not a government registry, and this site does not keep a list of people. Volunteer tools.",
+	"footerSource": "Source is public on GitHub",
+	"skipLink": "Skip to the main text",
+	"langNav": "Language",
+	"mainNav": "Main",
+	"breadcrumbNav": "Breadcrumb",
+	"contentinfo": "Site",
+	"nav": {
+		"home": "Home",
+		"status": "Status and phones",
+		"find": "Looking for someone",
+		"consular": "Family abroad",
+		"help": "Help"
+	},
+	"langPicker": {
+		"ne": "नेपाली",
+		"en": "English",
+		"zh": "中文"
+	},
+	"qrCaption": "This site: npflood.org",
+	"qrAlt": "QR code that opens https://npflood.org/",
+	"heldFlag": "Not listed yet",
+	"dialName": "Call {label} {number}"
+}

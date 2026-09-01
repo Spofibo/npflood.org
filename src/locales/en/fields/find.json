@@ -1,0 +1,30 @@
+{
+	"missingName": {
+		"label": "Name of the missing person",
+		"hint": "As printed on a passport or ID, if you have it."
+	},
+	"age": {
+		"label": "Age, if known",
+		"hint": ""
+	},
+	"lastSeen": {
+		"label": "Last seen place and time",
+		"hint": "Place, road, bus, camp, date."
+	},
+	"appearance": {
+		"label": "Appearance or clothes",
+		"hint": ""
+	},
+	"reporterName": {
+		"label": "Your name",
+		"hint": ""
+	},
+	"reporterPhone": {
+		"label": "Your phone number",
+		"hint": "A number police or a hospital can call back."
+	},
+	"relation": {
+		"label": "Your relation to the missing person",
+		"hint": ""
+	}
+}

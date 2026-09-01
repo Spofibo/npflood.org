@@ -1,0 +1,26 @@
+{
+	"brandLine": "波曲洪水。应急工具",
+	"footerNote": "这不是政府登记，本站也不保存名单。志愿工具。",
+	"footerSource": "源代码在 GitHub 上公开",
+	"skipLink": "跳到正文",
+	"langNav": "语言",
+	"mainNav": "主导航",
+	"breadcrumbNav": "当前位置",
+	"contentinfo": "网站",
+	"nav": {
+		"home": "首页",
+		"status": "状态和电话",
+		"find": "寻找失联者",
+		"consular": "境外寻亲",
+		"help": "协助"
+	},
+	"langPicker": {
+		"ne": "नेपाली",
+		"en": "English",
+		"zh": "中文"
+	},
+	"qrCaption": "本站：npflood.org",
+	"qrAlt": "打开 https://npflood.org/ 的二维码",
+	"heldFlag": "尚未公布",
+	"dialName": "拨打{label} {number}"
+}

@@ -1,0 +1,22 @@
+{
+	"yourName": {
+		"label": "您的姓名",
+		"hint": "您身在境外。"
+	},
+	"country": {
+		"label": "您现在所在的国家",
+		"hint": ""
+	},
+	"missingName": {
+		"label": "在尼泊尔失联者的姓名",
+		"hint": ""
+	},
+	"lastKnownPlace": {
+		"label": "在尼泊尔最后已知地点",
+		"hint": "县区、村庄、旅馆、路线，尽量写清。"
+	},
+	"reachYou": {
+		"label": "如何联系您",
+		"hint": "电话、邮箱、WhatsApp 或微信。请写上时区。"
+	}
+}

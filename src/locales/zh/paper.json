@@ -1,0 +1,31 @@
+{
+	"kerungTitle": "波曲 / 吉隆: 留言",
+	"trekTitle": "徒步团队名单: 留言",
+	"findTitle": "失联者信息",
+	"consularTitle": "境外寻亲信息",
+	"safeTitle": "我是安全的",
+	"notRegistration": "这不是登记。您本人交给或发出之前，没有人收到这条信息。",
+	"findCannotMatch": "本站无法寻人。请把此页交给警察、医院或社区办事处。",
+	"consularCannotMatch": "本站不能联系家人。请把此页交给本国使领馆或红十字国际委员会寻人服务。",
+	"noteLine": "您的备注（不是查询编号，我们无法代查）",
+	"prepared": "填写日期",
+	"medicalYes": "需要医疗帮助：是",
+	"medicalNo": "需要医疗帮助：否",
+	"companionsHeading": "同行人员",
+	"membersHeading": "队员",
+	"screenshot": "若您看到的是截图，以上内容已完整。请用同一方式回复并引用该备注。",
+	"months": [
+		"1月",
+		"2月",
+		"3月",
+		"4月",
+		"5月",
+		"6月",
+		"7月",
+		"8月",
+		"9月",
+		"10月",
+		"11月",
+		"12月"
+	]
+}

@@ -1,0 +1,167 @@
+{
+	"home": {
+		"path": "/",
+		"title": "Bhote Koshi flood help | npflood.org",
+		"description": "Bhote Koshi / Bhotekoshi flood tools for Rasuwa and Kerung / Gyirong: emergency numbers, I am safe, looking for family, prepare a message you send yourself.",
+		"h1": "Bhote Koshi flood. Response tools",
+		"lede": "What do you need? Choose one. You are not registered here, and we do not keep a list."
+	},
+	"status": {
+		"path": "/status/",
+		"title": "Flood status and emergency phones | npflood.org",
+		"description": "Nepal Police 100, fire 101, ambulance 102 for the Bhote Koshi flood. Other official lines are listed only when confirmed.",
+		"h1": "Status and phones",
+		"lede": "These are the only numbers we will publish until others are confirmed. More official lines will be added when they exist."
+	},
+	"find": {
+		"path": "/find/",
+		"title": "Looking for someone in Nepal | npflood.org",
+		"description": "If you are in Nepal looking for someone after the Bhote Koshi flood, prepare a note and take it to police, a hospital, or a ward office. This site cannot find anyone.",
+		"h1": "Looking for someone in Nepal",
+		"lede": "This site cannot find a person. We have no list. Prepare the details below and take them to police, a hospital, or a ward office."
+	},
+	"consular": {
+		"path": "/consular/",
+		"title": "Looking for family from abroad | npflood.org",
+		"description": "If you are abroad looking for family after the Bhote Koshi flood, prepare a note and take it to your embassy or ICRC family links.",
+		"h1": "Abroad, looking for family",
+		"lede": "You are abroad. Take these details to your embassy or to ICRC Restoring Family Links. We will not invent embassy numbers."
+	},
+	"help": {
+		"path": "/help/",
+		"title": "Volunteer and donate | npflood.org",
+		"description": "How to help after the Bhote Koshi flood. Official donation links, and volunteer coordinators when confirmed.",
+		"h1": "Volunteer or donate",
+		"lede": "We do not take volunteer sign-ups. Donation links below go to official organisations. This site does not take money."
+	},
+	"kerung": {
+		"path": "/kerung/",
+		"title": "Kerung / Gyirong message | npflood.org",
+		"description": "Prepares a message for people at Kerung / Gyirong. You give or send it yourself. This is not a registration.",
+		"h1": "Kerung. Prepare your message",
+		"lede": "This form prepares a message. You give or send it yourself on paper, by SMS, WhatsApp, or WeChat. You are not registered here."
+	},
+	"trek": {
+		"path": "/trek/",
+		"title": "Trek party message | npflood.org",
+		"description": "Prepares a trek party manifest message. Agency staff give or send it themselves.",
+		"h1": "Trek party. Prepare the message",
+		"lede": "For agency staff. The page assembles a party manifest. You give or send it yourself."
+	},
+	"safe": {
+		"path": "/safe/",
+		"title": "I am safe | npflood.org",
+		"description": "Prepare a short I-am-safe message for family. You send it yourself.",
+		"h1": "I am safe",
+		"lede": "A short message for family. You send it yourself by SMS, WhatsApp, or on paper."
+	},
+	"notFound": {
+		"path": "/404/",
+		"title": "Page not found | npflood.org",
+		"description": "That address is not a page. See status and phones, or call Police 100.",
+		"h1": "This page is not here",
+		"lede": "The link may be wrong. If you need emergency numbers, go to the status page."
+	},
+	"chooser": [
+		{
+			"path": "/status/",
+			"label": "I need phone numbers"
+		},
+		{
+			"path": "/safe/",
+			"label": "I am safe, I need to tell someone"
+		},
+		{
+			"path": "/find/",
+			"label": "I am looking for someone in Nepal"
+		},
+		{
+			"path": "/kerung/",
+			"label": "I am at Kerung / Gyirong"
+		},
+		{
+			"path": "/trek/",
+			"label": "I have a trek party"
+		},
+		{
+			"path": "/consular/",
+			"label": "I am abroad, looking for family"
+		},
+		{
+			"path": "/help/",
+			"label": "I want to help"
+		}
+	],
+	"chooserNav": "What do you need",
+	"faqTitle": "Questions",
+	"statusWaiting": "Lines not listed yet",
+	"faq": [
+		{
+			"q": "Is this a government registry?",
+			"a": "No. This site does not keep a list of people. You are not registered here."
+		},
+		{
+			"q": "Can this site find a missing person?",
+			"a": "No. Prepare a note and take it to police, a hospital, a ward office, your embassy, or ICRC Restoring Family Links."
+		},
+		{
+			"q": "Which phone numbers work now?",
+			"a": "Nepal Police 100, fire 101, ambulance 102. Other official lines appear on Status only when confirmed."
+		},
+		{
+			"q": "What do I do with the message this site prepares?",
+			"a": "Give or send it yourself on paper, SMS, WhatsApp, or WeChat. There is no inbox here."
+		}
+	],
+	"phones": {
+		"police": "Police",
+		"fire": "Fire",
+		"ambulance": "Ambulance"
+	},
+	"statusBody": [
+		"For the Bhote Koshi (Bhotekoshi) flood and the Rasuwa / Kerung area. Numbers can change. Prefer what a local official tells you on the ground."
+	],
+	"statusHeld": [
+		{
+			"title": "Consulate General of Nepal in Lhasa",
+			"body": "No number yet. WeChat, phone, or an official notice will appear here once confirmed."
+		},
+		{
+			"title": "TAAN",
+			"body": "No number yet. The official contact for trekking agencies will appear here once confirmed."
+		},
+		{
+			"title": "District administration / flood line",
+			"body": "No number yet. A DAO or district flood helpline will appear here once confirmed."
+		}
+	],
+	"findBody": [
+		"A police post or the nearest police office. Dial 100.",
+		"The nearest hospital or health post.",
+		"The ward office, municipality, or district administration office."
+	],
+	"consularBody": [
+		"Call your own country's embassy or consulate. They may have a flood desk.",
+		"For Nepali families, watch official Nepal government notices and the Consulate General in Lhasa. Their number will appear on Status when it is confirmed."
+	],
+	"icrcFamilyLinksLabel": "ICRC Restoring Family Links",
+	"helpBody": [
+		"Share the status page and this site. Do not spread unconfirmed numbers.",
+		"Only trust official organisations for blood, clothes, or money."
+	],
+	"helpDonationsTitle": "Where to donate",
+	"helpDonations": {
+		"pmdrf": "Prime Minister Disaster Relief Fund (official government)",
+		"wck": "World Central Kitchen",
+		"nrcs": "Nepal Red Cross",
+		"caritas": "Caritas Nepal"
+	},
+	"helpHeldTitle": "Volunteer coordinators not listed yet",
+	"helpHeldBody": "Volunteer coordinators will be listed here only when confirmed. This site does not take volunteer sign-ups.",
+	"trekGuidance": "This is for agency staff. There is no lock on the page. If the party is safe or the location changes, write that the same way you sent the first note.",
+	"homeLocales": {
+		"ne": "नेपाली",
+		"en": "English",
+		"zh": "中文"
+	}
+}
