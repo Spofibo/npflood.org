@@ -9,9 +9,9 @@
 	"status": {
 		"path": "/status/",
 		"title": "状态和紧急电话 | npflood.org",
-		"description": "尼泊尔警察 100、消防 101、急救 102。其他官方线路仅在核实后公布。",
+		"description": "尼泊尔警察 100、消防 101、急救 102、灾害热线 1234、国家应急运行中心 1149。其他官方线路仅在核实后公布。",
 		"h1": "状态和电话",
-		"lede": "目前仅公布这些已核实号码。其他官方线路确认后会补上。"
+		"lede": "以下号码已经核实。其他官方线路确认后会补上。"
 	},
 	"find": {
 		"path": "/find/",
@@ -106,7 +106,7 @@
 		},
 		{
 			"q": "现在哪些电话可用？",
-			"a": "尼泊尔警察 100、消防 101、急救 102。其他官方线路核实后才会出现在状态页。"
+			"a": "尼泊尔警察 100、消防 101、急救 102、灾害热线 1234、国家应急运行中心 1149。其他官方线路核实后才会出现在状态页。"
 		},
 		{
 			"q": "本站生成的留言怎么用？",
@@ -116,8 +116,15 @@
 	"phones": {
 		"police": "警察",
 		"fire": "消防",
-		"ambulance": "急救"
+		"ambulance": "急救",
+		"bipad": "灾害热线",
+		"neoc": "国家应急运行中心",
+		"childHelpline": "儿童热线",
+		"missingChild": "失踪儿童查找",
+		"touristPolice": "旅游警察"
 	},
+	"statusHazard": "如果您在波曲或特里舒利河滩，请到高处过夜。上游滑坡堰塞湖可能溃决。只听从 DHM 和 NDRRMA 的警报，不要听转发消息，包括本页。",
+	"outOfContact": "失去联络不等于死亡。道路和电话线已中断。多数被报失踪的人还活着，只是联系不上。",
 	"statusBody": [
 		"适用于波曲（Bhotekoshi）洪水及拉苏瓦 / 吉隆一带。号码可能变化。现场官员的说法优先。"
 	],
@@ -145,9 +152,23 @@
 		"尼泊尔家庭请关注尼泊尔政府官方通知和驻拉萨总领事馆。其号码核实后会出现在状态页。"
 	],
 	"icrcFamilyLinksLabel": "红十字国际委员会寻人服务",
+	"findListsTitle": "官方名单（非本站）",
+	"findListsDisclaimer": "这些网站不是 npflood.org。本站无法代查任何人。我们没有名单。",
+	"findListPolice": "尼泊尔警察失踪与无名氏登记",
+	"findListDeadBodies": "尼泊尔警察无名遗体（拉苏瓦）",
+	"findListDisaster": "尼泊尔警察灾害无名遗体",
+	"findListPmo": "政府救援申请门户（总理府）。其中的数字是他们的，不是本站的。",
+	"findListAggregator": "lostinnepal.org（汇总官方名单）",
+	"dnaTitle": "如无法通过照片辨认",
+	"dnaBody": "在照片无法辨认或遗体暂葬时，尼泊尔政府可做 DNA 比对。一等亲属可提交 DNA 档案或血样。",
+	"dnaMailtoLabel": "DNA 档案：dnacodis@nepalpolice.gov.np",
+	"dnaHelplineLabel": "尼泊尔警察 DNA 热线",
+	"consularRemains": "外国公民遗体送返有公布的九步流程，由使领馆协调。请联系本国使领馆。本站不列出步骤。",
+	"lastReviewed": "最近核验",
 	"helpBody": [
 		"请转发状态页和本站。不要传播未经核实的号码。",
-		"献血、衣物或捐款只认官方机构。"
+		"献血、衣物或捐款只认官方机构。",
+		"除非官方协调人请您前往，否则不要自行赶赴灾区协助。未经请求的抵达会占用伤者所需的直升机座位。"
 	],
 	"helpDonationsTitle": "捐款去向",
 	"helpDonations": {

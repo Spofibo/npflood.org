@@ -22,5 +22,10 @@
 	"qrCaption": "This site: npflood.org",
 	"qrAlt": "QR code that opens https://npflood.org/",
 	"heldFlag": "Not listed yet",
-	"dialName": "Call {label} {number}"
+	"dialName": "Call {label} {number}",
+	"lastUpdated": "Last updated",
+	"unmaintained": "This page has not been reviewed for more than 7 days. Call 1234 or 100.",
+	"savedCopy": "Showing a saved copy. Numbers and forms may be out of date. Call 1234 or 100 if you need help now.",
+	"antiPhishing": "npflood.org is the only address. A different address asking for a passport number is not us.",
+	"officialContact": "For officials and organisations"
 }

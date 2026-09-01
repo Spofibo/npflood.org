@@ -9,9 +9,9 @@
 	"status": {
 		"path": "/status/",
 		"title": "Flood status and emergency phones | npflood.org",
-		"description": "Nepal Police 100, fire 101, ambulance 102 for the Bhote Koshi flood. Other official lines are listed only when confirmed.",
+		"description": "Nepal Police 100, fire 101, ambulance 102, Bipad Helpline 1234, and National Emergency Operation Centre 1149 for the Bhote Koshi flood. Other official lines are listed only when confirmed.",
 		"h1": "Status and phones",
-		"lede": "These are the only numbers we will publish until others are confirmed. More official lines will be added when they exist."
+		"lede": "These numbers are confirmed. More official lines will be added when they exist."
 	},
 	"find": {
 		"path": "/find/",
@@ -106,7 +106,7 @@
 		},
 		{
 			"q": "Which phone numbers work now?",
-			"a": "Nepal Police 100, fire 101, ambulance 102. Other official lines appear on Status only when confirmed."
+			"a": "Nepal Police 100, fire 101, ambulance 102, Bipad Helpline 1234, National Emergency Operation Centre 1149. Other official lines appear on Status only when confirmed."
 		},
 		{
 			"q": "What do I do with the message this site prepares?",
@@ -116,8 +116,15 @@
 	"phones": {
 		"police": "Police",
 		"fire": "Fire",
-		"ambulance": "Ambulance"
+		"ambulance": "Ambulance",
+		"bipad": "Bipad Helpline",
+		"neoc": "National Emergency Operation Centre",
+		"childHelpline": "Child Helpline",
+		"missingChild": "Missing Child Response",
+		"touristPolice": "Tourist Police"
 	},
+	"statusHazard": "If you are on the Bhote Koshi or Trishuli floodplain, sleep on high ground. A landslide-formed lake upstream could breach. Follow DHM and NDRRMA warnings only, not forwarded messages, including this page.",
+	"outOfContact": "Out of contact does not mean dead. Roads and phone lines are down. Most people listed as missing are alive and unreachable.",
 	"statusBody": [
 		"For the Bhote Koshi (Bhotekoshi) flood and the Rasuwa / Kerung area. Numbers can change. Prefer what a local official tells you on the ground."
 	],
@@ -145,9 +152,23 @@
 		"For Nepali families, watch official Nepal government notices and the Consulate General in Lhasa. Their number will appear on Status when it is confirmed."
 	],
 	"icrcFamilyLinksLabel": "ICRC Restoring Family Links",
+	"findListsTitle": "Official lists (not this site)",
+	"findListsDisclaimer": "These sites are not npflood.org. This site cannot look anyone up. We have no list.",
+	"findListPolice": "Nepal Police missing and unidentified registers",
+	"findListDeadBodies": "Nepal Police unidentified remains (Rasuwa)",
+	"findListDisaster": "Nepal Police disaster unidentified remains",
+	"findListPmo": "Government rescue request portal (Office of the Prime Minister). Their counts are theirs, not ours.",
+	"findListAggregator": "lostinnepal.org (aggregates official lists)",
+	"dnaTitle": "If photo identification is not possible",
+	"dnaBody": "The Government of Nepal facilitates DNA matching where photo ID fails or remains are temporarily interred. First-degree relatives can send DNA profiles or give blood samples.",
+	"dnaMailtoLabel": "DNA profiles: dnacodis@nepalpolice.gov.np",
+	"dnaHelplineLabel": "Nepal Police DNA helpline",
+	"consularRemains": "A published nine-step process exists for returning foreign nationals' remains, coordinated through embassies. Ask your own embassy. This site does not list the steps.",
+	"lastReviewed": "Last reviewed",
 	"helpBody": [
 		"Share the status page and this site. Do not spread unconfirmed numbers.",
-		"Only trust official organisations for blood, clothes, or money."
+		"Only trust official organisations for blood, clothes, or money.",
+		"Do not travel to the flood area to help unless an official coordinator asked you to. Unrequested arrivals use helicopter seats that injured people need."
 	],
 	"helpDonationsTitle": "Where to donate",
 	"helpDonations": {

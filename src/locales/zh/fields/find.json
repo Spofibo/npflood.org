@@ -26,5 +26,13 @@
 	"relation": {
 		"label": "与失联者的关系",
 		"hint": ""
+	},
+	"alreadyReported": {
+		"label": "我已向警察或其他官方窗口报案",
+		"hint": ""
+	},
+	"reportReference": {
+		"label": "参考编号（如有）",
+		"hint": "警察、医院或社区档案号。"
 	}
 }

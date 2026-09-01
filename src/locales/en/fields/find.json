@@ -26,5 +26,13 @@
 	"relation": {
 		"label": "Your relation to the missing person",
 		"hint": ""
+	},
+	"alreadyReported": {
+		"label": "I have already reported this to police or another official desk",
+		"hint": ""
+	},
+	"reportReference": {
+		"label": "Reference number, if you have one",
+		"hint": "Police, hospital, or ward file number."
 	}
 }

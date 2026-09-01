@@ -49,5 +49,13 @@
 		"question": "Is this for an unaccompanied minor?",
 		"yes": "Yes, an unaccompanied minor",
 		"no": "No"
+	},
+	"proxy": {
+		"label": "I am filling this in for someone else",
+		"hint": ""
+	},
+	"proxyName": {
+		"label": "Your name and relationship",
+		"hint": "Who is filling this in, and how you are connected to the person."
 	}
 }

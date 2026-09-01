@@ -22,5 +22,10 @@
 	"qrCaption": "本站：npflood.org",
 	"qrAlt": "打开 https://npflood.org/ 的二维码",
 	"heldFlag": "尚未公布",
-	"dialName": "拨打{label} {number}"
+	"dialName": "拨打{label} {number}",
+	"lastUpdated": "最近更新",
+	"unmaintained": "本页已超过 7 天未经核验。请拨打 1234 或 100。",
+	"savedCopy": "正在显示已保存的副本。号码和表格可能过时。如需立即协助，请拨打 1234 或 100。",
+	"antiPhishing": "唯一地址是 npflood.org。其他地址向您索取护照号码，都不是本站。",
+	"officialContact": "供官方和机构使用"
 }
