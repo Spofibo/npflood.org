@@ -1,67 +1,24 @@
-import enChrome from "../locales/en/chrome.json";
-import enConsularFields from "../locales/en/fields/consular.json";
-import enFindFields from "../locales/en/fields/find.json";
-import enKerungFields from "../locales/en/fields/kerung.json";
-import enSafeFields from "../locales/en/fields/safe.json";
-import enTrekFields from "../locales/en/fields/trek.json";
-import enForm from "../locales/en/form.json";
-import enPages from "../locales/en/pages.json";
-import enPaper from "../locales/en/paper.json";
-import neChrome from "../locales/ne/chrome.json";
-import neConsularFields from "../locales/ne/fields/consular.json";
-import neFindFields from "../locales/ne/fields/find.json";
-import neKerungFields from "../locales/ne/fields/kerung.json";
-import neSafeFields from "../locales/ne/fields/safe.json";
-import neTrekFields from "../locales/ne/fields/trek.json";
-import neForm from "../locales/ne/form.json";
-import nePages from "../locales/ne/pages.json";
-import nePaper from "../locales/ne/paper.json";
-import zhChrome from "../locales/zh/chrome.json";
-import zhConsularFields from "../locales/zh/fields/consular.json";
-import zhFindFields from "../locales/zh/fields/find.json";
-import zhKerungFields from "../locales/zh/fields/kerung.json";
-import zhSafeFields from "../locales/zh/fields/safe.json";
-import zhTrekFields from "../locales/zh/fields/trek.json";
-import zhForm from "../locales/zh/form.json";
-import zhPages from "../locales/zh/pages.json";
-import zhPaper from "../locales/zh/paper.json";
+import en from "../locales/en";
+import ne from "../locales/ne";
+import zh from "../locales/zh";
 import { collectKeys } from "./nested-string";
-
-const enFields = {
-   kerung: enKerungFields,
-   trek: enTrekFields,
-   find: enFindFields,
-   consular: enConsularFields,
-   safe: enSafeFields,
-};
-const neFields = {
-   kerung: neKerungFields,
-   trek: neTrekFields,
-   find: neFindFields,
-   consular: neConsularFields,
-   safe: neSafeFields,
-};
-const zhFields = {
-   kerung: zhKerungFields,
-   trek: zhTrekFields,
-   find: zhFindFields,
-   consular: zhConsularFields,
-   safe: zhSafeFields,
-};
 
 export type UiLang = "ne" | "en" | "zh";
 type Namespace = "chrome" | "pages" | "form" | "fields" | "paper";
-export type FormCopy = typeof enForm;
-export type FieldsCopy = typeof enFields;
-export type ChromeCopy = typeof enChrome;
-export type PagesCopy = typeof enPages;
-export type PaperCopy = typeof enPaper;
+export type FormCopy = typeof en.form;
+export type FieldsCopy = typeof en.fields;
+export type ChromeCopy = typeof en.chrome;
+export type PagesCopy = typeof en.pages;
+export type PaperCopy = typeof en.paper;
 
 const catalogs = {
-   ne: { chrome: neChrome, pages: nePages, form: neForm, fields: neFields, paper: nePaper },
-   en: { chrome: enChrome, pages: enPages, form: enForm, fields: enFields, paper: enPaper },
-   zh: { chrome: zhChrome, pages: zhPages, form: zhForm, fields: zhFields, paper: zhPaper },
+   ne,
+   en,
+   zh,
 } as const;
+
+const namespaces: Namespace[] = ["chrome", "pages", "form", "fields", "paper"];
+const otherLocales: UiLang[] = ["ne", "zh"];
 
 function assertSameKeys(locale: UiLang, namespace: Namespace): void {
    const english: string[] = [];
@@ -80,16 +37,17 @@ function assertSameKeys(locale: UiLang, namespace: Namespace): void {
    }
 }
 
-assertSameKeys("ne", "chrome");
-assertSameKeys("ne", "pages");
-assertSameKeys("ne", "form");
-assertSameKeys("ne", "fields");
-assertSameKeys("ne", "paper");
-assertSameKeys("zh", "chrome");
-assertSameKeys("zh", "pages");
-assertSameKeys("zh", "form");
-assertSameKeys("zh", "fields");
-assertSameKeys("zh", "paper");
+for (const locale of otherLocales) {
+   for (const namespace of namespaces) {
+      assertSameKeys(locale, namespace);
+   }
+}
+
+const localeIds = {
+   ne: { og: "ne_NP", schema: "ne-NP", hreflang: "ne-NP" },
+   en: { og: "en_US", schema: "en-US", hreflang: "en-US" },
+   zh: { og: "zh_CN", schema: "zh-CN", hreflang: "zh-CN" },
+} as const;
 
 export function chromeCopy(locale: UiLang): ChromeCopy {
    return catalogs[locale].chrome;
@@ -109,6 +67,22 @@ export function fieldsCopy(locale: UiLang): FieldsCopy {
 
 export function paperCopy(locale: UiLang): PaperCopy {
    return catalogs[locale].paper;
+}
+
+export function fieldCatalogs(): { ne: FieldsCopy; en: FieldsCopy; zh: FieldsCopy } {
+   return {
+      ne: catalogs.ne.fields,
+      en: catalogs.en.fields,
+      zh: catalogs.zh.fields,
+   };
+}
+
+export function paperCatalogs(): { ne: PaperCopy; en: PaperCopy; zh: PaperCopy } {
+   return {
+      ne: catalogs.ne.paper,
+      en: catalogs.en.paper,
+      zh: catalogs.zh.paper,
+   };
 }
 
 export function localePath(locale: UiLang, path: string): string {
@@ -138,30 +112,29 @@ export function localeFromPathname(pathname: string, current: string | undefined
 }
 
 export function ogLocale(locale: UiLang): string {
-   if (locale === "ne") {
-      return "ne_NP";
-   }
-   if (locale === "en") {
-      return "en_US";
-   }
-   return "zh_CN";
+   return localeIds[locale].og;
 }
 
 export function schemaLanguage(locale: UiLang): string {
-   if (locale === "ne") {
-      return "ne-NP";
-   }
-   if (locale === "en") {
-      return "en-US";
-   }
-   return "zh-CN";
+   return localeIds[locale].schema;
 }
 
 export function hreflangAlternates(path: string): { lang: string; href: string }[] {
    return [
-      { lang: "ne-NP", href: path },
-      { lang: "en-US", href: localePath("en", path) },
-      { lang: "zh-CN", href: localePath("zh", path) },
+      { lang: localeIds.ne.hreflang, href: path },
+      { lang: localeIds.en.hreflang, href: localePath("en", path) },
+      { lang: localeIds.zh.hreflang, href: localePath("zh", path) },
       { lang: "x-default", href: path },
    ];
+}
+
+const chooserPageIds = ["danger", "status", "needs", "safe", "find", "kerung", "trek", "consular", "help"] as const;
+
+export function chooserPagePath(pages: PagesCopy, id: string): string {
+   for (const pageId of chooserPageIds) {
+      if (pageId === id) {
+         return pages[pageId].path;
+      }
+   }
+   throw new Error(`chooser id ${id} is not a page`);
 }

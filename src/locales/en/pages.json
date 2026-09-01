@@ -3,14 +3,12 @@
     "path": "/",
     "title": "Bhote Koshi flood help | npflood.org",
     "description": "Bhote Koshi flood tools: Nepal emergency contacts, I am safe, looking for family, and a message for people at Gyirong in China. You send the message yourself.",
-    "h1": "Bhote Koshi flood. Response tools",
     "lede": "What do you need? Choose one. You are not registered here, and we do not keep a list."
   },
   "status": {
     "path": "/status/",
     "title": "Nepal emergency contacts | npflood.org",
     "description": "Confirmed Nepal phones for the Bhote Koshi flood: Police 100, fire 101, ambulance 102, Bipad Helpline 1234, National Emergency Operation Centre 1149. This site does not give live road or evacuation status.",
-    "h1": "Emergency contacts",
     "lede": "These are confirmed Nepal phones. This site does not provide live road, border, or evacuation status. Follow DHM and NDRRMA only."
   },
   "danger": {
@@ -66,7 +64,6 @@
     "path": "/safe/",
     "title": "I am safe | npflood.org",
     "description": "Prepare a short I-am-safe message for family. You send it yourself.",
-    "h1": "I am safe",
     "lede": "A short message for family. You send it yourself by SMS, WhatsApp, or on paper."
   },
   "notFound": {
@@ -78,39 +75,39 @@
   },
   "chooser": [
     {
-      "path": "/danger/",
+      "id": "danger",
       "label": "I am in immediate danger / need urgent medical help"
     },
     {
-      "path": "/status/",
+      "id": "status",
       "label": "I need Nepal emergency numbers"
     },
     {
-      "path": "/needs/",
+      "id": "needs",
       "label": "I need water, shelter, or other basic supplies"
     },
     {
-      "path": "/safe/",
+      "id": "safe",
       "label": "I am safe, I need to tell someone"
     },
     {
-      "path": "/find/",
+      "id": "find",
       "label": "I am looking for someone in Nepal"
     },
     {
-      "path": "/kerung/",
+      "id": "kerung",
       "label": "I am at Gyirong / Kerung (China)"
     },
     {
-      "path": "/trek/",
+      "id": "trek",
       "label": "I have a trek party"
     },
     {
-      "path": "/consular/",
+      "id": "consular",
       "label": "I am abroad, looking for family"
     },
     {
-      "path": "/help/",
+      "id": "help",
       "label": "I want to help"
     }
   ],
@@ -194,7 +191,6 @@
       "body": "No contact yet. A district or local desk that takes relief requests will appear here once confirmed."
     }
   ],
-  "kerungChinaBanner": "You are in China. Nepal 100 is not the local police. Confirmed China emergency numbers are not listed yet.",
   "findBody": [
     "A police post or the nearest police office in Nepal. Dial 100.",
     "The nearest hospital or health post.",
@@ -237,10 +233,5 @@
   "helpHeldBody": "Volunteer coordinators will be listed here only when confirmed. This site does not take volunteer sign-ups.",
   "helpNoMail": "This site does not take mail. Distressed people should use Emergency contacts, Find, or Consular. Not this page.",
   "helpBuiltBy": "This tool was built by Alexandru Budurovici.",
-  "trekGuidance": "This is for agency staff. Nothing entered here is sent to npflood.org. Drafts stay on this phone only. If the party is safe or the location changes, write that the same way you sent the first note.",
-  "homeLocales": {
-    "ne": "नेपाली",
-    "en": "English",
-    "zh": "中文"
-  }
+  "trekGuidance": "This is for agency staff. Nothing entered here is sent to npflood.org. Drafts stay on this phone only. If the party is safe or the location changes, write that the same way you sent the first note."
 }

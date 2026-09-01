@@ -14,11 +14,6 @@
     "consular": "境外寻亲",
     "help": "协助"
   },
-  "langPicker": {
-    "ne": "नेपाली",
-    "en": "English",
-    "zh": "中文"
-  },
   "qrCaption": "此二维码打开 npflood.org。不是付款码。",
   "qrAlt": "打开 https://npflood.org/ 的二维码",
   "heldFlag": "尚未公布",

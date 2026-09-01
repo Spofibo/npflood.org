@@ -1,10 +1,11 @@
 ---
 import PhoneDial from "../components/PhoneDial.astro";
 import Layout from "../layouts/Layout.astro";
-import { formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { chromeCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
+const chrome = chromeCopy(locale);
 const form = formCopy(locale);
 const page = pages.notFound;
 const homePath = localePath(locale, "/");
@@ -31,9 +32,9 @@ const homePath = localePath(locale, "/");
       <a href={localePath(locale, "/status/")}>{form.statusLink}</a>
    </p>
    <ul class="chooser" aria-label={pages.chooserNav}>
-      <li><a href="/">{pages.homeLocales.ne}</a></li>
-      <li><a href="/en/">{pages.homeLocales.en}</a></li>
-      <li><a href="/zh/">{pages.homeLocales.zh}</a></li>
+      <li><a href="/">{chrome.langPicker.ne}</a></li>
+      <li><a href="/en/">{chrome.langPicker.en}</a></li>
+      <li><a href="/zh/">{chrome.langPicker.zh}</a></li>
    </ul>
    <PhoneDial id="police" />
 </Layout>

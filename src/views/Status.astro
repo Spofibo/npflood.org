@@ -22,7 +22,7 @@ const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper
    path={page.path}
    breadcrumbs={[
       { name: "npflood.org", path: homePath },
-      { name: page.h1, path: here },
+      { name: chrome.nav.status, path: here },
    ]}
    includeWebsiteJsonLd={false}
    contactPoints={[
@@ -35,7 +35,7 @@ const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper
    faq={null}
    printScriptFonts={false}
 >
-   <h1 class="shiro">{page.h1}</h1>
+   <h1 class="shiro">{chrome.nav.status}</h1>
    <div class="lede">
       <p>{page.lede}</p>
    </div>

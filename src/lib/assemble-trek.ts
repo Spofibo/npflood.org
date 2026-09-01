@@ -1,7 +1,4 @@
 import { trekFields, trekMemberSpec } from "../config/trek-fields";
-import enTrek from "../locales/en/fields/trek.json";
-import neTrek from "../locales/ne/fields/trek.json";
-import zhTrek from "../locales/zh/fields/trek.json";
 import {
    assembledFieldValue,
    assembledValueText,
@@ -13,13 +10,10 @@ import {
    type PaperField,
    type PaperSection,
 } from "./assemble-shared";
+import { fieldCatalogs } from "./i18n";
 import type { MemberRow, TrekValues } from "./records";
 
-const catalogs = {
-   ne: { trek: neTrek },
-   en: { trek: enTrek },
-   zh: { trek: zhTrek },
-};
+const catalogs = fieldCatalogs();
 
 export function assembleTrekPaper(
    values: TrekValues,

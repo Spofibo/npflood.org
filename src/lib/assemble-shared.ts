@@ -1,10 +1,9 @@
 import type { FieldSpec } from "../config/types";
-import enPaper from "../locales/en/paper.json";
-import nePaper from "../locales/ne/paper.json";
-import zhPaper from "../locales/zh/paper.json";
 import { formatGregorianPrepared, formatNepaliPrepared } from "./date";
-import type { UiLang } from "./i18n";
+import { paperCatalogs, type UiLang } from "./i18n";
 import { readNestedString } from "./nested-string";
+
+const papers = paperCatalogs();
 
 export type FieldCatalogs = {
    ne: unknown;
@@ -49,9 +48,9 @@ function paperMonths(catalog: unknown): string[] {
 
 export function paperLines(key: string): PaperLine[] {
    return [
-      { lang: "ne", text: readNestedString(nePaper, key) },
-      { lang: "en", text: readNestedString(enPaper, key) },
-      { lang: "zh", text: readNestedString(zhPaper, key) },
+      { lang: "ne", text: readNestedString(papers.ne, key) },
+      { lang: "en", text: readNestedString(papers.en, key) },
+      { lang: "zh", text: readNestedString(papers.zh, key) },
    ];
 }
 
@@ -201,15 +200,15 @@ export function headerSections(
       lines: [
          {
             lang: "ne",
-            text: `${readNestedString(nePaper, "prepared")}: ${formatNepaliPrepared(preparedOn, paperMonths(nePaper))}`,
+            text: `${readNestedString(papers.ne, "prepared")}: ${formatNepaliPrepared(preparedOn, paperMonths(papers.ne))}`,
          },
          {
             lang: "en",
-            text: `${readNestedString(enPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(enPaper))}`,
+            text: `${readNestedString(papers.en, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(papers.en))}`,
          },
          {
             lang: "zh",
-            text: `${readNestedString(zhPaper, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(zhPaper))}`,
+            text: `${readNestedString(papers.zh, "prepared")}: ${formatGregorianPrepared(preparedOn, paperMonths(papers.zh))}`,
          },
       ],
    });

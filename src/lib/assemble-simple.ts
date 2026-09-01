@@ -1,35 +1,11 @@
 import { consularFields } from "../config/consular-fields";
 import { findFields } from "../config/find-fields";
 import { safeFields } from "../config/safe-fields";
-import enConsular from "../locales/en/fields/consular.json";
-import enFind from "../locales/en/fields/find.json";
-import enSafe from "../locales/en/fields/safe.json";
-import neConsular from "../locales/ne/fields/consular.json";
-import neFind from "../locales/ne/fields/find.json";
-import neSafe from "../locales/ne/fields/safe.json";
-import zhConsular from "../locales/zh/fields/consular.json";
-import zhFind from "../locales/zh/fields/find.json";
-import zhSafe from "../locales/zh/fields/safe.json";
 import { fieldBlockSections, type PaperSection } from "./assemble-shared";
+import { fieldCatalogs } from "./i18n";
 import type { ConsularValues, FindValues, SafeValues } from "./records";
 
-const findCatalogs = {
-   ne: { find: neFind },
-   en: { find: enFind },
-   zh: { find: zhFind },
-};
-
-const safeCatalogs = {
-   ne: { safe: neSafe },
-   en: { safe: enSafe },
-   zh: { safe: zhSafe },
-};
-
-const consularCatalogs = {
-   ne: { consular: neConsular },
-   en: { consular: enConsular },
-   zh: { consular: zhConsular },
-};
+const catalogs = fieldCatalogs();
 
 export function assembleFindPaper(values: FindValues, note: string, preparedOn: Date): PaperSection[] {
    return fieldBlockSections(
@@ -49,7 +25,7 @@ export function assembleFindPaper(values: FindValues, note: string, preparedOn: 
       },
       note,
       preparedOn,
-      findCatalogs,
+      catalogs,
    );
 }
 
@@ -66,7 +42,7 @@ export function assembleSafePaper(values: SafeValues, note: string, preparedOn: 
       },
       note,
       preparedOn,
-      safeCatalogs,
+      catalogs,
    );
 }
 
@@ -84,6 +60,6 @@ export function assembleConsularPaper(values: ConsularValues, note: string, prep
       },
       note,
       preparedOn,
-      consularCatalogs,
+      catalogs,
    );
 }

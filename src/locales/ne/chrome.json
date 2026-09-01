@@ -14,11 +14,6 @@
     "consular": "विदेशबाट परिवार",
     "help": "सहयोग गर्ने"
   },
-  "langPicker": {
-    "ne": "नेपाली",
-    "en": "English",
-    "zh": "中文"
-  },
   "qrCaption": "यो QR ले npflood.org खोल्छ। भुक्तानी QR होइन।",
   "qrAlt": "https://npflood.org/ खोल्ने QR कोड",
   "heldFlag": "अहिले लेखिएको छैन",

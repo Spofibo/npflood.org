@@ -6,7 +6,7 @@ import { el, cssIdSelector, localizeField, readFieldValue, readNestedString, ren
 import { readFormPageConfig } from "../lib/form-page";
 import { button, ensureStorageWarn, namedRemoveButton, paintAssembledPanel, renderNoteExplain, renderStorageWarn, showValidationBanner } from "../lib/form-ui";
 import { setPrintMode } from "../lib/paper-print";
-import type { FieldsCopy, FormCopy } from "../lib/i18n";
+import type { FieldsCopy, FormCopy, PaperCopy } from "../lib/i18n";
 import { createNoteFromEntropy } from "../lib/note";
 import { emptyMember, emptyTrekValues, isTrekDraft, stripTrekIdentifying, type MemberRow, type TrekValues } from "../lib/records";
 import {
@@ -66,7 +66,7 @@ function renderMember(
    return block;
 }
 
-function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, destination: Destination): void {
+function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, paper: PaperCopy, destination: Destination): void {
    migrateLegacyForm(trekLegacyKey, trekSessionKey);
    let saveFailed = false;
    let markedSent = false;
@@ -137,7 +137,7 @@ function mount(root: HTMLElement, form: FormCopy, fieldCatalog: FieldsCopy, dest
          const value = record.values[field.id as keyof TrekValues];
          formEl.append(renderField(localizeField(field, fieldCatalog), field.id, value, form.selectPrompt));
       }
-      const heading = el("h2", "tile-title", form.membersHeading);
+      const heading = el("h2", "tile-title", paper.membersHeading);
       const membersBox = el("div", "field", null);
       membersBox.dataset.fieldId = "members";
       membersBox.append(heading);
@@ -234,4 +234,4 @@ const page = readFormPageConfig(document.getElementById("trek-config"), "Trek fo
 if (root === null) {
    throw new Error("Trek form root is missing");
 }
-mount(root, page.form, page.fields, page.destination);
+mount(root, page.form, page.fields, page.paper, page.destination);

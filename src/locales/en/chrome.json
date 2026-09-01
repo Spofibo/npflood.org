@@ -14,11 +14,6 @@
     "consular": "Family abroad",
     "help": "Help"
   },
-  "langPicker": {
-    "ne": "नेपाली",
-    "en": "English",
-    "zh": "中文"
-  },
   "qrCaption": "This QR opens npflood.org. It is not a payment QR.",
   "qrAlt": "QR code that opens https://npflood.org/",
   "heldFlag": "Not listed yet",

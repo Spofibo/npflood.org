@@ -4,13 +4,14 @@ import PhoneDial from "../components/PhoneDial.astro";
 import { closedDestination } from "../config/destinations";
 import { trekFields, trekMemberSpec } from "../config/trek-fields";
 import Layout from "../layouts/Layout.astro";
-import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { fieldsCopy, formCopy, localeFromPathname, localePath, pagesCopy, paperCopy } from "../lib/i18n";
 import { noscriptFieldLines } from "../lib/noscript-fields";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
 const form = formCopy(locale);
 const fields = fieldsCopy(locale);
+const paper = paperCopy(locale);
 const page = pages.trek;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
@@ -43,7 +44,7 @@ const here = localePath(locale, page.path);
       intro={form.noscript}
       assembleNote={form.noscriptAssemble}
       lines={noscriptFieldLines(trekFields, fields)}
-      groups={[{ heading: form.membersHeading, lines: noscriptFieldLines(trekMemberSpec.fields, fields) }]}
+      groups={[{ heading: paper.membersHeading, lines: noscriptFieldLines(trekMemberSpec.fields, fields) }]}
       statusHref={localePath(locale, "/status/")}
       statusLabel={form.statusLink}
       dangerHref={localePath(locale, "/danger/")}
@@ -54,7 +55,7 @@ const here = localePath(locale, page.path);
    <script
       id="trek-config"
       type="application/json"
-      set:html={JSON.stringify({ destination: closedDestination, form, fields: { trek: fields.trek } })}
+      set:html={JSON.stringify({ destination: closedDestination, form, fields: { trek: fields.trek }, paper })}
    />
    <div id="trek-app" class="stack"></div>
    <script src="../scripts/trek-client.ts"></script>

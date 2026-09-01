@@ -1,10 +1,11 @@
 import type { Destination } from "../config/destinations";
-import type { FieldsCopy, FormCopy } from "./i18n";
+import type { FieldsCopy, FormCopy, PaperCopy } from "./i18n";
 
 export type FormPageConfig = {
    destination: Destination;
    form: FormCopy;
    fields: FieldsCopy;
+   paper: PaperCopy;
 };
 
 export function readFormPageConfig(raw: HTMLElement | null, missingError: string): FormPageConfig {
@@ -16,12 +17,13 @@ export function readFormPageConfig(raw: HTMLElement | null, missingError: string
       throw new Error(missingError);
    }
    const record = parsed as Record<string, unknown>;
-   if (!("destination" in record) || !("form" in record) || !("fields" in record)) {
+   if (!("destination" in record) || !("form" in record) || !("fields" in record) || !("paper" in record)) {
       throw new Error(missingError);
    }
    return {
       destination: record.destination as Destination,
       form: record.form as FormCopy,
       fields: record.fields as FieldsCopy,
+      paper: record.paper as PaperCopy,
    };
 }

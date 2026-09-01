@@ -95,7 +95,7 @@ const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper
    <script
       id="consular-config"
       type="application/json"
-      set:html={JSON.stringify({ destination: closedDestination, form, fields: { consular: fields.consular } })}
+      set:html={JSON.stringify({ destination: closedDestination, form, fields: { consular: fields.consular }, paper })}
    />
    <div id="consular-app" class="stack"></div>
    <script src="../scripts/consular-client.ts"></script>

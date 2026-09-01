@@ -1,7 +1,4 @@
 import { kerungCompanionSpec, kerungFields, kerungProxyNameField } from "../config/kerung-fields";
-import enKerung from "../locales/en/fields/kerung.json";
-import neKerung from "../locales/ne/fields/kerung.json";
-import zhKerung from "../locales/zh/fields/kerung.json";
 import {
    assembledFieldValue,
    assembledValueText,
@@ -13,13 +10,10 @@ import {
    type PaperField,
    type PaperSection,
 } from "./assemble-shared";
+import { fieldCatalogs } from "./i18n";
 import type { CompanionRow, KerungValues } from "./records";
 
-const catalogs = {
-   ne: { kerung: neKerung },
-   en: { kerung: enKerung },
-   zh: { kerung: zhKerung },
-};
+const catalogs = fieldCatalogs();
 
 export function assembleKerungPaper(
    values: KerungValues,

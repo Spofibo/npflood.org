@@ -1,7 +1,7 @@
 ---
 import PrintPage from "../components/PrintPage.astro";
 import Layout from "../layouts/Layout.astro";
-import { chromeCopy, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
+import { chromeCopy, chooserPagePath, localeFromPathname, localePath, pagesCopy } from "../lib/i18n";
 
 const locale = localeFromPathname(Astro.url.pathname, Astro.currentLocale);
 const pages = pagesCopy(locale);
@@ -20,7 +20,7 @@ const homePath = localePath(locale, "/");
    faq={pages.faq}
    printScriptFonts={false}
 >
-   <h1 class="shiro">{page.h1}</h1>
+   <h1 class="shiro">{chrome.brandLine}</h1>
    <div class="lede">
       <p>{page.lede}</p>
    </div>
@@ -29,7 +29,7 @@ const homePath = localePath(locale, "/");
       {
          pages.chooser.map((item) => (
             <li>
-               <a href={localePath(locale, item.path)}>{item.label}</a>
+               <a href={localePath(locale, chooserPagePath(pages, item.id))}>{item.label}</a>
             </li>
          ))
       }

@@ -27,10 +27,11 @@ const pages = pagesCopy(locale);
 const chrome = chromeCopy(locale);
 const form = formCopy(locale);
 const fields = fieldsCopy(locale);
+const paper = paperCopy(locale);
 const page = pages.kerung;
 const homePath = localePath(locale, "/");
 const here = localePath(locale, page.path);
-const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paperCopy(locale).months)}`;
+const verified = `${chrome.lastVerified} ${formatVerifiedNpt(site.builtAt, paper.months)}`;
 const kerungLines = [
    {
       label: fields.kerung.minor.question,
@@ -40,7 +41,7 @@ const kerungLines = [
    ...noscriptFieldLines([kerungProxyField, kerungProxyNameField], fields),
 ];
 const companionGroup = {
-   heading: form.companionsHeading,
+   heading: paper.companionsHeading,
    lines: noscriptFieldLines(kerungCompanionSpec.fields, fields),
 };
 ---
@@ -63,7 +64,7 @@ const companionGroup = {
       <p>{page.lede}</p>
    </div>
    <div class="banner banner--warn">
-      <p>{pages.kerungChinaBanner}</p>
+      <p>{pages.dangerChinaBody}</p>
    </div>
    <p>
       <a href={localePath(locale, "/danger/")}>{form.dangerLink}</a>
@@ -94,6 +95,7 @@ const companionGroup = {
          destination: closedDestination,
          form,
          fields: { kerung: fields.kerung },
+         paper,
          policeLabel: pages.phones.police,
          childHelplineLabel: pages.phones.childHelpline,
          dialName: chrome.dialName,

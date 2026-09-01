@@ -6,7 +6,7 @@ import { el, cssIdSelector, localizeField, readFieldValue, readNestedString, ren
 import { readFormPageConfig } from "../lib/form-page";
 import { button, ensureStorageWarn, namedRemoveButton, paintAssembledPanel, renderBanner, renderNoteExplain, renderStorageWarn, showValidationBanner } from "../lib/form-ui";
 import { setPrintMode } from "../lib/paper-print";
-import type { FieldsCopy, FormCopy } from "../lib/i18n";
+import type { FieldsCopy, FormCopy, PaperCopy } from "../lib/i18n";
 import { createNoteFromEntropy } from "../lib/note";
 import { emptyCompanion, emptyKerungValues, isKerungDraft, stripKerungIdentifying, type CompanionRow, type KerungValues } from "../lib/records";
 import {
@@ -146,6 +146,7 @@ function mount(
    root: HTMLElement,
    form: FormCopy,
    fieldCatalog: FieldsCopy,
+   paper: PaperCopy,
    destination: Destination,
    dial: {
       policeLabel: string;
@@ -295,7 +296,7 @@ function mount(
          });
       }
       syncProxy();
-      const companionsHeading = el("h2", "tile-title", form.companionsHeading);
+      const companionsHeading = el("h2", "tile-title", paper.companionsHeading);
       rest.append(companionsHeading);
       const list = el("div", "stack", null);
       const redrawCompanions = (): void => {
@@ -440,4 +441,4 @@ const dial = readKerungDial(configNode);
 if (root === null) {
    throw new Error("Kerung form root is missing");
 }
-mount(root, page.form, page.fields, page.destination, dial);
+mount(root, page.form, page.fields, page.paper, page.destination, dial);

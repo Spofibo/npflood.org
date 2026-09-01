@@ -3,14 +3,12 @@
     "path": "/",
     "title": "波曲洪水互助 | npflood.org",
     "description": "波曲洪水工具：尼泊尔紧急联络、报平安、寻亲，以及为中国吉隆人员准备的留言。请您自己发出。",
-    "h1": "波曲洪水。应急工具",
     "lede": "您需要什么？请选一项。这里不会登记，我们也不保存名单。"
   },
   "status": {
     "path": "/status/",
     "title": "尼泊尔紧急联络 | npflood.org",
     "description": "波曲洪水已核实的尼泊尔电话：警察 100、消防 101、急救 102、灾害热线 1234、国家应急运行中心 1149。本站不提供实时路况或疏散信息。",
-    "h1": "紧急联络",
     "lede": "以下是已核实的尼泊尔电话。本站不提供实时路况、边境或疏散信息。只听从 DHM 和 NDRRMA。"
   },
   "danger": {
@@ -66,7 +64,6 @@
     "path": "/safe/",
     "title": "我是安全的 | npflood.org",
     "description": "给家人准备一条报平安短讯。请您自己发出。",
-    "h1": "我是安全的",
     "lede": "给家人的短讯。请您自己用短信、WhatsApp 或纸张发出。"
   },
   "notFound": {
@@ -78,39 +75,39 @@
   },
   "chooser": [
     {
-      "path": "/danger/",
+      "id": "danger",
       "label": "我有紧急危险 / 需要紧急医疗救助"
     },
     {
-      "path": "/status/",
+      "id": "status",
       "label": "我需要尼泊尔紧急电话"
     },
     {
-      "path": "/needs/",
+      "id": "needs",
       "label": "我需要饮水、住所或其他基本物资"
     },
     {
-      "path": "/safe/",
+      "id": "safe",
       "label": "我是安全的，需要告知家人"
     },
     {
-      "path": "/find/",
+      "id": "find",
       "label": "我在尼泊尔寻找失联者"
     },
     {
-      "path": "/kerung/",
+      "id": "kerung",
       "label": "我在吉隆（中国）"
     },
     {
-      "path": "/trek/",
+      "id": "trek",
       "label": "我有徒步团队"
     },
     {
-      "path": "/consular/",
+      "id": "consular",
       "label": "我在境外，寻找家人"
     },
     {
-      "path": "/help/",
+      "id": "help",
       "label": "我想提供帮助"
     }
   ],
@@ -194,7 +191,6 @@
       "body": "尚无联络。接受救济申请的地区或当地窗口一经核实，将显示在这里。"
     }
   ],
-  "kerungChinaBanner": "您在中国。尼泊尔 100 不是当地警察。尚无已核实的中国应急号码。",
   "findBody": [
     "尼泊尔派出所或最近的警察局。电话 100。",
     "最近的医院或卫生所。",
@@ -237,10 +233,5 @@
   "helpHeldBody": "志愿者联络人只有核实后才会写在这里。本站不接受志愿者报名。",
   "helpNoMail": "本站不收邮件。遇险者请用紧急联络、寻人或境外寻亲页，不要用本页。",
   "helpBuiltBy": "本工具由 Alexandru Budurovici 制作。",
-  "trekGuidance": "本页供旅行社工作人员使用。这里填写的内容不会发送到 npflood.org。草稿只留在本机。如团队已安全或地点有变，请用同一方式补充。",
-  "homeLocales": {
-    "ne": "नेपाली",
-    "en": "English",
-    "zh": "中文"
-  }
+  "trekGuidance": "本页供旅行社工作人员使用。这里填写的内容不会发送到 npflood.org。草稿只留在本机。如团队已安全或地点有变，请用同一方式补充。"
 }
